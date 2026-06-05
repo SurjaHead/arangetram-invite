@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<!--
+  ════════════════════════════════════════════════════════════════════════
+  ARANGETRAM INVITATION · "PEACOCK & GOLD"  (single-file, self-contained)
+  ════════════════════════════════════════════════════════════════════════
+  Sample text in [SQUARE BRACKETS] / marked placeholders — find & replace:
+    Dancer .. Ananya   |   Guru .. Smt. Lakshmi Iyer
+    School .. Nrityalaya Academy of Bharatanatyam
+    Date .... Saturday, the Twelfth of September, 2026
+    Countdown 2026-09-12T16:00:00  (see <script> data-countdown)
+    Time .... 4:00 in the afternoon · Reception to follow
+    Venue ... The Heritage Pavilion Theatre
+    Address . 1234 Lotus Lane, [City], [State] 00000
+    RSVP .... href="#"  ·  by the First of August, 2026
+    Contact . rsvp@ananyaarangetram.com · (000) 000-0000
+    Family .. The Iyer Family
+  ════════════════════════════════════════════════════════════════════════
+-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ananya · Bharatanatyam Arangetram</title>
+<meta name="description" content="An invitation to the Bharatanatyam Arangetram of Ananya — Saturday, the Twelfth of September, 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+Devanagari:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#0d5c63;
+    --teal-2:#14746f;
+    --midnight:#0b2545;
+    --midnight-2:#102a43;
+    --gold:#d4af37;
+    --gold-2:#e0b973;
+    --gold-hi:#f0d98a;
+    --ivory:#f4efe6;
+    --ivory-2:#ece4d4;
+    --ink:#1c2b2e;
+    --ink-soft:#566569;
+    --line:#dcd2bf;
+    --line-dark:rgba(212,175,55,.28);
+    --maxw:1100px;
+    --pad:clamp(1.25rem,5vw,3rem);
+    --display:"Playfair Display",Georgia,serif;
+    --body:"EB Garamond",Georgia,serif;
+    --deva:"Noto Serif Devanagari","EB Garamond",serif;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--body);
+    font-size:clamp(1rem,.5vw + .92rem,1.2rem);line-height:1.72;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;line-height:1.12}
+  p{margin:0 0 1em}
+  a{color:inherit}
+  svg{display:block;max-width:100%}
+
+  .container{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+  .section{padding-block:clamp(4rem,9vw,7.5rem)}
+  .center{text-align:center}
+  .gold-foil{background:linear-gradient(177deg,var(--gold-hi) 0%,var(--gold-2) 42%,var(--gold) 60%,#9c7d22 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .eyebrow{font-family:var(--body);font-size:.8rem;font-weight:500;letter-spacing:.4em;text-transform:uppercase;
+    color:var(--teal-2);margin:0 0 1rem;padding-left:.4em}
+  .lede{font-style:italic;color:var(--ink-soft)}
+
+  /* dark jewel band */
+  .band{position:relative;overflow:hidden;color:var(--ivory);
+    background:radial-gradient(120% 90% at 50% -10%,rgba(212,175,55,.16),transparent 55%),
+      linear-gradient(155deg,var(--teal-2) 0%,var(--teal) 40%,var(--midnight) 100%);}
+  .band .eyebrow{color:var(--gold-2)}
+  .band h1,.band h2,.band h3{color:#fff}
+  .band .lede{color:rgba(255,255,255,.82)}
+  .watermark{position:absolute;pointer-events:none;opacity:.10;z-index:0}
+  .band>.container{position:relative;z-index:1}
+
+  .js .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+  .js .reveal.is-visible{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .reveal{opacity:1!important;transform:none!important;transition:none}}
+
+  /* nav */
+  .nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:1.1rem var(--pad);transition:background .4s,box-shadow .4s,padding .4s}
+  .nav__brand{font-family:var(--display);font-size:1.4rem;letter-spacing:.12em;color:var(--gold-2)}
+  .nav__links{display:flex;gap:1.7rem;list-style:none;margin:0;padding:0}
+  .nav__links a{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;
+    color:rgba(255,255,255,.86);transition:color .3s}
+  .nav__links a:hover{color:var(--gold-2)}
+  .nav.scrolled{background:rgba(11,37,69,.92);backdrop-filter:blur(8px);
+    box-shadow:0 1px 0 var(--line-dark),0 10px 30px rgba(0,0,0,.3);padding-block:.7rem}
+  @media (max-width:780px){.nav__links{display:none}}
+
+  /* hero */
+  .hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;color:var(--ivory);overflow:hidden;
+    background:radial-gradient(130% 80% at 50% 6%,rgba(212,175,55,.2),transparent 50%),
+      radial-gradient(100% 70% at 50% 120%,rgba(0,0,0,.5),transparent 60%),
+      linear-gradient(160deg,var(--teal-2) 0%,var(--teal) 38%,var(--midnight) 100%);}
+  .hero__inner{position:relative;z-index:2;padding:5.5rem var(--pad) 4rem;max-width:840px}
+  .hero__wm-l{left:-40px;top:8%;width:min(220px,40vw);transform:rotate(-12deg)}
+  .hero__wm-r{right:-40px;top:14%;width:min(220px,40vw);transform:rotate(12deg) scaleX(-1)}
+  .hero__feather{width:clamp(54px,10vw,84px);margin:0 auto 1rem}
+  .hero__om{font-family:var(--deva);font-size:clamp(1.6rem,4vw,2.3rem);color:var(--gold-2);margin-bottom:.5rem}
+  .hero__eyebrow{font-size:clamp(.76rem,1.6vw,.92rem);letter-spacing:.46em;text-transform:uppercase;color:var(--gold-2);margin:0 0 .5rem;padding-left:.46em}
+  .hero__name{font-size:clamp(3.4rem,15vw,8rem);font-weight:700;letter-spacing:.01em;line-height:.96}
+  .hero__tag{font-style:italic;font-size:clamp(1.05rem,2.4vw,1.4rem);color:rgba(255,255,255,.9);margin:.7rem 0 0}
+  .hero__when{margin:1.6rem 0 0;font-size:.92rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-2)}
+
+  .countdown{display:flex;justify-content:center;gap:clamp(.7rem,3vw,2rem);margin-top:1.8rem}
+  .cd__num{font-family:var(--display);font-weight:600;font-size:clamp(1.9rem,6vw,3rem);line-height:1}
+  .cd__lab{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-2);margin-top:.4rem}
+  .cd__done{font-style:italic;font-size:1.2rem;color:var(--gold-2)}
+  .cd__unit{min-width:clamp(46px,12vw,76px)}
+
+  .scrollcue{position:absolute;left:50%;bottom:1.5rem;transform:translateX(-50%);z-index:2;font-size:.64rem;
+    letter-spacing:.3em;text-transform:uppercase;color:var(--gold-2);opacity:.85}
+  .scrollcue span{display:block;font-size:1rem;margin-top:.25rem;animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+  @media (prefers-reduced-motion:reduce){.scrollcue span{animation:none}}
+
+  /* filigree divider */
+  .divider{display:block;width:min(340px,70%);margin:0 auto clamp(2rem,5vw,3rem);color:var(--gold)}
+  .divider--btm{margin:clamp(2.5rem,5vw,3.5rem) auto 0}
+
+  /* shloka */
+  .shloka{font-family:var(--deva);font-size:clamp(1.2rem,3.2vw,1.6rem);line-height:1.95;color:var(--teal);margin:0 0 1rem}
+  .band .shloka{color:var(--gold-hi)}
+  .translit{font-style:italic;color:var(--ink-soft);margin:0 0 .5rem}
+  .band .translit{color:rgba(255,255,255,.82)}
+  .meaning{max-width:46ch;margin-inline:auto}
+
+  .portrait{width:min(320px,76%);aspect-ratio:4/5;margin:clamp(2rem,5vw,3rem) auto 0;border:1px solid var(--gold);padding:.5rem}
+  .portrait__inner{width:100%;height:100%;display:grid;place-items:center;gap:.5rem;text-align:center;
+    background:linear-gradient(160deg,var(--ivory-2),#ddd2bd);color:var(--teal)}
+  .portrait__cap{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft)}
+
+  /* margam (ivory band, booklet feel) */
+  .program{max-width:760px;margin:0 auto;list-style:none;padding:0;text-align:left}
+  .program li{display:grid;grid-template-columns:auto 1fr;gap:1.3rem;align-items:baseline;padding:1.15rem 0;border-bottom:1px solid var(--line)}
+  .program li:first-child{border-top:1px solid var(--line)}
+  .program .num{font-family:var(--display);font-size:1.3rem;color:var(--gold);min-width:1.8em}
+  .program .pname{font-family:var(--display);font-size:1.4rem;line-height:1.25;color:var(--teal)}
+  .program .pdesc{display:block;font-size:.94em;color:var(--ink-soft);margin-top:.15rem}
+
+  /* musicians (dark band) */
+  .ensemble{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.3rem clamp(1.2rem,4vw,2.6rem);max-width:840px;margin:0 auto}
+  .musician{text-align:center;padding:1.3rem .8rem;border:1px solid var(--line-dark);background:rgba(255,255,255,.04)}
+  .musician .role{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-2);margin-bottom:.45rem}
+  .musician .who{font-family:var(--display);font-size:1.28rem;color:#fff}
+
+  /* details (ivory) */
+  .details{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(1.4rem,4vw,2.6rem);max-width:900px;margin:0 auto;text-align:center}
+  .detail{padding:1.6rem 1rem;border:1px solid var(--line);background:#fff}
+  .detail .role{font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+  .detail .val{font-family:var(--display);font-size:1.3rem;color:var(--teal);line-height:1.35}
+  .detail .sub{font-size:.9em;color:var(--ink-soft);margin-top:.3rem}
+  .maplink{display:inline-block;margin-top:.7rem;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-2);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+  .maplink:hover{color:var(--gold)}
+
+  /* rsvp (dark) */
+  .rsvp-card{max-width:620px;margin:0 auto;text-align:center;padding:clamp(2.4rem,6vw,3.6rem) var(--pad);position:relative;border:1px solid var(--line-dark)}
+  .rsvp-card::after{content:"";position:absolute;inset:7px;border:1px solid var(--line-dark);pointer-events:none}
+  .btn{display:inline-block;margin:.4rem 0 1rem;padding:.95rem 3rem;font-family:var(--body);font-size:.88rem;
+    letter-spacing:.28em;text-transform:uppercase;text-decoration:none;color:var(--midnight);
+    background:linear-gradient(177deg,var(--gold-hi),var(--gold) 60%,#a8841e);border:1px solid var(--gold);
+    transition:transform .25s,box-shadow .25s,filter .25s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.3);filter:brightness(1.05)}
+  .rsvp__by{font-style:italic;color:rgba(255,255,255,.82);margin:.2rem 0 .6rem}
+  .rsvp__contact{font-size:.9em;color:rgba(255,255,255,.7)}
+
+  /* footer (dark midnight) */
+  .foot{text-align:center;color:var(--ivory);padding:clamp(3rem,7vw,4.5rem) var(--pad) 2.5rem;
+    background:linear-gradient(180deg,var(--midnight),#071a33)}
+  .foot__ded{font-family:var(--display);font-size:clamp(1.3rem,3vw,1.7rem);color:var(--gold-hi)}
+  .foot__mangalam{font-family:var(--deva);font-size:1.12rem;color:var(--gold-2);margin-top:.8rem}
+  .foot__credit{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:2rem}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.replace('no-js','js');</script>
+
+<!-- reusable peacock feather (defined once, referenced via <use>) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="feather">
+    <path d="M40 8 C18 22 14 50 24 78 C30 96 34 120 40 162 C46 120 50 96 56 78 C66 50 62 22 40 8Z" fill="#14746f" opacity=".30"/>
+    <g stroke="#14746f" stroke-width="1" opacity=".55" fill="none">
+      <path d="M40 72 L26 62"/><path d="M40 72 L54 62"/>
+      <path d="M40 92 L24 84"/><path d="M40 92 L56 84"/>
+      <path d="M40 114 L26 108"/><path d="M40 114 L54 108"/>
+      <path d="M40 136 L28 131"/><path d="M40 136 L52 131"/>
+    </g>
+    <line x1="40" y1="42" x2="40" y2="160" stroke="#d4af37" stroke-width="1.2"/>
+    <path d="M40 14 C28 22 26 40 40 52 C54 40 52 22 40 14Z" fill="#0d5c63"/>
+    <path d="M40 20 C32 26 31 38 40 47 C49 38 48 26 40 20Z" fill="#d4af37"/>
+    <path d="M40 26 C35 30 34 38 40 43 C46 38 45 30 40 26Z" fill="#0b2545"/>
+    <circle cx="40" cy="32" r="2.1" fill="#f0d98a"/>
+  </g>
+</defs></svg>
+
+<!-- NAV -->
+<nav class="nav" id="nav" aria-label="Primary">
+  <span class="nav__brand">Ananya</span>
+  <ul class="nav__links">
+    <li><a href="#invitation">Invitation</a></li>
+    <li><a href="#guru">Guru</a></li>
+    <li><a href="#margam">Margam</a></li>
+    <li><a href="#musicians">Musicians</a></li>
+    <li><a href="#details">Details</a></li>
+    <li><a href="#rsvp">RSVP</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <svg class="watermark hero__wm-l" viewBox="0 0 80 170" aria-hidden="true"><use href="#feather"/></svg>
+  <svg class="watermark hero__wm-r" viewBox="0 0 80 170" aria-hidden="true"><use href="#feather"/></svg>
+  <div class="hero__inner">
+    <svg class="hero__feather" viewBox="0 0 80 170" aria-hidden="true"><use href="#feather"/></svg>
+    <div class="hero__om" aria-hidden="true">ॐ</div>
+    <p class="hero__eyebrow">Bharatanatyam · Rangapravesham</p>
+    <p class="hero__eyebrow" style="letter-spacing:.3em">— the Arangetram of —</p>
+    <h1 class="hero__name gold-foil">Ananya</h1>
+    <p class="hero__tag">a solo debut, years in the making</p>
+    <p class="hero__when">Saturday · the Twelfth of September · 2026</p>
+    <div class="countdown" id="countdown" data-countdown="2026-09-12T16:00:00" aria-live="polite">
+      <div class="cd__unit"><div class="cd__num gold-foil" data-cd="days">—</div><div class="cd__lab">Days</div></div>
+      <div class="cd__unit"><div class="cd__num gold-foil" data-cd="hours">—</div><div class="cd__lab">Hours</div></div>
+      <div class="cd__unit"><div class="cd__num gold-foil" data-cd="mins">—</div><div class="cd__lab">Minutes</div></div>
+      <div class="cd__unit"><div class="cd__num gold-foil" data-cd="secs">—</div><div class="cd__lab">Seconds</div></div>
+    </div>
+  </div>
+  <div class="scrollcue" aria-hidden="true">Scroll<span>❧</span></div>
+</header>
+
+<main>
+<!-- INVITATION (ivory) -->
+<section class="section center" id="invitation">
+  <div class="container reveal">
+    <svg class="divider" viewBox="0 0 320 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+      <line x1="0" y1="14" x2="120" y2="14"/><line x1="200" y1="14" x2="320" y2="14"/>
+      <path d="M160 4 C152 9 151 19 160 25 C169 19 168 9 160 4Z" fill="currentColor" stroke="none"/>
+      <circle cx="160" cy="15" r="2" fill="#0b2545" stroke="none"/>
+      <circle cx="120" cy="14" r="1.7" fill="currentColor" stroke="none"/><circle cx="200" cy="14" r="1.7" fill="currentColor" stroke="none"/>
+      <path d="M120 14 q12 -9 22 0" /><path d="M200 14 q-12 -9 -22 0"/>
+    </svg>
+    <p class="eyebrow" style="text-align:center;padding:0">The Invitation</p>
+    <h2 style="font-size:clamp(2rem,5vw,3rem)">With joy &amp; gratitude</h2>
+    <div style="margin:2.2rem 0">
+      <p class="shloka">आङ्गिकं भुवनं यस्य वाचिकं सर्ववाङ्मयम् ।<br>आहार्यं चन्द्रतारादि तं वन्दे सात्त्विकं शिवम् ॥</p>
+      <p class="translit">Āṅgikaṃ bhuvanaṃ yasya vācikaṃ sarva-vāṅmayam<br>āhāryaṃ candra-tārādi taṃ vande sāttvikaṃ śivam</p>
+      <p class="meaning">“We bow to Lord Shiva, the embodiment of grace — whose body is the universe, whose speech is all language, whose adornments are the moon and the stars.”</p>
+    </div>
+    <p style="max-width:60ch;margin-inline:auto">With hearts full of joy and gratitude, we invite you to witness <strong>Ananya’s Arangetram</strong> — the culmination of years of devotion to the art of Bharatanatyam. On this sacred day, she takes the stage alone for the first time, offering the fruits of her training to her gurus, her family, and the divine. Your presence and blessings would mean the world to us.</p>
+    <div class="portrait" aria-label="Portrait placeholder">
+      <div class="portrait__inner">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><circle cx="12" cy="9" r="3.3"/><path d="M5.5 19.5c1.4-3.6 11.6-3.6 13 0"/><rect x="2.5" y="2.5" width="19" height="19" rx="1"/></svg>
+        <span class="portrait__cap">Portrait · your photo here</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GURU (dark) -->
+<section class="section band center" id="guru">
+  <svg class="watermark" style="right:-30px;bottom:-30px;width:200px;transform:rotate(20deg)" viewBox="0 0 80 170" aria-hidden="true"><use href="#feather"/></svg>
+  <div class="container reveal">
+    <p class="eyebrow" style="text-align:center;padding:0">Under the guidance of</p>
+    <h2 class="gold-foil" style="font-size:clamp(2.2rem,5.5vw,3.4rem)">Smt. Lakshmi Iyer</h2>
+    <p style="letter-spacing:.18em;text-transform:uppercase;font-size:.84rem;color:var(--gold-2);margin-top:.4rem">Nrityalaya Academy of Bharatanatyam</p>
+    <p style="max-width:58ch;margin:1.6rem auto 0;color:rgba(255,255,255,.9)">Trained under the loving guidance of Smt. Lakshmi Iyer, Ananya carries forward a cherished <em>parampara</em> — a living lineage passed from guru to disciple across generations.</p>
+  </div>
+</section>
+
+<!-- MARGAM (ivory) -->
+<section class="section" id="margam">
+  <div class="container reveal">
+    <div class="center">
+      <p class="eyebrow" style="text-align:center;padding:0">The Margam</p>
+      <h2 style="font-size:clamp(2rem,5vw,3rem)">The Programme</h2>
+      <p class="lede" style="max-width:50ch;margin:.6rem auto 2.6rem">The traditional repertoire, unfolding from invocation to benediction.</p>
+    </div>
+    <ol class="program">
+      <li><span class="num">I</span><span><span class="pname">Pushpanjali</span><span class="pdesc">An offering of flowers; invocation and salutation to the divine, the guru, and the audience.</span></span></li>
+      <li><span class="num">II</span><span><span class="pname">Alarippu</span><span class="pdesc">The blossoming; pure rhythmic movement that awakens the body and the stage.</span></span></li>
+      <li><span class="num">III</span><span><span class="pname">Jatiswaram</span><span class="pdesc">A lyrical interplay of rhythm and melody, danced in pure nritta.</span></span></li>
+      <li><span class="num">IV</span><span><span class="pname">Shabdam</span><span class="pdesc">The first expressive piece; a devotional narrative in praise of the divine.</span></span></li>
+      <li><span class="num">V</span><span><span class="pname">Varnam</span><span class="pdesc">The centerpiece; an intricate weave of rhythm, story, and emotion at the heart of the margam.</span></span></li>
+      <li><span class="num">VI</span><span><span class="pname">Padam</span><span class="pdesc">Tender abhinaya; the language of expression and devotion.</span></span></li>
+      <li><span class="num">VII</span><span><span class="pname">Thillana</span><span class="pdesc">A sparkling, joyous finale of intricate rhythm and sculpturesque poses.</span></span></li>
+      <li><span class="num">VIII</span><span><span class="pname">Mangalam</span><span class="pdesc">A closing benediction; gratitude and blessings to all.</span></span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- MUSICIANS (dark) -->
+<section class="section band center" id="musicians">
+  <div class="container reveal">
+    <p class="eyebrow" style="text-align:center;padding:0">Live Ensemble</p>
+    <h2 style="font-size:clamp(2rem,5vw,3rem)">The Musicians</h2>
+    <p class="lede" style="max-width:48ch;margin:.6rem auto 2.6rem">Accompanying Ananya with voice and instrument.</p>
+    <div class="ensemble">
+      <div class="musician"><div class="role">Nattuvangam</div><div class="who">Smt. Lakshmi Iyer</div></div>
+      <div class="musician"><div class="role">Vocal</div><div class="who">Sri Ananth Raman</div></div>
+      <div class="musician"><div class="role">Mridangam</div><div class="who">Sri Karthik Subramanian</div></div>
+      <div class="musician"><div class="role">Violin</div><div class="who">Smt. Priya Nair</div></div>
+      <div class="musician"><div class="role">Flute</div><div class="who">Sri Vishnu Menon</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS (ivory) -->
+<section class="section" id="details" style="background:var(--ivory-2)">
+  <div class="container reveal">
+    <div class="center">
+      <p class="eyebrow" style="text-align:center;padding:0">When &amp; Where</p>
+      <h2 style="font-size:clamp(2rem,5vw,3rem)">The Celebration</h2>
+    </div>
+    <div class="details" style="margin-top:2.6rem">
+      <div class="detail"><div class="role">Date</div><div class="val">Saturday<br>September 12, 2026</div></div>
+      <div class="detail"><div class="role">Time</div><div class="val">4:00 in the<br>afternoon</div><div class="sub">Reception to follow</div></div>
+      <div class="detail"><div class="role">Venue</div><div class="val">The Heritage<br>Pavilion Theatre</div><div class="sub">1234 Lotus Lane, [City], [State]</div><a class="maplink" href="#">View Map</a></div>
+      <div class="detail"><div class="role">Attire</div><div class="val">Festive /<br>Traditional</div><div class="sub">Doors open 3:30 PM · Ample parking</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RSVP (dark) -->
+<section class="section band" id="rsvp">
+  <div class="container reveal">
+    <div class="rsvp-card">
+      <p class="eyebrow" style="text-align:center;padding:0">Join us</p>
+      <h2 style="font-size:clamp(1.9rem,5vw,2.8rem)">Kindly Respond</h2>
+      <p class="rsvp__by">We would be honoured by your presence.</p>
+      <a class="btn" href="#">RSVP</a>
+      <p class="rsvp__by">Kindly respond by the First of August, 2026.</p>
+      <p class="rsvp__contact">Questions? rsvp@ananyaarangetram.com · (000) 000-0000</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <svg class="divider divider--btm" style="margin-top:0;color:var(--gold-2)" viewBox="0 0 320 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+    <line x1="0" y1="14" x2="120" y2="14"/><line x1="200" y1="14" x2="320" y2="14"/>
+    <path d="M160 4 C152 9 151 19 160 25 C169 19 168 9 160 4Z" fill="currentColor" stroke="none"/>
+    <circle cx="160" cy="15" r="2" fill="#0b2545" stroke="none"/>
+  </svg>
+  <p class="foot__ded">With love and gratitude — The Iyer Family</p>
+  <p class="foot__mangalam">शुभं भवतु · Mangalam</p>
+  <p class="foot__credit">Ananya · Bharatanatyam Arangetram · MMXXVI</p>
+</footer>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  var onScroll=function(){nav.classList.toggle('scrolled',window.scrollY>40);};
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items=document.querySelectorAll('.reveal');
+  if(reduce||!('IntersectionObserver'in window)){items.forEach(function(el){el.classList.add('is-visible');});}
+  else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:.16});
+    items.forEach(function(el){io.observe(el);});}
+
+  var root=document.getElementById('countdown');
+  var target=new Date(root.getAttribute('data-countdown')).getTime();
+  var d=root.querySelector('[data-cd=days]'),h=root.querySelector('[data-cd=hours]'),m=root.querySelector('[data-cd=mins]'),s=root.querySelector('[data-cd=secs]');
+  function pad(n){return(n<10?'0':'')+n;}
+  function tick(){var diff=target-Date.now();
+    if(diff<=0){root.innerHTML='<p class="cd__done">The day has arrived — with joy, we celebrate. ❧</p>';clearInterval(t);return;}
+    var x=Math.floor(diff/1000);
+    d.textContent=Math.floor(x/86400);h.textContent=pad(Math.floor(x%86400/3600));
+    m.textContent=pad(Math.floor(x%3600/60));s.textContent=pad(x%60);}
+  tick();var t=setInterval(tick,1000);
+})();
+</script>
+</body>
+</html>
