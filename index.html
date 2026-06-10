@@ -840,11 +840,11 @@
         alertBox("Please add your name, email, and attendance.");
         return;
       }
-      const records = JSON.parse(localStorage.getItem("aadhyaTanviRsvps") || "[]");
+      const records = JSON.parse(localStorage.getItem("aadhyaThanviRsvps") || "[]");
       const existing = records.findIndex(r => r.email.toLowerCase() === data.email.toLowerCase());
       if (existing >= 0) records[existing] = data;
       else records.unshift(data);
-      localStorage.setItem("aadhyaTanviRsvps", JSON.stringify(records));
+      localStorage.setItem("aadhyaThanviRsvps", JSON.stringify(records));
       document.getElementById("rsvpForm").style.display = "none";
       document.getElementById("successMsg").textContent = data.status === "yes" ? "We are delighted you can join us." : "Thank you for letting us know.";
       document.getElementById("rsvpSuccess").style.display = "block";
