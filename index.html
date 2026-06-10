@@ -790,6 +790,17 @@
       el.classList.add("show");
       setTimeout(() => el.classList.remove("show"), 4500);
     }
+
+    const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbw2_Dk8DBm4d1Qtuk5sNQxJQavnEUObcjGzDvNDi08yTB-nntFNYvG22fDipdB9X3VvAg/exec";
+
+    function saveLocalBackup(data) {
+      const records = JSON.parse(localStorage.getItem("aadhyaThanviRsvps") || "[]");
+      const existing = records.findIndex(r => r.email.toLowerCase() === data.email.toLowerCase());
+      if (existing >= 0) records[existing] = data;
+      else records.unshift(data);
+      localStorage.setItem("aadhyaThanviRsvps", JSON.stringify(records));
+    }
+
     document.querySelectorAll(".cbtn").forEach(btn => {
       btn.addEventListener("click", () => {
         const input = document.getElementById(btn.dataset.t);
@@ -797,9 +808,10 @@
         input.value = String(next);
       });
     });
-    document.getElementById("rsvpForm").addEventListener("submit", evt => {
+    document.getElementById("rsvpForm").addEventListener("submit", async evt => {
       evt.preventDefault();
       const status = document.querySelector("input[name='status']:checked");
+      const submitButton = evt.submitter || document.querySelector("#rsvpForm button[type='submit']");
       const data = {
         name: document.getElementById("rsvpName").value.trim(),
         email: document.getElementById("rsvpEmail").value.trim(),
@@ -814,14 +826,27 @@
         alertBox("Please add your name, email, and attendance.");
         return;
       }
-      const records = JSON.parse(localStorage.getItem("aadhyaThanviRsvps") || "[]");
-      const existing = records.findIndex(r => r.email.toLowerCase() === data.email.toLowerCase());
-      if (existing >= 0) records[existing] = data;
-      else records.unshift(data);
-      localStorage.setItem("aadhyaThanviRsvps", JSON.stringify(records));
-      document.getElementById("rsvpForm").style.display = "none";
-      document.getElementById("successMsg").textContent = data.status === "yes" ? "We are delighted you can join us." : "Thank you for letting us know.";
-      document.getElementById("rsvpSuccess").style.display = "block";
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+
+      try {
+        await fetch(RSVP_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(data)
+        });
+        saveLocalBackup(data);
+        document.getElementById("rsvpForm").style.display = "none";
+        document.getElementById("successMsg").textContent = data.status === "yes" ? "We are delighted you can join us." : "Thank you for letting us know.";
+        document.getElementById("rsvpSuccess").style.display = "block";
+      } catch (error) {
+        console.error(error);
+        alertBox("We couldn't send your RSVP. Please check your connection and try again.");
+        submitButton.disabled = false;
+        submitButton.textContent = "Send My RSVP";
+      }
     });
   </script>
 </body>
