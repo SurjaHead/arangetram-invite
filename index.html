@@ -1,143 +1,490 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
+<!--
+  ════════════════════════════════════════════════════════════════════════
+  RANGA PRAVESHA · AADHYA & TANVI  ·  "Temple Gold" theme (single-file)
+  ════════════════════════════════════════════════════════════════════════
+  Content from the family's invitation. Remaining placeholders to fill in:
+
+    RSVP link ....... href="#"  (the "RSVP" button — point to your form)
+    4th family ...... [____]    (Swapna's family surname — marked .ph in the
+                                  Invitation + footer; the doc had "xxx")
+    Portraits ....... two photo placeholders in "The Dancers" section
+    Countdown ....... 2026-07-25T15:00:00  (see <script> data-countdown)
+  ════════════════════════════════════════════════════════════════════════
+-->
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Arangetram Invitation · Choose a Design</title>
+<title>Aadhya &amp; Tanvi · Bharatanatyam Ranga Pravesha</title>
+<meta name="description" content="An invitation to the Bharatanatyam Ranga Pravesha of Aadhya and Tanvi — Saturday, the Twenty-Fifth of July, 2026, at the Shenkman Arts Centre, Ottawa.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Tiro+Devanagari+Sanskrit:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#15120d; --bg-2:#1d1813; --ink:#efe7d8; --soft:#a99f8d; --gold:#d4af37; --line:rgba(212,175,55,.25);
-    --display:"Cormorant Garamond",Georgia,serif; --sans:"Jost",system-ui,sans-serif;
+    --maroon:#5b0e0e;
+    --maroon-2:#6b1414;
+    --maroon-deep:#420909;
+    --gold:#c9a227;
+    --gold-lite:#e8c86a;
+    --gold-hi:#f3dd9a;
+    --cream:#fbf6ec;
+    --cream-2:#f5ecd9;
+    --ink:#2a1712;
+    --ink-soft:#5a4636;
+    --maxw:1080px;
+    --pad:clamp(1.25rem,5vw,3rem);
+    --display:"Cormorant Garamond",Georgia,serif;
+    --body:"EB Garamond",Georgia,serif;
+    --deva:"Tiro Devanagari Sanskrit","EB Garamond",serif;
   }
   *,*::before,*::after{box-sizing:border-box}
-  body{margin:0;background:radial-gradient(120% 80% at 50% -10%,#241d14,var(--bg));color:var(--ink);
-    font-family:var(--sans);font-weight:300;min-height:100vh;padding:clamp(2rem,6vw,4.5rem) clamp(1rem,5vw,3rem)}
-  header{text-align:center;max-width:680px;margin:0 auto clamp(2.5rem,6vw,4rem)}
-  .om{font-size:1.8rem;color:var(--gold);margin-bottom:.6rem}
-  h1{font-family:var(--display);font-weight:500;font-size:clamp(2.2rem,6vw,3.4rem);margin:0 0 .6rem;line-height:1.1}
-  .sub{color:var(--soft);font-size:.95rem;line-height:1.7;margin:0}
-  .note{margin-top:1.2rem;font-size:.8rem;letter-spacing:.04em;color:var(--soft);
-    border:1px solid var(--line);border-radius:10px;padding:.7rem 1rem;display:inline-block}
-  .note b{color:var(--gold);font-weight:400}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--cream);color:var(--ink);
+    font-family:var(--body);font-size:clamp(1rem,0.55vw + 0.9rem,1.18rem);
+    line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:var(--display);font-weight:500;margin:0;line-height:1.1}
+  p{margin:0 0 1em}
+  a{color:inherit}
+  img,svg{display:block;max-width:100%}
 
-  .grid{display:grid;gap:clamp(1.4rem,4vw,2.4rem);grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:1200px;margin:0 auto}
-  .card{background:var(--bg-2);border:1px solid var(--line);border-radius:16px;overflow:hidden;
-    display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
-  .card:hover{transform:translateY(-5px);box-shadow:0 22px 50px rgba(0,0,0,.45)}
+  /* ── shared bits ───────────────────────────────────────────── */
+  .container{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+  .section{padding-block:clamp(4rem,9vw,7.5rem)}
+  .center{text-align:center}
+  .gold-foil{
+    background:linear-gradient(177deg,var(--gold-hi) 0%,var(--gold-lite) 38%,var(--gold) 55%,#8a6d1c 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .eyebrow{
+    font-family:var(--body);font-size:.8rem;font-weight:500;
+    letter-spacing:.42em;text-transform:uppercase;color:var(--gold);
+    margin:0 0 1.1rem;padding-left:.42em;
+  }
+  .lede{font-size:1.12em;color:var(--ink-soft);font-style:italic}
+  .ornament{color:var(--gold);margin-inline:auto}
+  /* fillable placeholder (e.g. the 4th family surname) */
+  .ph{color:var(--gold);border-bottom:1px dashed rgba(201,162,39,.75);font-style:normal;padding:0 .18em}
+  .band .ph{color:var(--gold-lite);border-color:rgba(233,200,106,.7)}
 
-  .thumb{position:relative;display:block;width:100%;aspect-ratio:3/4;overflow:hidden;background:#0c0c0c;text-decoration:none}
-  .thumb iframe{position:absolute;top:0;left:0;transform-origin:top left;border:0;pointer-events:none;background:#fff}
-  .thumb__overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;
-    background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.55));opacity:0;transition:opacity .3s}
-  .thumb:hover .thumb__overlay,.thumb:focus-visible .thumb__overlay{opacity:1}
-  .thumb__overlay span{margin-bottom:1.2rem;color:#fff;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;
-    border:1px solid rgba(255,255,255,.7);border-radius:40px;padding:.5rem 1.3rem;backdrop-filter:blur(3px)}
+  /* maroon feature bands */
+  .band{
+    background:
+      radial-gradient(120% 90% at 50% -10%,rgba(233,200,106,.16),transparent 55%),
+      linear-gradient(180deg,var(--maroon-2),var(--maroon));
+    color:var(--cream);
+  }
+  .band .eyebrow{color:var(--gold-lite)}
+  .band h2,.band h3{color:#fff}
 
-  .meta{padding:1.3rem 1.4rem 1.5rem}
-  .meta h2{font-family:var(--display);font-weight:500;font-size:1.6rem;margin:0 0 .2rem}
-  .swatches{display:flex;gap:.4rem;margin:.6rem 0 .8rem}
-  .swatch{width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,.18)}
-  .desc{color:var(--soft);font-size:.85rem;line-height:1.6;margin:0 0 1.1rem;min-height:3.2em}
-  .open{font-family:var(--sans);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
-    text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px;transition:color .25s,border-color .25s}
-  .open:hover{color:#fff;border-color:#fff}
+  /* reveal on scroll (only when JS present; off for reduced motion) */
+  .js .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+  .js .reveal.is-visible{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js .reveal{opacity:1!important;transform:none!important;transition:none}
+  }
 
-  footer{text-align:center;color:var(--soft);font-size:.78rem;margin-top:clamp(2.5rem,6vw,4rem);line-height:1.8}
-  footer b{color:var(--gold);font-weight:400}
+  /* ── navigation ────────────────────────────────────────────── */
+  .nav{
+    position:fixed;inset:0 0 auto;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:1.1rem var(--pad);transition:background .4s ease,box-shadow .4s,padding .4s;
+  }
+  .nav__brand{font-family:var(--display);font-size:1.35rem;letter-spacing:.14em;color:var(--cream)}
+  .nav__links{display:flex;gap:1.6rem;list-style:none;margin:0;padding:0}
+  .nav__links a{
+    text-decoration:none;font-size:.82rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--cream);opacity:.85;transition:opacity .3s,color .3s;
+  }
+  .nav__links a:hover{opacity:1;color:var(--gold-lite)}
+  .nav.scrolled{
+    background:rgba(66,9,9,.92);backdrop-filter:blur(8px);
+    box-shadow:0 1px 0 rgba(201,162,39,.4),0 10px 30px rgba(0,0,0,.25);padding-block:.7rem;
+  }
+  .nav.scrolled .nav__brand{color:var(--gold-lite)}
+  @media (max-width:760px){.nav__links{display:none}}
+
+  /* ── hero ──────────────────────────────────────────────────── */
+  .hero{
+    position:relative;min-height:100svh;display:grid;place-items:center;
+    text-align:center;color:var(--cream);overflow:hidden;
+    background:
+      radial-gradient(130% 85% at 50% 8%,rgba(233,200,106,.20),transparent 50%),
+      radial-gradient(100% 70% at 50% 120%,rgba(0,0,0,.45),transparent 60%),
+      linear-gradient(180deg,var(--maroon-2),var(--maroon-deep));
+  }
+  .hero__inner{position:relative;z-index:2;padding:clamp(2.5rem,7vw,4.5rem) var(--pad) clamp(4rem,11vw,6rem);max-width:860px}
+  /* engraved double-rule frame */
+  .hero__frame{position:absolute;inset:clamp(.9rem,2.4vw,1.7rem);z-index:1;pointer-events:none}
+  .hero__frame::before,.hero__frame::after{content:"";position:absolute;inset:0;border:1px solid rgba(201,162,39,.55)}
+  .hero__frame::after{inset:6px;border-color:rgba(201,162,39,.32)}
+  .corner{position:absolute;width:clamp(34px,6vw,58px);height:auto;color:var(--gold-lite);opacity:.9}
+  .corner--tl{top:-2px;left:-2px}
+  .corner--tr{top:-2px;right:-2px;transform:scaleX(-1)}
+  .corner--bl{bottom:-2px;left:-2px;transform:scaleY(-1)}
+  .corner--br{bottom:-2px;right:-2px;transform:scale(-1,-1)}
+
+  .hero__om{font-size:clamp(1.8rem,5vw,2.6rem);color:var(--gold-lite);line-height:1;margin-bottom:.6rem}
+  .hero__lotus{width:clamp(64px,12vw,104px);margin:0 auto 1.1rem}
+  .hero__eyebrow{font-size:clamp(.78rem,1.6vw,.95rem);letter-spacing:.5em;text-transform:uppercase;color:var(--gold-lite);margin:0 0 .4rem;padding-left:.5em}
+  .hero__eyebrow--host{letter-spacing:.3em;font-size:clamp(.7rem,1.5vw,.84rem);opacity:.92;margin-bottom:1rem}
+
+  /* two-dancer name stack */
+  .hero__names{display:flex;flex-direction:column;align-items:center;gap:.05rem;margin:.2rem 0 0}
+  .hero__name{font-family:var(--display);font-weight:600;font-size:clamp(2.6rem,10vw,5.2rem);letter-spacing:.02em;line-height:.98}
+  .hero__amp{font-family:var(--display);font-style:italic;font-size:clamp(1.5rem,4.5vw,2.4rem);color:var(--gold-lite);line-height:1;margin:.05rem 0}
+
+  .hero__tag{font-style:italic;font-size:clamp(1.05rem,2.4vw,1.4rem);color:var(--cream);opacity:.92;margin:.9rem 0 0}
+  .hero__when{margin:1.5rem 0 0;font-size:.95rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-lite)}
+  .hero__photo{width:min(440px,80%);margin:clamp(1.5rem,4vw,2.3rem) auto .2rem;padding:.5rem;
+    border:1px solid var(--gold);background:var(--cream-2);box-shadow:0 18px 44px rgba(0,0,0,.42)}
+  .hero__photo img{width:100%;height:auto;display:block;border:1px solid rgba(201,162,39,.5)}
+
+  /* countdown */
+  .countdown{display:flex;justify-content:center;gap:clamp(.7rem,3vw,2.1rem);margin-top:.4rem}
+  .cd__unit{min-width:clamp(48px,12vw,78px)}
+  .cd__num{font-family:var(--display);font-weight:600;font-size:clamp(1.9rem,6vw,3.1rem);line-height:1}
+  .cd__lab{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-lite);margin-top:.35rem}
+  .cd__done{font-style:italic;font-size:1.2rem;color:var(--gold-lite)}
+
+  .scrollcue{position:absolute;left:50%;bottom:1.5rem;transform:translateX(-50%);z-index:2;color:var(--gold-lite);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;opacity:.8}
+  .scrollcue span{display:block;font-size:1.1rem;margin-top:.2rem;animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+  @media (prefers-reduced-motion:reduce){.scrollcue span{animation:none}}
+  @media (max-width:760px){.scrollcue{display:none}}
+
+  /* ── kolam divider ─────────────────────────────────────────── */
+  .divider{display:block;width:min(360px,72%);margin:0 auto clamp(2rem,5vw,3rem);color:var(--gold)}
+  .divider--btm{margin:clamp(2.5rem,5vw,3.5rem) auto 0}
+
+  /* ── invitation / shloka ───────────────────────────────────── */
+  .hosts{max-width:50ch;margin:0 auto 2rem}
+  .hosts__foundation{font-family:var(--display);font-size:clamp(1.5rem,4vw,2.1rem);color:var(--maroon);line-height:1.18}
+  .hosts__guru{margin:.55rem 0 0;font-style:italic;color:var(--ink-soft)}
+  .hosts__families{margin:.35rem 0 0;color:var(--ink-soft)}
+  .hosts__invite{margin:1.3rem 0 .2rem;letter-spacing:.04em}
+  .hosts__event{font-family:var(--display);font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.05}
+  .hosts__eventsub{font-style:italic;color:var(--ink-soft);margin:.3rem 0 0}
+
+  .shloka{font-family:var(--deva);font-size:clamp(1.25rem,3.4vw,1.7rem);line-height:1.9;color:var(--maroon);margin:0 0 1rem}
+  .band .shloka{color:var(--gold-hi)}
+  .translit{font-style:italic;color:var(--ink-soft);letter-spacing:.02em;margin:0 0 .4rem}
+  .band .translit{color:rgba(255,255,255,.85)}
+  .meaning{max-width:46ch;margin-inline:auto}
+
+  /* ── the dancers · gallery ─────────────────────────────────── */
+  .lineage{max-width:60ch;margin:1.4rem auto 0}
+  .lineage p{margin:.35rem 0}
+  .lineage .ln-name{font-family:var(--display);font-size:1.3em;color:var(--maroon)}
+  .lineage .ln-rel{font-style:italic;color:var(--ink-soft)}
+
+  .gallery{columns:1;column-gap:clamp(.7rem,2vw,1.1rem);max-width:860px;margin:clamp(2.4rem,5vw,3.2rem) auto 0}
+  @media(min-width:560px){.gallery{columns:2}}
+  .gallery figure{margin:0 0 clamp(.7rem,2vw,1.1rem);break-inside:avoid;border:1px solid var(--gold);padding:.4rem;
+    background:var(--cream);cursor:zoom-in;transition:transform .3s ease,box-shadow .3s ease}
+  .gallery figure:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(91,14,14,.18)}
+  .gallery img{width:100%;height:auto;display:block;border:1px solid rgba(201,162,39,.4)}
+
+  /* lightbox */
+  .lightbox{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;
+    background:rgba(20,5,5,.93);padding:clamp(1rem,4vw,3rem);cursor:zoom-out}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:92vw;max-height:90vh;width:auto;height:auto;border:1px solid var(--gold);
+    padding:.45rem;background:var(--cream);box-shadow:0 30px 80px rgba(0,0,0,.6);cursor:default}
+  .lightbox__close{position:absolute;top:1rem;right:1.4rem;color:var(--gold-lite);font-size:2.4rem;
+    background:none;border:0;cursor:pointer;line-height:1;font-family:var(--body)}
+  .lightbox__close:hover{color:#fff}
+
+  /* ── details ───────────────────────────────────────────────── */
+  .details{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(1.4rem,4vw,3rem);max-width:880px;margin:0 auto;text-align:center}
+  .detail .role{font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-lite);margin-bottom:.5rem}
+  .detail .val{font-family:var(--display);font-size:1.4rem;color:#fff;line-height:1.35}
+  .detail .sub{font-size:.92em;color:rgba(255,255,255,.8)}
+  .maplink{display:inline-block;margin-top:.8rem;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-lite);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+  .maplink:hover{color:#fff}
+  .details__note{max-width:60ch;margin:2.4rem auto 0;color:rgba(255,255,255,.85);font-style:italic;letter-spacing:.02em}
+
+  /* ── rsvp ──────────────────────────────────────────────────── */
+  .rsvp-card{
+    max-width:620px;margin:0 auto;text-align:center;padding:clamp(2.4rem,6vw,3.6rem) var(--pad);
+    position:relative;border:1px solid var(--gold);
+  }
+  .rsvp-card::after{content:"";position:absolute;inset:7px;border:1px solid rgba(201,162,39,.4);pointer-events:none}
+  .btn{
+    display:inline-block;margin:.4rem 0 1rem;padding:.95rem 3rem;
+    font-family:var(--body);font-size:.92rem;letter-spacing:.28em;text-transform:uppercase;text-decoration:none;
+    color:var(--maroon-deep);background:linear-gradient(177deg,var(--gold-hi),var(--gold) 60%,#a8841e);
+    border:1px solid var(--gold);transition:transform .25s,box-shadow .25s,filter .25s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(91,14,14,.2);filter:brightness(1.05)}
+  .rsvp__by{font-style:italic;color:var(--ink-soft);margin:.2rem 0 .6rem}
+  .rsvp__contact{font-size:.92em;color:var(--ink-soft)}
+  .rsvp__contact a{color:var(--maroon);text-decoration:none;border-bottom:1px solid rgba(91,14,14,.3)}
+  .rsvp__contact a:hover{border-color:var(--maroon)}
+
+  /* ── footer ────────────────────────────────────────────────── */
+  .foot{text-align:center;padding:clamp(3rem,7vw,4.5rem) var(--pad) 2.5rem}
+  .foot__ded{font-family:var(--display);font-size:clamp(1.3rem,3vw,1.7rem);color:var(--gold-hi)}
+  .foot__mangalam{font-family:var(--deva);font-size:1.15rem;color:var(--gold-lite);margin-top:.8rem}
+  .foot__credit{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:2rem}
 </style>
 </head>
 <body>
-<header>
-  <div class="om">ॐ</div>
-  <h1>Three designs for the invitation</h1>
-  <p class="sub">Same words, same details — three different moods. Click any preview to open it full-screen, then tell me which one feels right (or what to mix). I’ll then swap in your sister’s real name, date, venue, guru, and program.</p>
-  <div class="note">Sample text shown — dancer “<b>Ananya</b>”, date <b>Sep 12, 2026</b>, etc. — all placeholders.</div>
+<script>document.documentElement.classList.replace('no-js','js');</script>
+
+<!-- ════════ NAV ════════ -->
+<nav class="nav" id="nav" aria-label="Primary">
+  <span class="nav__brand">Aadhya &amp; Tanvi</span>
+  <ul class="nav__links">
+    <li><a href="#invitation">Invitation</a></li>
+    <li><a href="#guru">Guru</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#details">Details</a></li>
+    <li><a href="#rsvp">RSVP</a></li>
+  </ul>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<header class="hero">
+  <div class="hero__frame" aria-hidden="true">
+    <!-- corner flourishes -->
+    <svg class="corner corner--tl" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.4">
+      <path d="M2 30 Q2 2 30 2"/><path d="M10 30 Q10 10 30 10"/>
+      <circle cx="30" cy="2" r="2.2" fill="currentColor" stroke="none"/>
+      <circle cx="2" cy="30" r="2.2" fill="currentColor" stroke="none"/>
+      <path d="M10 30 q-6 0 -8 6 q6 2 8 -6Z" fill="currentColor" stroke="none"/>
+    </svg>
+    <svg class="corner corner--tr" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.4">
+      <path d="M2 30 Q2 2 30 2"/><path d="M10 30 Q10 10 30 10"/>
+      <circle cx="30" cy="2" r="2.2" fill="currentColor" stroke="none"/>
+      <circle cx="2" cy="30" r="2.2" fill="currentColor" stroke="none"/>
+      <path d="M10 30 q-6 0 -8 6 q6 2 8 -6Z" fill="currentColor" stroke="none"/>
+    </svg>
+    <svg class="corner corner--bl" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.4">
+      <path d="M2 30 Q2 2 30 2"/><path d="M10 30 Q10 10 30 10"/>
+      <circle cx="30" cy="2" r="2.2" fill="currentColor" stroke="none"/>
+      <circle cx="2" cy="30" r="2.2" fill="currentColor" stroke="none"/>
+      <path d="M10 30 q-6 0 -8 6 q6 2 8 -6Z" fill="currentColor" stroke="none"/>
+    </svg>
+    <svg class="corner corner--br" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.4">
+      <path d="M2 30 Q2 2 30 2"/><path d="M10 30 Q10 10 30 10"/>
+      <circle cx="30" cy="2" r="2.2" fill="currentColor" stroke="none"/>
+      <circle cx="2" cy="30" r="2.2" fill="currentColor" stroke="none"/>
+      <path d="M10 30 q-6 0 -8 6 q6 2 8 -6Z" fill="currentColor" stroke="none"/>
+    </svg>
+  </div>
+
+  <div class="hero__inner">
+    <div class="hero__om" aria-hidden="true">ॐ</div>
+    <!-- lotus emblem -->
+    <svg class="hero__lotus" viewBox="0 0 120 84" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--gold-lite)" aria-hidden="true">
+      <g transform="translate(60,78)">
+        <path d="M0 0 C6 -22 6 -50 0 -70 C-6 -50 -6 -22 0 0Z"/>
+        <path d="M0 0 C6 -22 6 -50 0 -70 C-6 -50 -6 -22 0 0Z" transform="rotate(20)"/>
+        <path d="M0 0 C6 -22 6 -50 0 -70 C-6 -50 -6 -22 0 0Z" transform="rotate(-20)"/>
+        <path d="M0 0 C6 -20 4 -42 -2 -58 C-12 -44 -12 -22 0 0Z" transform="rotate(40)"/>
+        <path d="M0 0 C-6 -20 -4 -42 2 -58 C12 -44 12 -22 0 0Z" transform="rotate(-40)"/>
+        <path d="M0 0 C8 -14 18 -28 30 -36 C24 -18 14 -6 0 0Z" transform="rotate(8)"/>
+        <path d="M0 0 C-8 -14 -18 -28 -30 -36 C-24 -18 -14 -6 0 0Z" transform="rotate(-8)"/>
+      </g>
+    </svg>
+
+    <p class="hero__eyebrow">Bharatanatyam · Ranga Pravesha</p>
+    <p class="hero__eyebrow hero__eyebrow--host">— Rathi Arts Foundation cordially invites you —</p>
+    <h1 class="hero__names">
+      <span class="hero__name gold-foil">Aadhya</span>
+      <span class="hero__amp">&amp;</span>
+      <span class="hero__name gold-foil">Tanvi</span>
+    </h1>
+    <p class="hero__tag">two dancers · one stage · years of devotion</p>
+
+    <figure class="hero__photo">
+      <img src="images/featured-red-mirror.jpg" alt="Aadhya and Tanvi in red and gold Bharatanatyam costume, facing each other in a mirrored araimandi pose" width="1700" height="1605" loading="eager" decoding="async">
+    </figure>
+
+    <p class="hero__when">Saturday · the Twenty-Fifth of July · 2026</p>
+
+    <!-- countdown -->
+    <div class="countdown" id="countdown" data-countdown="2026-07-25T15:00:00" aria-live="polite">
+      <div class="cd__unit"><div class="cd__num gold-foil" data-cd="days">—</div><div class="cd__lab">Days</div></div>
+      <div class="cd__unit"><div class="cd__num gold-foil" data-cd="hours">—</div><div class="cd__lab">Hours</div></div>
+      <div class="cd__unit"><div class="cd__num gold-foil" data-cd="mins">—</div><div class="cd__lab">Minutes</div></div>
+      <div class="cd__unit"><div class="cd__num gold-foil" data-cd="secs">—</div><div class="cd__lab">Seconds</div></div>
+    </div>
+  </div>
+
+  <div class="scrollcue" aria-hidden="true">Scroll<span>❧</span></div>
 </header>
 
-<div class="grid">
-  <!-- Temple Gold -->
-  <article class="card">
-    <a class="thumb" href="temple-gold.html" target="_blank" rel="noopener" aria-label="Open Temple Gold design">
-      <iframe src="temple-gold.html" title="Temple Gold preview" scrolling="no" tabindex="-1" loading="lazy"></iframe>
-      <span class="thumb__overlay"><span>Open full design ↗</span></span>
-    </a>
-    <div class="meta">
-      <h2>Temple Gold</h2>
-      <div class="swatches" aria-hidden="true">
-        <span class="swatch" style="background:#5b0e0e"></span>
-        <span class="swatch" style="background:#c9a227"></span>
-        <span class="swatch" style="background:#e8c86a"></span>
-        <span class="swatch" style="background:#fbf6ec"></span>
-      </div>
-      <p class="desc">Ornate, devotional, symmetrical — gold foil on deep maroon with an engraved card border. The most traditional, closest to your reference.</p>
-      <a class="open" href="temple-gold.html" target="_blank" rel="noopener">Open full design →</a>
-    </div>
-  </article>
+<main>
+<!-- ════════ INVITATION ════════ -->
+<section class="section center" id="invitation">
+  <div class="container reveal">
+    <svg class="divider" viewBox="0 0 360 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+      <line x1="0" y1="12" x2="150" y2="12"/><line x1="210" y1="12" x2="360" y2="12"/>
+      <circle cx="180" cy="12" r="8"/><circle cx="180" cy="12" r="3.2" fill="currentColor" stroke="none"/>
+      <path d="M180 0 L184 8 L180 4 L176 8Z" fill="currentColor" stroke="none"/>
+      <path d="M180 24 L184 16 L180 20 L176 16Z" fill="currentColor" stroke="none"/>
+      <circle cx="160" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="200" cy="12" r="1.8" fill="currentColor" stroke="none"/>
+    </svg>
+    <p class="eyebrow" style="text-align:center;padding:0">The Invitation</p>
 
-  <!-- Ivory & Rose Gold -->
-  <article class="card">
-    <a class="thumb" href="ivory-rose-gold.html" target="_blank" rel="noopener" aria-label="Open Ivory and Rose Gold design">
-      <iframe src="ivory-rose-gold.html" title="Ivory and Rose Gold preview" scrolling="no" tabindex="-1" loading="lazy"></iframe>
-      <span class="thumb__overlay"><span>Open full design ↗</span></span>
-    </a>
-    <div class="meta">
-      <h2>Ivory &amp; Rose Gold</h2>
-      <div class="swatches" aria-hidden="true">
-        <span class="swatch" style="background:#faf7f2"></span>
-        <span class="swatch" style="background:#efddd6"></span>
-        <span class="swatch" style="background:#b76e79"></span>
-        <span class="swatch" style="background:#9caf88"></span>
-      </div>
-      <p class="desc">Airy, editorial, understated luxe — light throughout with delicate line-art and generous whitespace. Modern fine-stationery elegance.</p>
-      <a class="open" href="ivory-rose-gold.html" target="_blank" rel="noopener">Open full design →</a>
+    <div class="hosts">
+      <p class="hosts__foundation">Rathi Arts Foundation</p>
+      <p class="hosts__guru">with Guru Sheela Chandrashekar</p>
+      <!-- "xxx" in the source doc = Swapna's family surname; fill in the .ph blank below -->
+      <p class="hosts__families">and the Sure &amp; Pasam · Nagineni &amp; <span class="ph">&nbsp;&nbsp;&nbsp;&nbsp;</span> families</p>
+      <p class="hosts__invite lede">cordially invite you to the</p>
+      <h2 class="hosts__event gold-foil" style="color:var(--maroon)">Ranga Pravesha</h2>
+      <p class="hosts__eventsub">the Bharatanatyam debut of Aadhya &amp; Tanvi</p>
     </div>
-  </article>
 
-  <!-- Peacock & Gold -->
-  <article class="card">
-    <a class="thumb" href="peacock-gold.html" target="_blank" rel="noopener" aria-label="Open Peacock and Gold design">
-      <iframe src="peacock-gold.html" title="Peacock and Gold preview" scrolling="no" tabindex="-1" loading="lazy"></iframe>
-      <span class="thumb__overlay"><span>Open full design ↗</span></span>
-    </a>
-    <div class="meta">
-      <h2>Peacock &amp; Gold</h2>
-      <div class="swatches" aria-hidden="true">
-        <span class="swatch" style="background:#0d5c63"></span>
-        <span class="swatch" style="background:#0b2545"></span>
-        <span class="swatch" style="background:#d4af37"></span>
-        <span class="swatch" style="background:#f4efe6"></span>
-      </div>
-      <p class="desc">Regal and dramatic — deep teal-and-midnight bands alternating with ivory, a peacock-feather motif, and gold filigree. The most opulent.</p>
-      <a class="open" href="peacock-gold.html" target="_blank" rel="noopener">Open full design →</a>
+    <div style="margin:2.2rem 0">
+      <p class="shloka">आङ्गिकं भुवनं यस्य वाचिकं सर्ववाङ्मयम् ।<br>आहार्यं चन्द्रतारादि तं वन्दे सात्त्विकं शिवम् ॥</p>
+      <p class="translit">Āṅgikaṃ bhuvanaṃ yasya vācikaṃ sarva-vāṅmayam<br>āhāryaṃ candra-tārādi taṃ vande sāttvikaṃ śivam</p>
+      <p class="meaning">“We bow to Lord Shiva, the embodiment of grace — whose body is the universe, whose speech is all language, whose adornments are the moon and the stars.”</p>
     </div>
-  </article>
+
+    <p style="max-width:60ch;margin-inline:auto">With hearts full of joy and gratitude, we invite you to witness the <strong>Ranga Pravesha</strong> of <strong>Aadhya</strong> and <strong>Tanvi</strong> — the culmination of years of devotion to the art of Bharatanatyam. On this sacred day, they take the stage to offer the fruits of their training to their guru, their families, and the divine. Your presence and blessings would mean the world to us.</p>
+  </div>
+</section>
+
+<!-- ════════ GURU ════════ -->
+<section class="section band center" id="guru">
+  <div class="container reveal">
+    <p class="eyebrow" style="text-align:center;padding:0">Under the guidance of</p>
+    <h2 style="font-size:clamp(2.2rem,5.5vw,3.4rem)" class="gold-foil">Guru Sheela Chandrashekar</h2>
+    <p style="letter-spacing:.18em;text-transform:uppercase;font-size:.85rem;color:var(--gold-lite);margin-top:.4rem">Founder &amp; Director · Rathi School of Dance</p>
+    <p style="max-width:58ch;margin:1.6rem auto 0;color:rgba(255,255,255,.9)">Trained under the loving guidance of Guru Sheela Chandrashekar and the Rathi Arts Foundation, Aadhya and Tanvi carry forward a cherished <em>parampara</em> — a living lineage passed from guru to disciple across generations.</p>
+  </div>
+</section>
+
+<!-- ════════ THE DANCERS · GALLERY ════════ -->
+<section class="section" id="gallery" style="background:var(--cream-2)">
+  <div class="container reveal center">
+    <svg class="divider" viewBox="0 0 360 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+      <line x1="0" y1="12" x2="150" y2="12"/><line x1="210" y1="12" x2="360" y2="12"/>
+      <circle cx="180" cy="12" r="8"/><circle cx="180" cy="12" r="3.2" fill="currentColor" stroke="none"/>
+      <path d="M180 0 L184 8 L180 4 L176 8Z" fill="currentColor" stroke="none"/>
+      <path d="M180 24 L184 16 L180 20 L176 16Z" fill="currentColor" stroke="none"/>
+    </svg>
+    <p class="eyebrow" style="text-align:center;padding:0">The Dancers</p>
+    <h2 style="font-size:clamp(2rem,5vw,3rem)">Aadhya &amp; Tanvi</h2>
+    <div class="lineage">
+      <p><span class="ln-name">Aadhya</span> <span class="ln-rel">— Daughter of Ram Mohan Sure &amp; Vasanthi Pasam</span></p>
+      <p><span class="ln-name">Tanvi</span> <span class="ln-rel">— Daughter of Ramana Nagineni &amp; Swapna</span></p>
+    </div>
+
+    <div class="gallery">
+      <figure><img src="images/gallery-red-portrait.jpg" alt="Aadhya and Tanvi in red and gold costume, one standing with arm raised and one seated" width="1232" height="1700" loading="lazy" decoding="async"></figure>
+      <figure><img src="images/gallery-saffron-pair.jpg" alt="Aadhya and Tanvi in saffron and pink costumes, one mid-step and one kneeling in expression" width="1700" height="1255" loading="lazy" decoding="async"></figure>
+      <figure><img src="images/gallery-blue-pink.jpg" alt="Aadhya and Tanvi in blue and pink costumes, standing hand in hand" width="1160" height="1700" loading="lazy" decoding="async"></figure>
+      <figure><img src="images/gallery-saffron-spin.jpg" alt="Aadhya and Tanvi in saffron, pink and green costumes, mirrored with skirts flaring" width="1700" height="1329" loading="lazy" decoding="async"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ DETAILS ════════ -->
+<section class="section band center" id="details">
+  <div class="container reveal">
+    <p class="eyebrow" style="text-align:center;padding:0">When &amp; Where</p>
+    <h2 style="font-size:clamp(2rem,5vw,3rem)" class="gold-foil">The Celebration</h2>
+    <div class="details" style="margin-top:2.6rem">
+      <div class="detail"><div class="role">Date</div><div class="val">Saturday<br>July 25, 2026</div></div>
+      <div class="detail"><div class="role">Time</div><div class="val">3:00 – 6:00 PM<br>EST</div><div class="sub">Doors open at 2:30 PM</div></div>
+      <div class="detail"><div class="role">Venue</div><div class="val">Shenkman<br>Arts Centre</div><div class="sub">245 Centrum Blvd.<br>Ottawa, ON · K1E 0A1</div><a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Shenkman+Arts+Centre+245+Centrum+Blvd+Ottawa" target="_blank" rel="noopener">View Map</a></div>
+    </div>
+    <p class="details__note">Ages 5 and above are warmly welcome.</p>
+  </div>
+</section>
+
+<!-- ════════ RSVP ════════ -->
+<section class="section" id="rsvp">
+  <div class="container reveal">
+    <div class="rsvp-card">
+      <p class="eyebrow" style="text-align:center;padding:0">Join us</p>
+      <h2 style="font-size:clamp(1.9rem,5vw,2.8rem)">Kindly Respond</h2>
+      <p class="rsvp__by">We would be honoured by your presence.</p>
+      <a class="btn" href="#">RSVP</a>
+      <p class="rsvp__by">Kindly respond by the Twenty-Fifth of June, 2026.</p>
+      <p class="rsvp__contact">Questions? Call or text <a href="tel:+16135014918">613-501-4918</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ════════ LIGHTBOX ════════ -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Photo viewer">
+  <button class="lightbox__close" type="button" aria-label="Close photo">&times;</button>
+  <img src="" alt="">
 </div>
 
-<footer>
-  Built for the Arangetram of <b>[your sister]</b> · three directions to choose from<br>
-  Tell me your pick and I’ll personalize it with the real details.
+<!-- ════════ FOOTER ════════ -->
+<footer class="band foot">
+  <svg class="divider divider--btm" style="margin-top:0;color:var(--gold-lite)" viewBox="0 0 360 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+    <line x1="0" y1="12" x2="150" y2="12"/><line x1="210" y1="12" x2="360" y2="12"/>
+    <circle cx="180" cy="12" r="8"/><circle cx="180" cy="12" r="3.2" fill="currentColor" stroke="none"/>
+  </svg>
+  <p class="foot__ded">With love and gratitude — the Sure, Pasam &amp; Nagineni families</p>
+  <p class="foot__mangalam">शुभं भवतु · Mangalam</p>
+  <p class="foot__credit">Aadhya &amp; Tanvi · Bharatanatyam Ranga Pravesha · MMXXVI</p>
 </footer>
 
 <script>
-  // Scale the live iframe previews to fit each card.
-  function fit(){
-    document.querySelectorAll('.thumb').forEach(function(t){
-      var f=t.querySelector('iframe');
-      var w=t.clientWidth, h=t.clientHeight;
-      var base=1280;                 // virtual desktop width rendered inside the iframe
-      var s=w/base;
-      f.style.width=base+'px';
-      f.style.height=(h/s)+'px';
-      f.style.transform='scale('+s+')';
-    });
+(function(){
+  // sticky nav background
+  var nav=document.getElementById('nav');
+  var onScroll=function(){ if(window.scrollY>40){nav.classList.add('scrolled');}else{nav.classList.remove('scrolled');} };
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  // reveal on scroll
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items=document.querySelectorAll('.reveal');
+  if(reduce||!('IntersectionObserver'in window)){
+    items.forEach(function(el){el.classList.add('is-visible');});
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);} });
+    },{threshold:.16});
+    items.forEach(function(el){io.observe(el);});
   }
-  window.addEventListener('load',fit);
-  window.addEventListener('resize',fit);
-  // refit shortly after load in case fonts/layout settle
-  setTimeout(fit,600); setTimeout(fit,1600);
+
+  // countdown
+  var root=document.getElementById('countdown');
+  var target=new Date(root.getAttribute('data-countdown')).getTime();
+  var elDays=root.querySelector('[data-cd=days]'),elHours=root.querySelector('[data-cd=hours]'),
+      elMins=root.querySelector('[data-cd=mins]'),elSecs=root.querySelector('[data-cd=secs]');
+  function pad(n){return (n<10?'0':'')+n;}
+  function tick(){
+    var diff=target-Date.now();
+    if(diff<=0){
+      root.innerHTML='<p class="cd__done">The day has arrived — with joy, we celebrate. ❧</p>';
+      clearInterval(timer);return;
+    }
+    var s=Math.floor(diff/1000);
+    elDays.textContent=Math.floor(s/86400);
+    elHours.textContent=pad(Math.floor(s%86400/3600));
+    elMins.textContent=pad(Math.floor(s%3600/60));
+    elSecs.textContent=pad(s%60);
+  }
+  tick(); var timer=setInterval(tick,1000);
+
+  // lightbox
+  var lb=document.getElementById('lightbox');
+  var lbImg=lb.querySelector('img');
+  function openLb(src,alt){lbImg.src=src;lbImg.alt=alt||'';lb.classList.add('open');lb.setAttribute('aria-hidden','false');}
+  function closeLb(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');lbImg.removeAttribute('src');}
+  document.querySelectorAll('.gallery figure img').forEach(function(im){
+    im.style.cursor='zoom-in';
+    im.addEventListener('click',function(){openLb(im.getAttribute('src'),im.getAttribute('alt'));});
+  });
+  lb.addEventListener('click',function(e){ if(e.target!==lbImg) closeLb(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('open')) closeLb(); });
+})();
 </script>
 </body>
 </html>
