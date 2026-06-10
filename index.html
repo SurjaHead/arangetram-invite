@@ -83,7 +83,7 @@
       grid-template-columns: minmax(430px, 48%) 52%;
       grid-template-rows: 1fr auto;
       position: relative;
-      padding-top: 56px;
+      padding-top: 54px;
       background: #ede1ca;
     }
     .hero-left {
@@ -91,11 +91,11 @@
       grid-column: 1;
       grid-row: 1;
       background: linear-gradient(160deg, #fdf9f3 0%, #f5e9d6 60%, #ede1ca 100%);
-      padding: clamp(3rem, 6vw, 5rem) var(--hero-pad-x) clamp(2.4rem, 4vw, 4rem);
+      padding: 0 var(--hero-pad-x) clamp(2.4rem, 4vw, 4rem);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       position: relative;
       z-index: 2;
     }
@@ -522,9 +522,9 @@
     .js .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 1120px) {
-      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; padding-top: 56px; }
+      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; padding-top: 54px; }
       .hero-left, .hero-right, .hero-countdown { grid-column: 1; }
-      .hero-left { grid-row: 1; min-height: auto; padding-top: 3rem; }
+      .hero-left { grid-row: 1; min-height: auto; padding-top: 0; }
       .hero-right { grid-row: 2; height: min(78vw, 560px); }
       .hero-right-overlay { background: linear-gradient(to bottom, transparent 65%, rgba(237, 225, 202, .5) 85%, #ede1ca 100%); }
       .hero-countdown { grid-row: 3; }
@@ -533,6 +533,7 @@
       .nav-inner { justify-content: center; padding: .72rem 1rem; }
       .nav-logo { width: 100%; font-size: .74rem; white-space: normal; line-height: 1.35; text-align: center; }
       .nav-rsvp { display: none; }
+      .hero { padding-top: 39px; }
       .invite-details, .form-row { grid-template-columns: 1fr; }
       .invite-details,
       .invite-col-head,
