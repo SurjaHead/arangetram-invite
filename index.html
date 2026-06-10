@@ -87,10 +87,11 @@
       background: #ede1ca;
     }
     .hero-left {
+      --hero-pad-x: clamp(1.5rem, 4vw, 4rem);
       grid-column: 1;
       grid-row: 1;
       background: linear-gradient(160deg, #fdf9f3 0%, #f5e9d6 60%, #ede1ca 100%);
-      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 4rem) clamp(2.4rem, 4vw, 4rem);
+      padding: clamp(3rem, 6vw, 5rem) var(--hero-pad-x) clamp(2.4rem, 4vw, 4rem);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -320,53 +321,51 @@
     .cu-sep { font-size: 1.6rem; color: var(--gold); opacity: .4; padding-bottom: .35rem; }
 
     .shloka-banner {
-      width: min(100%, 560px);
-      margin: 0 0 1.15rem;
-      padding: .85rem 0 .95rem;
+      width: calc(100% + (2 * var(--hero-pad-x)));
+      margin: 0 calc(-1 * var(--hero-pad-x)) 1.75rem;
+      padding: clamp(1.8rem, 3vw, 3.5rem) var(--hero-pad-x);
+      background: linear-gradient(180deg, #1a0520 0%, var(--maroon-dk) 35%, var(--maroon-dk) 65%, #1a0520 100%);
       text-align: center;
-      border-top: 1px solid rgba(154, 115, 48, .28);
-      border-bottom: 1px solid rgba(154, 115, 48, .28);
+      border-top: 1px solid rgba(201, 168, 76, .3);
+      border-bottom: 1px solid rgba(201, 168, 76, .3);
     }
-    .shloka-inner { max-width: 560px; margin: 0 auto; }
-    .shloka-header, .shloka-footer { display: flex; align-items: center; gap: .9rem; }
-    .shloka-header { margin-bottom: .45rem; }
-    .shloka-footer { margin-top: .6rem; }
+    .shloka-inner { max-width: 720px; margin: 0 auto; }
+    .shloka-header, .shloka-footer { display: flex; align-items: center; gap: 1.25rem; }
+    .shloka-header { margin-bottom: 1.75rem; }
+    .shloka-footer { margin-top: 1.5rem; }
     .shloka-rule { flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(201, 168, 76, .5)); }
     .shloka-header .shloka-rule:last-child { background: linear-gradient(to left, transparent, rgba(201, 168, 76, .5)); }
     .shloka-footer .shloka-rule:first-child { background: linear-gradient(to right, transparent, rgba(201, 168, 76, .5)); }
     .shloka-footer .shloka-rule:last-child { background: linear-gradient(to left, transparent, rgba(201, 168, 76, .5)); }
     .shloka-om {
       font-family: "Noto Serif Devanagari", serif;
-      font-size: 1.25rem;
-      color: var(--gold-dk);
+      font-size: 2rem;
+      color: var(--gold-lt);
+      opacity: .85;
       flex-shrink: 0;
       line-height: 1;
     }
     .shloka-devo {
       font-family: "Noto Serif Devanagari", serif;
-      font-size: clamp(.82rem, 1.15vw, .98rem);
-      color: var(--maroon-dk);
-      font-weight: 600;
-      line-height: 1.55;
+      font-size: clamp(1.02rem, 1.65vw, 1.55rem);
+      color: var(--gold-lt);
+      line-height: 1.9;
       letter-spacing: .01em;
     }
     .shloka-roman {
       font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(.74rem, 1.05vw, .88rem);
+      font-size: clamp(.82rem, 1.25vw, 1.05rem);
       font-style: italic;
-      color: #4e3124;
-      font-weight: 500;
-      line-height: 1.45;
+      color: rgba(255, 255, 255, .5);
+      line-height: 1.65;
     }
     .shloka-meaning {
       font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(.72rem, 1vw, .82rem);
-      color: #4e3124;
-      font-weight: 500;
+      font-size: clamp(.78rem, 1.05vw, .9rem);
+      color: rgba(255, 255, 255, .35);
       font-style: italic;
       letter-spacing: .03em;
-      line-height: 1.35;
-      margin-top: .45rem;
+      margin-top: 1.1rem;
     }
     .shloka-diamond { color: var(--gold); font-size: .55rem; opacity: .6; flex-shrink: 0; }
 
@@ -545,7 +544,7 @@
         overflow-wrap: break-word;
       }
       .invite-name span { display: block; }
-      .hero-left { padding-inline: 1.2rem; }
+      .hero-left { --hero-pad-x: 1.2rem; padding-inline: var(--hero-pad-x); }
       .hero-right {
         height: clamp(420px, 126vw, 620px);
         background: linear-gradient(180deg, #f7f1e8, #ede1ca);
