@@ -49,22 +49,6 @@
       transition: box-shadow var(--tr);
     }
     #navbar.scrolled { box-shadow: 0 2px 20px rgba(0, 0, 0, .5); }
-    .nav-invocation {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .85rem;
-      padding: .3rem 1rem;
-      border-bottom: 1px solid rgba(201, 168, 76, .2);
-    }
-    .invocation-text {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-style: italic;
-      font-size: .95rem;
-      color: var(--gold);
-      letter-spacing: .2em;
-    }
-    .invocation-deco { color: var(--gold); font-size: .55rem; opacity: .6; }
     .nav-inner {
       max-width: 1200px;
       margin: 0 auto;
@@ -99,7 +83,7 @@
       grid-template-columns: minmax(430px, 48%) 52%;
       grid-template-rows: 1fr auto;
       position: relative;
-      padding-top: 72px;
+      padding-top: 56px;
       background: #ede1ca;
     }
     .hero-left {
@@ -526,7 +510,7 @@
     .js .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 1120px) {
-      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; padding-top: 72px; }
+      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; padding-top: 56px; }
       .hero-left, .hero-right, .hero-countdown { grid-column: 1; }
       .hero-left { grid-row: 1; min-height: auto; padding-top: 3rem; }
       .hero-right { grid-row: 2; height: min(78vw, 560px); }
@@ -576,11 +560,6 @@
 </head>
 <body>
   <nav id="navbar">
-    <div class="nav-invocation">
-      <span class="invocation-deco">✦</span>
-      <span class="invocation-text">Jai Sriman Narayana</span>
-      <span class="invocation-deco">✦</span>
-    </div>
     <div class="nav-inner">
       <div class="nav-logo">Aadhya &amp; Thanvi's Ranga Pravesham</div>
       <a class="nav-rsvp" href="#rsvp">RSVP</a>
@@ -595,7 +574,7 @@
         <p class="invite-line invite-guru">Guru Sheela Chandrashekar</p>
         <p class="invite-line invite-guru-sub">(Founder/Director of Rathi School of Dance)</p>
         <p class="invite-line invite-and">and</p>
-        <p class="invite-line invite-families">The Sure, Pasam &amp; Nagineni families</p>
+        <p class="invite-line invite-families">The Sure, Pasam, Nagineni &amp; Pachava families</p>
         <p class="invite-line invite-cordially">Cordially invite you to the</p>
         <p class="invite-line invite-event">Ranga Pravesha</p>
         <p class="invite-line invite-of">of</p>
@@ -739,11 +718,6 @@
               </div>
             </div>
 
-            <div class="form-group attending-only">
-              <label for="rsvpDietary">Dietary Restrictions / Allergies <span class="opt">(optional)</span></label>
-              <input type="text" id="rsvpDietary" name="dietary" placeholder="e.g. vegetarian, nut allergy..." />
-            </div>
-
             <div class="form-group">
               <label for="rsvpMessage">Message for Aadhya &amp; Thanvi <span class="opt">(optional)</span></label>
               <textarea id="rsvpMessage" name="message" rows="3" placeholder="Share your wishes..."></textarea>
@@ -832,7 +806,6 @@
         status: status ? status.value : "",
         adults: document.getElementById("rsvpAdults").value,
         children: document.getElementById("rsvpChildren").value,
-        dietary: document.getElementById("rsvpDietary").value.trim(),
         message: document.getElementById("rsvpMessage").value.trim(),
         date: new Date().toISOString()
       };
