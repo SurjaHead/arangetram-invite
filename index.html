@@ -265,6 +265,7 @@
       position: relative;
       overflow: hidden;
       background: #ede1ca;
+      isolation: isolate;
     }
     .hero-right img {
       position: absolute;
@@ -274,7 +275,8 @@
       object-fit: cover;
       object-position: center center;
       opacity: 0;
-      transition: opacity .7s ease;
+      transition: opacity 1.4s ease-in-out;
+      will-change: opacity;
     }
     .hero-right img.active { opacity: 1; }
     .hero-right-overlay {
@@ -534,17 +536,16 @@
       .invite-name span { display: block; }
       .hero-left { padding-inline: 1.2rem; }
       .hero-right {
-        height: auto;
+        height: clamp(420px, 126vw, 620px);
         background: linear-gradient(180deg, #f7f1e8, #ede1ca);
       }
       .hero-right img {
-        position: static;
-        display: none;
+        position: absolute;
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: contain;
       }
-      .hero-right img.active { display: block; opacity: 1; }
+      .hero-right img.active { opacity: 1; }
       .hero-right-overlay { display: none; }
       .countdown-units { width: 100%; justify-content: center; }
       .cu { min-width: 2.9rem; }
