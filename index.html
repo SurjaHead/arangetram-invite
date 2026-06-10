@@ -125,14 +125,16 @@
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: clamp(.85rem, 1.3vw, .98rem);
       font-style: italic;
-      color: #6b4c38;
+      color: #4e3124;
+      font-weight: 500;
       margin-bottom: .5rem;
     }
     .invite-and {
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: clamp(.9rem, 1.4vw, 1.05rem);
       font-style: italic;
-      color: #9a7a60;
+      color: #5a3828;
+      font-weight: 600;
       margin: .2rem 0;
     }
     .invite-families {
@@ -145,7 +147,8 @@
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: clamp(.95rem, 1.5vw, 1.1rem);
       font-style: italic;
-      color: #6b4c38;
+      color: #4e3124;
+      font-weight: 500;
       margin: .45rem 0 .15rem;
     }
     .invite-event {
@@ -164,7 +167,8 @@
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: 1rem;
       font-style: italic;
-      color: #9a7a60;
+      color: #5a3828;
+      font-weight: 600;
       margin: .1rem 0;
     }
     .invite-name {
@@ -178,7 +182,8 @@
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: clamp(.78rem, 1.2vw, .9rem);
       font-style: italic;
-      color: #7a5c45;
+      color: #4e3124;
+      font-weight: 500;
     }
     .invite-divider {
       display: flex;
@@ -214,6 +219,7 @@
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: clamp(.88rem, 1.35vw, 1rem);
       color: #3a1a0e;
+      font-weight: 500;
       margin: 0;
       line-height: 1.7;
     }
@@ -222,6 +228,7 @@
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: clamp(.88rem, 1.35vw, 1rem);
       color: #3a1a0e;
+      font-weight: 500;
       line-height: 1.75;
     }
     .hero-actions { display: flex; justify-content: center; gap: .8rem; flex-wrap: wrap; }
@@ -313,49 +320,53 @@
     .cu-sep { font-size: 1.6rem; color: var(--gold); opacity: .4; padding-bottom: .35rem; }
 
     .shloka-banner {
-      background: linear-gradient(180deg, #1a0520 0%, var(--maroon-dk) 35%, var(--maroon-dk) 65%, #1a0520 100%);
-      padding: 3.5rem 2rem;
+      width: min(100%, 560px);
+      margin: 0 0 1.15rem;
+      padding: .85rem 0 .95rem;
       text-align: center;
-      border-top: 1px solid rgba(201, 168, 76, .3);
-      border-bottom: 1px solid rgba(201, 168, 76, .3);
+      border-top: 1px solid rgba(154, 115, 48, .28);
+      border-bottom: 1px solid rgba(154, 115, 48, .28);
     }
-    .shloka-inner { max-width: 720px; margin: 0 auto; }
-    .shloka-header, .shloka-footer { display: flex; align-items: center; gap: 1.25rem; }
-    .shloka-header { margin-bottom: 1.75rem; }
-    .shloka-footer { margin-top: 1.5rem; }
+    .shloka-inner { max-width: 560px; margin: 0 auto; }
+    .shloka-header, .shloka-footer { display: flex; align-items: center; gap: .9rem; }
+    .shloka-header { margin-bottom: .45rem; }
+    .shloka-footer { margin-top: .6rem; }
     .shloka-rule { flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(201, 168, 76, .5)); }
     .shloka-header .shloka-rule:last-child { background: linear-gradient(to left, transparent, rgba(201, 168, 76, .5)); }
     .shloka-footer .shloka-rule:first-child { background: linear-gradient(to right, transparent, rgba(201, 168, 76, .5)); }
     .shloka-footer .shloka-rule:last-child { background: linear-gradient(to left, transparent, rgba(201, 168, 76, .5)); }
     .shloka-om {
       font-family: "Noto Serif Devanagari", serif;
-      font-size: 2rem;
-      color: var(--gold-lt);
-      opacity: .85;
+      font-size: 1.25rem;
+      color: var(--gold-dk);
       flex-shrink: 0;
       line-height: 1;
     }
     .shloka-devo {
       font-family: "Noto Serif Devanagari", serif;
-      font-size: clamp(1.15rem, 2.2vw, 1.55rem);
-      color: var(--gold-lt);
-      line-height: 1.9;
+      font-size: clamp(.82rem, 1.15vw, .98rem);
+      color: var(--maroon-dk);
+      font-weight: 600;
+      line-height: 1.55;
       letter-spacing: .01em;
     }
     .shloka-roman {
       font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(.88rem, 1.6vw, 1.05rem);
+      font-size: clamp(.74rem, 1.05vw, .88rem);
       font-style: italic;
-      color: rgba(255, 255, 255, .5);
-      line-height: 1.65;
+      color: #4e3124;
+      font-weight: 500;
+      line-height: 1.45;
     }
     .shloka-meaning {
       font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(.8rem, 1.3vw, .9rem);
-      color: rgba(255, 255, 255, .35);
+      font-size: clamp(.72rem, 1vw, .82rem);
+      color: #4e3124;
+      font-weight: 500;
       font-style: italic;
       letter-spacing: .03em;
-      margin-top: 1.1rem;
+      line-height: 1.35;
+      margin-top: .45rem;
     }
     .shloka-diamond { color: var(--gold); font-size: .55rem; opacity: .6; flex-shrink: 0; }
 
@@ -569,6 +580,30 @@
 
   <section id="home" class="hero">
     <div class="hero-left">
+      <div class="shloka-banner reveal">
+        <div class="shloka-inner">
+          <div class="shloka-header" aria-hidden="true">
+            <span class="shloka-rule"></span>
+            <span class="shloka-om" lang="sa">ॐ</span>
+            <span class="shloka-rule"></span>
+          </div>
+          <div class="shloka-verse">
+            <p class="shloka-devo" lang="sa">आङ्गिकं भुवनं यस्य वाचिकं सर्ववाङ्मयम्</p>
+            <p class="shloka-devo" lang="sa">आहार्यं चन्द्रतारादि तं नुमः सात्त्विकं शिवम्</p>
+          </div>
+          <div class="shloka-transliteration">
+            <p class="shloka-roman">Āṅgikaṃ bhuvanaṃ yasya vācikaṃ sarvavāṅmayam</p>
+            <p class="shloka-roman">Āhāryaṃ candratārādi taṃ numaḥ sāttvikaṃ Śivam</p>
+          </div>
+          <p class="shloka-meaning">He whose body is the universe · whose speech is all language · whose adornment is the moon and stars — to that pure Shiva, we bow.</p>
+          <div class="shloka-footer" aria-hidden="true">
+            <span class="shloka-rule"></span>
+            <span class="shloka-diamond">◆</span>
+            <span class="shloka-rule"></span>
+          </div>
+        </div>
+      </div>
+
       <div class="invite-block reveal">
         <p class="invite-top-orn" aria-hidden="true">◆ &nbsp; ◆ &nbsp; ◆</p>
         <p class="invite-line invite-org">Rathi Arts Foundation</p>
@@ -639,30 +674,6 @@
       </div>
     </div>
   </section>
-
-  <div class="shloka-banner">
-    <div class="shloka-inner">
-      <div class="shloka-header" aria-hidden="true">
-        <span class="shloka-rule"></span>
-        <span class="shloka-om" lang="sa">ॐ</span>
-        <span class="shloka-rule"></span>
-      </div>
-      <div class="shloka-verse">
-        <p class="shloka-devo" lang="sa">आङ्गिकं भुवनं यस्य वाचिकं सर्ववाङ्मयम्</p>
-        <p class="shloka-devo" lang="sa">आहार्यं चन्द्रतारादि तं नुमः सात्त्विकं शिवम्</p>
-      </div>
-      <div class="shloka-transliteration">
-        <p class="shloka-roman">Āṅgikaṃ bhuvanaṃ yasya vācikaṃ sarvavāṅmayam</p>
-        <p class="shloka-roman">Āhāryaṃ candratārādi taṃ numaḥ sāttvikaṃ Śivam</p>
-      </div>
-      <p class="shloka-meaning">He whose body is the universe · whose speech is all language · whose adornment is the moon and stars — to that pure Shiva, we bow.</p>
-      <div class="shloka-footer" aria-hidden="true">
-        <span class="shloka-rule"></span>
-        <span class="shloka-diamond">◆</span>
-        <span class="shloka-rule"></span>
-      </div>
-    </div>
-  </div>
 
   <main>
     <section id="rsvp" class="section rsvp-section">
