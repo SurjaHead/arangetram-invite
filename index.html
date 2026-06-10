@@ -232,6 +232,24 @@
       font-weight: 500;
       line-height: 1.75;
     }
+    .invite-contact {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .45rem .85rem;
+      flex-wrap: wrap;
+      margin-top: .25rem;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.02rem, 1.5vw, 1.16rem);
+      color: #3a1a0e;
+      font-weight: 500;
+      line-height: 1.55;
+    }
+    .invite-contact-title {
+      flex-basis: 100%;
+      font-weight: 600;
+    }
+    .invite-contact span { white-space: nowrap; }
     .hero-actions { display: flex; justify-content: center; gap: .8rem; flex-wrap: wrap; }
     .btn {
       display: inline-flex;
@@ -643,9 +661,11 @@
       <div class="invite-footer reveal">
         <p class="invite-line invite-footer-line">Ages 5 and above are welcome</p>
         <p class="invite-line invite-footer-line">Kindly RSVP by June 25<sup>th</sup>, 2026</p>
-        <p class="invite-line invite-footer-line">Contact:</p>
-        <p class="invite-line invite-footer-line">Rammohan: <a href="tel:+16135014918">613-501-4918</a></p>
-        <p class="invite-line invite-footer-line">Ramana: <a href="tel:+16137936116">613-793-6116</a></p>
+        <div class="invite-contact">
+          <span class="invite-contact-title">Contact:</span>
+          <span>Rammohan: <a href="tel:+16135014918">613-501-4918</a></span>
+          <span>Ramana: <a href="tel:+16137936116">613-793-6116</a></span>
+        </div>
       </div>
 
       <div class="hero-actions reveal">
