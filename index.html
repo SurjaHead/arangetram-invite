@@ -322,7 +322,7 @@
 
     .shloka-banner {
       width: calc(100% + (2 * var(--hero-pad-x)));
-      margin: 0 calc(-1 * var(--hero-pad-x)) 1.75rem;
+      margin: 0 calc(-1 * var(--hero-pad-x)) 0;
       padding: clamp(1.8rem, 3vw, 3.5rem) var(--hero-pad-x);
       background: linear-gradient(180deg, #1a0520 0%, var(--maroon-dk) 35%, var(--maroon-dk) 65%, #1a0520 100%);
       text-align: center;
@@ -409,11 +409,11 @@
     .title-ornament .orn-dot { flex: 0; width: auto; height: auto; background: transparent; color: var(--gold); font-size: .65rem; }
 
     .rsvp-section {
-      min-height: 100vh;
       background:
         radial-gradient(120% 90% at 50% 0%, rgba(232, 201, 110, .13), transparent 55%),
         linear-gradient(180deg, var(--maroon-mid), var(--maroon-dk));
       color: var(--cream);
+      padding-top: clamp(1rem, 2vw, 1.5rem);
     }
     .rsvp-wrapper { max-width: 760px; margin: 0 auto; }
     .rsvp-form {
@@ -676,7 +676,7 @@
 
   <main>
     <section id="rsvp" class="section rsvp-section">
-      <div class="container reveal">
+      <div class="container">
         <p class="section-eyebrow light">Join Us</p>
         <h2 class="section-title light">RSVP</h2>
         <p class="section-subtitle">Please let us know if you'll be joining us to celebrate this special milestone. As seating is limited, we kindly ask that you RSVP to secure your place.</p>
