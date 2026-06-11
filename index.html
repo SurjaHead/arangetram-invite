@@ -90,7 +90,7 @@
       min-height: 100vh;
       display: grid;
       grid-template-columns: minmax(430px, 48%) 52%;
-      grid-template-rows: auto auto auto;
+      grid-template-rows: auto auto;
       position: relative;
       padding-top: 54px;
       background: #ede1ca;
@@ -98,7 +98,7 @@
     .hero-left {
       --hero-pad-x: clamp(1.5rem, 4vw, 4rem);
       grid-column: 1;
-      grid-row: 2;
+      grid-row: 1;
       background: linear-gradient(160deg, #fdf9f3 0%, #f5e9d6 60%, #ede1ca 100%);
       padding: 0 var(--hero-pad-x) clamp(2.4rem, 4vw, 4rem);
       display: flex;
@@ -301,7 +301,7 @@
 
     .hero-right {
       grid-column: 2;
-      grid-row: 2;
+      grid-row: 1;
       position: relative;
       overflow: hidden;
       background: #ede1ca;
@@ -327,7 +327,7 @@
     }
     .hero-countdown {
       grid-column: 1 / 3;
-      grid-row: 3;
+      grid-row: 2;
       background: rgba(20, 4, 10, .88);
       border-top: 1px solid rgba(201, 168, 76, .2);
       backdrop-filter: blur(10px);
@@ -351,59 +351,6 @@
     .cu span { font-family: "Cinzel", Georgia, serif; font-size: 1.8rem; color: var(--gold); line-height: 1; }
     .cu label { font-size: .6rem; color: rgba(253, 246, 236, .55); letter-spacing: .12em; text-transform: uppercase; }
     .cu-sep { font-size: 1.6rem; color: var(--gold); opacity: .4; padding-bottom: .35rem; }
-
-    .shloka-banner {
-      grid-column: 1 / -1;
-      grid-row: 1;
-      width: 100%;
-      margin: 0;
-      padding: clamp(1.8rem, 3vw, 3.5rem) clamp(1.5rem, 6vw, 5rem);
-      background: linear-gradient(180deg, #1a0520 0%, var(--maroon-dk) 35%, var(--maroon-dk) 65%, #1a0520 100%);
-      text-align: center;
-      border-top: 1px solid rgba(201, 168, 76, .3);
-      border-bottom: 1px solid rgba(201, 168, 76, .3);
-    }
-    .shloka-inner { max-width: 1080px; margin: 0 auto; }
-    .shloka-header, .shloka-footer { display: flex; align-items: center; gap: 1.25rem; }
-    .shloka-header { margin-bottom: 1.75rem; }
-    .shloka-footer { margin-top: 1.5rem; }
-    .shloka-rule { flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(201, 168, 76, .5)); }
-    .shloka-header .shloka-rule:last-child { background: linear-gradient(to left, transparent, rgba(201, 168, 76, .5)); }
-    .shloka-footer .shloka-rule:first-child { background: linear-gradient(to right, transparent, rgba(201, 168, 76, .5)); }
-    .shloka-footer .shloka-rule:last-child { background: linear-gradient(to left, transparent, rgba(201, 168, 76, .5)); }
-    .shloka-om {
-      font-family: "Noto Serif Devanagari", serif;
-      font-size: 2rem;
-      color: var(--gold-lt);
-      opacity: .85;
-      flex-shrink: 0;
-      line-height: 1;
-    }
-    .shloka-devo {
-      font-family: "Noto Serif Devanagari", serif;
-      font-size: clamp(1.1rem, 1.8vw, 1.65rem);
-      color: #f3dd91;
-      line-height: 1.9;
-      letter-spacing: .01em;
-    }
-    .shloka-roman {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(.95rem, 1.45vw, 1.18rem);
-      font-style: italic;
-      color: rgba(255, 255, 255, .72);
-      font-weight: 500;
-      line-height: 1.65;
-    }
-    .shloka-meaning {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(.9rem, 1.2vw, 1rem);
-      color: rgba(255, 255, 255, .62);
-      font-weight: 500;
-      font-style: italic;
-      letter-spacing: .03em;
-      margin-top: 1.1rem;
-    }
-    .shloka-diamond { color: var(--gold); font-size: .55rem; opacity: .6; flex-shrink: 0; }
 
     .section { padding: clamp(4.3rem, 7vw, 6.5rem) 0; }
     .section-eyebrow {
@@ -492,7 +439,7 @@
     input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 168, 76, .16); background: #fffaf3; }
     .status-pills {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: .45rem;
     }
     .spill input { position: absolute; opacity: 0; pointer-events: none; width: 1px; height: 1px; }
@@ -558,13 +505,12 @@
     .js .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 1120px) {
-      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto; padding-top: 54px; }
-      .shloka-banner, .hero-left, .hero-right, .hero-countdown { grid-column: 1; }
-      .shloka-banner { grid-row: 1; }
-      .hero-left { grid-row: 2; min-height: auto; padding-top: 0; }
-      .hero-right { grid-row: 3; height: min(78vw, 560px); }
+      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; padding-top: 54px; }
+      .hero-left, .hero-right, .hero-countdown { grid-column: 1; }
+      .hero-left { grid-row: 1; min-height: auto; padding-top: 0; }
+      .hero-right { grid-row: 2; height: min(78vw, 560px); }
       .hero-right-overlay { background: linear-gradient(to bottom, transparent 65%, rgba(237, 225, 202, .5) 85%, #ede1ca 100%); }
-      .hero-countdown { grid-row: 4; }
+      .hero-countdown { grid-row: 3; }
     }
     @media (max-width: 720px) {
       .nav-inner { justify-content: center; padding: .72rem 1rem; }
@@ -616,30 +562,6 @@
   </nav>
 
   <section id="home" class="hero">
-    <div class="shloka-banner reveal">
-      <div class="shloka-inner">
-        <div class="shloka-header" aria-hidden="true">
-          <span class="shloka-rule"></span>
-          <span class="shloka-om" lang="sa">ॐ</span>
-          <span class="shloka-rule"></span>
-        </div>
-        <div class="shloka-verse">
-          <p class="shloka-devo" lang="sa">आङ्गिकं भुवनं यस्य वाचिकं सर्ववाङ्मयम्</p>
-          <p class="shloka-devo" lang="sa">आहार्यं चन्द्रतारादि तं नुमः सात्त्विकं शिवम्</p>
-        </div>
-        <div class="shloka-transliteration">
-          <p class="shloka-roman">Āṅgikaṃ bhuvanaṃ yasya vācikaṃ sarvavāṅmayam</p>
-          <p class="shloka-roman">Āhāryaṃ candratārādi taṃ numaḥ sāttvikaṃ Śivam</p>
-        </div>
-        <p class="shloka-meaning">He whose body is the universe · whose speech is all language · whose adornment is the moon and stars — to that pure Shiva, we bow.</p>
-        <div class="shloka-footer" aria-hidden="true">
-          <span class="shloka-rule"></span>
-          <span class="shloka-diamond">◆</span>
-          <span class="shloka-rule"></span>
-        </div>
-      </div>
-    </div>
-
     <div class="hero-left">
       <div class="invite-block reveal">
         <p class="invite-top-orn" aria-hidden="true">◆ &nbsp; ◆ &nbsp; ◆</p>
@@ -745,7 +667,6 @@
                 <label>Attendance <span class="req">*</span></label>
                 <div class="status-pills">
                   <label class="spill"><input type="radio" name="status" value="yes" required /><span class="pill">✓ Attending!</span></label>
-                  <label class="spill"><input type="radio" name="status" value="maybe" /><span class="pill">? Maybe</span></label>
                   <label class="spill"><input type="radio" name="status" value="no" /><span class="pill">✕ Can't make it</span></label>
                 </div>
               </div>
