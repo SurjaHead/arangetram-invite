@@ -679,9 +679,9 @@
     </div>
 
     <div class="hero-right" aria-label="Aadhya and Thanvi performing Bharatanatyam">
-      <img src="images/aadhya-tanvi/red-white-seated.jpg" alt="Aadhya and Thanvi in Bharatanatyam pose" class="active" />
+      <img src="images/aadhya-tanvi/red-white-seated.jpg" alt="Aadhya and Thanvi in Bharatanatyam pose" class="active" data-laptop-gallery="true" />
       <img src="images/aadhya-tanvi/red-white-facing.jpg" alt="Aadhya and Thanvi in red and white costumes" />
-      <img src="images/aadhya-tanvi/blue-pink-walk.jpg" alt="Aadhya and Thanvi in blue and pink costumes" />
+      <img src="images/aadhya-tanvi/blue-pink-walk.jpg" alt="Aadhya and Thanvi in blue and pink costumes" data-laptop-gallery="true" />
       <img src="images/aadhya-tanvi/pink-yellow-story.jpg" alt="Aadhya and Thanvi in pink and yellow costumes" />
       <img src="images/aadhya-tanvi/yellow-green-duet.jpg" alt="Aadhya and Thanvi in yellow and green costumes" />
       <img src="images/aadhya-tanvi/red-blue-hands.jpg" alt="Aadhya and Thanvi in red and blue costumes" />
@@ -786,12 +786,32 @@
     });
 
     const heroImgs = Array.from(document.querySelectorAll(".hero-right img"));
+    const laptopGalleryQuery = window.matchMedia("(min-width: 1121px)");
     let heroIndex = 0;
-    setInterval(() => {
-      heroImgs[heroIndex].classList.remove("active");
-      heroIndex = (heroIndex + 1) % heroImgs.length;
-      heroImgs[heroIndex].classList.add("active");
-    }, 8000);
+
+    function currentHeroSlides() {
+      const laptopSlides = heroImgs.filter(img => img.dataset.laptopGallery === "true");
+      return laptopGalleryQuery.matches && laptopSlides.length ? laptopSlides : heroImgs;
+    }
+
+    function showHeroSlide() {
+      const slides = currentHeroSlides();
+      heroIndex %= slides.length;
+      heroImgs.forEach(img => img.classList.remove("active"));
+      slides[heroIndex].classList.add("active");
+    }
+
+    if (heroImgs.length) {
+      showHeroSlide();
+      setInterval(() => {
+        heroIndex += 1;
+        showHeroSlide();
+      }, 8000);
+      laptopGalleryQuery.addEventListener("change", () => {
+        heroIndex = 0;
+        showHeroSlide();
+      });
+    }
 
     function updateCountdown() {
       const target = new Date("2026-07-25T15:00:00-04:00").getTime();
