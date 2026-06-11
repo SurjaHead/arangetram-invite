@@ -273,6 +273,21 @@
       background: linear-gradient(160deg, #f3dd91, var(--gold) 56%, #a7852c);
       box-shadow: 0 10px 25px rgba(154, 115, 48, .28);
     }
+    .btn-highlight {
+      min-width: 178px;
+      padding: .95rem 1.9rem;
+      font-weight: 700;
+      box-shadow:
+        0 14px 34px rgba(154, 115, 48, .36),
+        0 0 0 4px rgba(243, 221, 145, .36),
+        inset 0 0 0 1px rgba(255, 255, 255, .5);
+    }
+    .btn-highlight:hover {
+      box-shadow:
+        0 18px 40px rgba(154, 115, 48, .44),
+        0 0 0 5px rgba(243, 221, 145, .42),
+        inset 0 0 0 1px rgba(255, 255, 255, .58);
+    }
     .btn-outline-dark {
       background: transparent;
       color: var(--maroon-dk);
@@ -662,15 +677,14 @@
         <p class="invite-line invite-footer-line">Ages 5 and above are welcome</p>
         <p class="invite-line invite-footer-line">Kindly RSVP by June 25<sup>th</sup>, 2026</p>
         <div class="invite-contact">
-          <span class="invite-contact-title">Contact:</span>
+          <span class="invite-contact-title">Please contact if you have any concerns:</span>
           <span>Rammohan: <a href="tel:+16135014918">613-501-4918</a></span>
           <span>Ramana: <a href="tel:+16137936116">613-793-6116</a></span>
         </div>
       </div>
 
       <div class="hero-actions reveal">
-        <a href="#rsvp" class="btn btn-gold">RSVP Now</a>
-        <a href="tel:+16135014918" class="btn btn-outline-dark">Call Contact</a>
+        <a href="#rsvp" class="btn btn-gold btn-highlight">RSVP Now</a>
       </div>
     </div>
 
