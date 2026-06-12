@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Aadhya and Thanvi Ranga Pravesham//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:aadhya-thanvi-ranga-pravesham-20260725@aadhyathanviarangetram.com
+DTSTAMP:20260612T000000Z
+DTSTART:20260725T190000Z
+DTEND:20260725T220000Z
+SUMMARY:Aadhya & Thanvi's Bharatanatyam Ranga Pravesham
+LOCATION:Shenkman Arts Centre\, 245 Centrum Blvd.\, Ottawa\, ON K1E 0A1
+DESCRIPTION:Doors open at 2:30 PM. You're invited to Aadhya Sure and Thanvi Vashishta Nagineni's Bharatanatyam Ranga Pravesham.
+URL:https://aadhyathanviarangetram.com/
+END:VEVENT
+END:VCALENDAR

@@ -325,6 +325,17 @@
         inset 0 0 0 1px rgba(255, 255, 255, .58);
     }
     .btn-full { width: 100%; }
+    .btn-outline {
+      color: var(--maroon-dk);
+      background: rgba(255, 255, 255, .72);
+      border: 1px solid rgba(90, 21, 37, .22);
+      box-shadow: none;
+    }
+    .btn-outline:hover {
+      color: #2a1309;
+      background: rgba(243, 221, 145, .45);
+      border-color: rgba(154, 115, 48, .5);
+    }
 
     .hero-right {
       grid-column: 2;
@@ -527,6 +538,14 @@
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: 1.15rem;
     }
+    .calendar-actions {
+      display: none;
+      justify-content: center;
+      gap: .75rem;
+      flex-wrap: wrap;
+      margin-top: 1.45rem;
+    }
+    .calendar-actions.show { display: flex; }
 
     .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
     .js .reveal.is-visible { opacity: 1; transform: translateY(0); }
@@ -733,6 +752,10 @@
           <div class="rsvp-success" id="rsvpSuccess">
             <h3>Thank you!</h3>
             <p id="successMsg">Your RSVP has been saved on this device.</p>
+            <div class="calendar-actions" id="calendarActions">
+              <a class="btn btn-gold" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Aadhya%20%26%20Thanvi%27s%20Bharatanatyam%20Ranga%20Pravesham&amp;dates=20260725T150000%2F20260725T180000&amp;ctz=America%2FToronto&amp;details=Doors%20open%20at%202%3A30%20PM.%20You%27re%20invited%20to%20Aadhya%20Sure%20and%20Thanvi%20Vashishta%20Nagineni%27s%20Bharatanatyam%20Ranga%20Pravesham.&amp;location=Shenkman%20Arts%20Centre%2C%20245%20Centrum%20Blvd.%2C%20Ottawa%2C%20ON%20K1E%200A1" target="_blank" rel="noopener">Add to Google Calendar</a>
+              <a class="btn btn-outline" href="aadhya-thanvi-ranga-pravesham.ics" download>Download Calendar Invite</a>
+            </div>
           </div>
         </div>
       </div>
@@ -813,6 +836,7 @@
     }
 
     const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbw2_Dk8DBm4d1Qtuk5sNQxJQavnEUObcjGzDvNDi08yTB-nntFNYvG22fDipdB9X3VvAg/exec";
+    const calendarActions = document.getElementById("calendarActions");
 
     function saveLocalBackup(data) {
       const records = JSON.parse(localStorage.getItem("aadhyaThanviRsvps") || "[]");
@@ -860,7 +884,10 @@
         });
         saveLocalBackup(data);
         document.getElementById("rsvpForm").style.display = "none";
-        document.getElementById("successMsg").textContent = data.status === "yes" ? "We are delighted you can join us." : "Thank you for letting us know.";
+        document.getElementById("successMsg").textContent = data.status === "yes"
+          ? "We are delighted you can join us. A confirmation email will be sent shortly."
+          : "Thank you for letting us know. A confirmation email will be sent shortly.";
+        calendarActions.classList.toggle("show", data.status === "yes");
         document.getElementById("rsvpSuccess").style.display = "block";
       } catch (error) {
         console.error(error);
