@@ -47,7 +47,7 @@ const HEADER_ALIASES = {
   "Status": ["Attendance", "RSVP"],
   "Adults": ["Adult Count", "Number of Adults"],
   "Children": ["Child Count", "Kids", "Number of Children"],
-  "Message": ["Message for Aadhya & Thanvi", "Notes", "Wishes"],
+  "Message": ["Message for Aadhya & Thanvi", "Comment", "Comments", "Note", "Notes", "Wish", "Wishes"],
   "Submitted At": ["Date", "Submitted", "Submission Date"]
 };
 
@@ -59,8 +59,8 @@ function doGet(e) {
   }
 
   return params.callback
-    ? jsonp_(params.callback, { ok: true, message: "RSVP endpoint is running." })
-    : json_({ ok: true, message: "RSVP endpoint is running." });
+    ? jsonp_(params.callback, healthPayload_())
+    : json_(healthPayload_());
 }
 
 function doPost(e) {
@@ -201,6 +201,14 @@ function getPublicMessages_(limit) {
     .filter(Boolean)
     .sort((a, b) => (Date.parse(b.submittedAt) || 0) - (Date.parse(a.submittedAt) || 0))
     .slice(0, limit);
+}
+
+function healthPayload_() {
+  return {
+    ok: true,
+    message: "RSVP endpoint is running.",
+    version: "comments-2026-06-12"
+  };
 }
 
 function parseRequest_(e) {

@@ -546,15 +546,20 @@
       margin-top: 1.45rem;
     }
     .calendar-actions.show { display: flex; }
+    .wishes-section {
+      background:
+        radial-gradient(90% 70% at 50% 0%, rgba(232, 201, 110, .18), transparent 62%),
+        linear-gradient(180deg, #fdf6ec 0%, #f5e9d6 100%);
+      color: var(--text);
+    }
+    .wishes-section .section-subtitle { color: var(--text-lt); }
+    .wishes-section .title-ornament span { background: rgba(154, 115, 48, .34); }
     .guest-messages {
       max-width: 980px;
-      margin: clamp(3rem, 6vw, 4.5rem) auto 0;
+      margin: 0 auto;
       text-align: center;
     }
-    .guest-messages .section-subtitle {
-      color: rgba(253, 246, 236, .72);
-      margin-bottom: 0;
-    }
+    .guest-messages .section-subtitle { margin-bottom: 0; }
     .guest-messages .title-ornament { margin-bottom: 0; }
     .message-grid {
       display: grid;
@@ -572,8 +577,8 @@
       padding: 1.35rem;
       border: 1px solid rgba(232, 201, 110, .34);
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, .94);
-      box-shadow: 0 16px 34px rgba(32, 8, 14, .2);
+      background: rgba(255, 250, 243, .96);
+      box-shadow: 0 16px 34px rgba(44, 26, 14, .1);
       color: var(--text);
     }
     .message-card p {
@@ -603,7 +608,7 @@
     }
     .message-status {
       margin-top: 1.2rem;
-      color: rgba(253, 246, 236, .66);
+      color: #7a5c45;
       font-family: "Cormorant Garamond", Georgia, serif;
       font-size: 1.1rem;
       font-style: italic;
@@ -656,7 +661,7 @@
       .cu { min-width: 2.9rem; }
       .cu span { font-size: 1.35rem; }
       .status-pills { grid-template-columns: 1fr; }
-      .guest-messages { margin-top: 3rem; }
+      .guest-messages { margin-top: 0; }
       .message-grid { grid-template-columns: 1fr; gap: .85rem; }
       .message-card { min-height: 0; padding: 1.15rem; }
       .message-card footer { align-items: flex-start; flex-direction: column; }
@@ -826,14 +831,18 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
+    <section id="wishes" class="section wishes-section">
+      <div class="container">
         <div class="guest-messages reveal" id="guestMessages">
-          <p class="section-eyebrow light">From Our Guests</p>
-          <h2 class="section-title light">Messages for Aadhya &amp; Thanvi</h2>
-          <p class="section-subtitle">Kind words shared by family and friends as they RSVP.</p>
+          <p class="section-eyebrow">From Our Guests</p>
+          <h2 class="section-title">Wishes for Aadhya and Thanvi</h2>
+          <p class="section-subtitle">Kind words shared by those who love and celebrate Aadhya and Thanvi.</p>
           <div class="title-ornament"><span></span><span class="orn-dot">◆</span><span></span></div>
           <div class="message-grid" id="guestMessagesGrid"></div>
-          <p class="message-status" id="guestMessagesStatus">Loading messages...</p>
+          <p class="message-status" id="guestMessagesStatus">Loading wishes...</p>
         </div>
       </div>
     </section>
@@ -928,7 +937,7 @@
       const visibleMessages = (messages || []).filter(item => item && item.message);
 
       if (!visibleMessages.length) {
-        guestMessagesStatus.textContent = "Messages will appear here as guests RSVP.";
+        guestMessagesStatus.textContent = "Wishes will appear here as guests RSVP.";
         return;
       }
 
@@ -963,14 +972,20 @@
       const callbackName = "aadhyaThanviMessages_" + Date.now().toString(36) + Math.random().toString(36).slice(2);
       const script = document.createElement("script");
       const url = new URL(RSVP_ENDPOINT);
+      const fallbackTimer = window.setTimeout(() => {
+        if (!window[callbackName]) return;
+        guestMessagesStatus.textContent = "Wishes will appear here as guests RSVP.";
+        cleanup();
+      }, 7000);
 
-      guestMessagesStatus.textContent = "Loading messages...";
+      guestMessagesStatus.textContent = "Loading wishes...";
       url.searchParams.set("action", "comments");
       url.searchParams.set("limit", "24");
       url.searchParams.set("callback", callbackName);
       url.searchParams.set("v", Date.now().toString());
 
       function cleanup() {
+        window.clearTimeout(fallbackTimer);
         delete window[callbackName];
         script.remove();
       }
@@ -981,7 +996,7 @@
       };
 
       script.onerror = () => {
-        guestMessagesStatus.textContent = "Messages will appear here as guests RSVP.";
+        guestMessagesStatus.textContent = "Wishes will appear here as guests RSVP.";
         cleanup();
       };
 
