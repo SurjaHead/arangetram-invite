@@ -61,6 +61,17 @@
       transition: box-shadow var(--tr);
     }
     #navbar.scrolled { box-shadow: 0 2px 20px rgba(0, 0, 0, .5); }
+    .nav-blessing {
+      padding: .22rem 1rem .18rem;
+      border-bottom: 1px solid rgba(201, 168, 76, .16);
+      color: rgba(232, 201, 110, .88);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: .62rem;
+      letter-spacing: .16em;
+      line-height: 1.2;
+      text-align: center;
+      white-space: nowrap;
+    }
     .nav-inner {
       max-width: 1200px;
       margin: 0 auto;
@@ -95,7 +106,7 @@
       grid-template-columns: minmax(430px, 48%) 52%;
       grid-template-rows: auto auto;
       position: relative;
-      padding-top: 54px;
+      padding-top: 74px;
       background: #ede1ca;
     }
     .hero-left {
@@ -153,6 +164,7 @@
     .invite-families {
       font-family: "Cinzel", Georgia, serif;
       font-size: clamp(.78rem, 1.3vw, .96rem);
+      font-weight: 700;
       color: var(--maroon-dk);
       margin-bottom: .5rem;
     }
@@ -508,7 +520,7 @@
     .js .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 1120px) {
-      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; padding-top: 54px; }
+      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; padding-top: 74px; }
       .hero-left, .hero-right, .hero-countdown { grid-column: 1; }
       .hero-left { grid-row: 1; min-height: auto; padding-top: 0; }
       .hero-right { grid-row: 2; height: min(78vw, 560px); }
@@ -516,10 +528,11 @@
       .hero-countdown { grid-row: 3; }
     }
     @media (max-width: 720px) {
+      .nav-blessing { font-size: .52rem; letter-spacing: .12em; padding: .2rem .75rem .16rem; }
       .nav-inner { justify-content: center; padding: .72rem 1rem; }
       .nav-logo { width: 100%; font-size: .74rem; white-space: normal; line-height: 1.35; text-align: center; }
       .nav-rsvp { display: none; }
-      .hero { padding-top: 39px; }
+      .hero { padding-top: 56px; }
       .invite-details, .form-row { grid-template-columns: 1fr; }
       .invite-details,
       .invite-col-head,
@@ -558,6 +571,7 @@
 </head>
 <body>
   <nav id="navbar">
+    <div class="nav-blessing">Om Sri Gurubhyo Namah</div>
     <div class="nav-inner">
       <div class="nav-logo">Aadhya &amp; Thanvi's Ranga Pravesham</div>
       <a class="nav-rsvp" href="#rsvp">RSVP</a>
