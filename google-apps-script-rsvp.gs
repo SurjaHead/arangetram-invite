@@ -43,9 +43,10 @@ const HEADERS = [
 const HEADER_ALIASES = {
   "Name": ["Full Name"],
   "Email": ["Email Address", "E-mail"],
+  "Phone": ["Phone Number", "Mobile"],
   "Status": ["Attendance", "RSVP"],
-  "Adults": ["Adult Count"],
-  "Children": ["Child Count", "Kids"],
+  "Adults": ["Adult Count", "Number of Adults"],
+  "Children": ["Child Count", "Kids", "Number of Children"],
   "Message": ["Message for Aadhya & Thanvi", "Notes", "Wishes"],
   "Submitted At": ["Date", "Submitted", "Submission Date"]
 };
@@ -120,6 +121,44 @@ function sendReminderEmails() {
   });
 }
 
+function dedupeExistingRsvps() {
+  const sheet = getSheet_();
+  const headerMap = ensureHeaders_(sheet);
+  const lastRow = sheet.getLastRow();
+  const lastColumn = sheet.getLastColumn();
+
+  if (!headerMap.Email || lastRow < 3) return "No duplicate RSVP rows found.";
+
+  const values = sheet.getRange(2, 1, lastRow - 1, lastColumn).getValues();
+  const latestByEmail = {};
+
+  values.forEach((row, index) => {
+    const email = String(row[headerMap.Email - 1] || "").trim().toLowerCase();
+    if (!email) return;
+
+    const rowNumber = index + 2;
+    const previous = latestByEmail[email];
+    if (!previous || rowDateValue_(row, headerMap) >= rowDateValue_(previous.row, headerMap)) {
+      latestByEmail[email] = { rowNumber, row };
+    }
+  });
+
+  const rowsToKeep = Object.keys(latestByEmail).reduce((memo, email) => {
+    memo[latestByEmail[email].rowNumber] = true;
+    return memo;
+  }, {});
+  const rowsToDelete = [];
+
+  values.forEach((row, index) => {
+    const rowNumber = index + 2;
+    const email = String(row[headerMap.Email - 1] || "").trim().toLowerCase();
+    if (email && !rowsToKeep[rowNumber]) rowsToDelete.push(rowNumber);
+  });
+
+  rowsToDelete.sort((a, b) => b - a).forEach(rowNumber => sheet.deleteRow(rowNumber));
+  return "Removed " + rowsToDelete.length + " duplicate RSVP row(s).";
+}
+
 function parseRequest_(e) {
   const raw = e && e.postData && e.postData.contents ? e.postData.contents : "{}";
 
@@ -133,6 +172,15 @@ function parseRequest_(e) {
       return memo;
     }, {});
   }
+}
+
+function rowDateValue_(row, headerMap) {
+  const submitted = row[headerMap["Submitted At"] - 1];
+  const timestamp = row[headerMap.Timestamp - 1];
+  const value = submitted || timestamp;
+  const date = value instanceof Date ? value : new Date(value);
+  const time = date.getTime();
+  return isNaN(time) ? 0 : time;
 }
 
 function getSheet_() {
@@ -187,6 +235,9 @@ function canonicalHeader_(header) {
   if (HEADERS.includes(label)) return label;
 
   const lower = label.toLowerCase();
+  const exactCaseInsensitive = HEADERS.find(candidate => candidate.toLowerCase() === lower);
+  if (exactCaseInsensitive) return exactCaseInsensitive;
+
   const canonical = HEADERS.find(candidate =>
     (HEADER_ALIASES[candidate] || []).some(alias => alias.toLowerCase() === lower)
   );
@@ -196,11 +247,14 @@ function canonicalHeader_(header) {
 
 function upsertRsvp_(sheet, headerMap, data) {
   const email = String(data.email || "").trim().toLowerCase();
-  const rowNumber = findRowByEmail_(sheet, headerMap, email) || sheet.getLastRow() + 1;
-  const existing = rowNumber <= sheet.getLastRow()
-    ? sheet.getRange(rowNumber, 1, 1, sheet.getLastColumn()).getValues()[0]
+  const matchingRows = findRowsByEmail_(sheet, headerMap, email);
+  const existing = matchingRows.length
+    ? sheet.getRange(matchingRows[0], 1, 1, sheet.getLastColumn()).getValues()[0]
     : new Array(sheet.getLastColumn()).fill("");
   const now = new Date();
+
+  matchingRows.sort((a, b) => b - a).forEach(rowNumber => sheet.deleteRow(rowNumber));
+  const rowNumber = sheet.getLastRow() + 1;
 
   setCell_(existing, headerMap, "Timestamp", existing[headerMap.Timestamp - 1] || now);
   setCell_(existing, headerMap, "Name", data.name);
@@ -221,14 +275,16 @@ function upsertRsvp_(sheet, headerMap, data) {
   return rowNumber;
 }
 
-function findRowByEmail_(sheet, headerMap, email) {
+function findRowsByEmail_(sheet, headerMap, email) {
   const emailColumn = headerMap.Email;
   const lastRow = sheet.getLastRow();
-  if (!emailColumn || lastRow < 2) return null;
+  if (!emailColumn || lastRow < 2) return [];
 
   const emails = sheet.getRange(2, emailColumn, lastRow - 1, 1).getValues();
-  const foundIndex = emails.findIndex(row => String(row[0] || "").trim().toLowerCase() === email);
-  return foundIndex >= 0 ? foundIndex + 2 : null;
+  return emails.reduce((rows, row, index) => {
+    if (String(row[0] || "").trim().toLowerCase() === email) rows.push(index + 2);
+    return rows;
+  }, []);
 }
 
 function setCell_(row, headerMap, header, value) {
