@@ -191,10 +191,11 @@ function getPublicMessages_(limit) {
       const message = cleanPublicText_(row[headerMap.Message - 1], 700);
       if (!message) return null;
 
+      const englishMessage = translatePublicMessage_(message);
       const submittedAt = publicDate_(row, headerMap);
       return {
         name: publicDisplayName_(row[headerMap.Name - 1]),
-        message,
+        message: englishMessage,
         submittedAt
       };
     })
@@ -207,7 +208,7 @@ function healthPayload_() {
   return {
     ok: true,
     message: "RSVP endpoint is running.",
-    version: "comments-2026-06-12"
+    version: "comments-translated-2026-06-12"
   };
 }
 
@@ -455,6 +456,35 @@ function cleanPublicText_(value, maxLength) {
   const text = String(value || "").replace(/\s+/g, " ").trim();
   if (!text) return "";
   return text.length > maxLength ? text.slice(0, maxLength - 1).trim() + "..." : text;
+}
+
+function translatePublicMessage_(message) {
+  const text = cleanPublicText_(message, 700);
+  if (!text) return "";
+
+  const cache = CacheService.getScriptCache();
+  const cacheKey = "wish_en_" + digestKey_(text);
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const translated = cleanPublicText_(LanguageApp.translate(text, "", "en"), 700);
+    const result = translated || text;
+    cache.put(cacheKey, result, 21600);
+    return result;
+  } catch (error) {
+    console.error("Wish translation failed: " + error.message);
+    return text;
+  }
+}
+
+function digestKey_(text) {
+  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, text, Utilities.Charset.UTF_8)
+    .map(byte => {
+      const value = byte < 0 ? byte + 256 : byte;
+      return ("0" + value.toString(16)).slice(-2);
+    })
+    .join("");
 }
 
 function publicDate_(row, headerMap) {
