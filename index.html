@@ -546,6 +546,69 @@
       margin-top: 1.45rem;
     }
     .calendar-actions.show { display: flex; }
+    .guest-messages {
+      max-width: 980px;
+      margin: clamp(3rem, 6vw, 4.5rem) auto 0;
+      text-align: center;
+    }
+    .guest-messages .section-subtitle {
+      color: rgba(253, 246, 236, .72);
+      margin-bottom: 0;
+    }
+    .guest-messages .title-ornament { margin-bottom: 0; }
+    .message-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+      text-align: left;
+    }
+    .message-card {
+      min-height: 178px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+      padding: 1.35rem;
+      border: 1px solid rgba(232, 201, 110, .34);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 16px 34px rgba(32, 8, 14, .2);
+      color: var(--text);
+    }
+    .message-card p {
+      color: var(--text-lt);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.18rem;
+      line-height: 1.45;
+    }
+    .message-card footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      color: var(--maroon-dk);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .message-card time {
+      color: #9a7330;
+      font-family: "Lato", system-ui, sans-serif;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+    .message-status {
+      margin-top: 1.2rem;
+      color: rgba(253, 246, 236, .66);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      text-align: center;
+    }
 
     .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
     .js .reveal.is-visible { opacity: 1; transform: translateY(0); }
@@ -557,6 +620,7 @@
       .hero-right { grid-row: 2; height: min(78vw, 560px); }
       .hero-right-overlay { background: linear-gradient(to bottom, transparent 65%, rgba(237, 225, 202, .5) 85%, #ede1ca 100%); }
       .hero-countdown { grid-row: 3; }
+      .message-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 720px) {
       .nav-blessing { gap: .35rem; font-size: .6rem; letter-spacing: .12em; padding: .2rem .75rem .16rem; }
@@ -592,6 +656,10 @@
       .cu { min-width: 2.9rem; }
       .cu span { font-size: 1.35rem; }
       .status-pills { grid-template-columns: 1fr; }
+      .guest-messages { margin-top: 3rem; }
+      .message-grid { grid-template-columns: 1fr; gap: .85rem; }
+      .message-card { min-height: 0; padding: 1.15rem; }
+      .message-card footer { align-items: flex-start; flex-direction: column; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -740,7 +808,7 @@
             </div>
 
             <div class="form-group">
-              <label for="rsvpMessage">Message for Aadhya &amp; Thanvi <span class="opt">(optional)</span></label>
+              <label for="rsvpMessage">Message for Aadhya &amp; Thanvi <span class="opt">(optional, public)</span></label>
               <textarea id="rsvpMessage" name="message" rows="3" placeholder="Share your wishes..."></textarea>
             </div>
 
@@ -757,6 +825,15 @@
               <a class="btn btn-outline" href="aadhya-thanvi-ranga-pravesham.ics" download>Download Calendar Invite</a>
             </div>
           </div>
+        </div>
+
+        <div class="guest-messages reveal" id="guestMessages">
+          <p class="section-eyebrow light">From Our Guests</p>
+          <h2 class="section-title light">Messages for Aadhya &amp; Thanvi</h2>
+          <p class="section-subtitle">Kind words shared by family and friends as they RSVP.</p>
+          <div class="title-ornament"><span></span><span class="orn-dot">◆</span><span></span></div>
+          <div class="message-grid" id="guestMessagesGrid"></div>
+          <p class="message-status" id="guestMessagesStatus">Loading messages...</p>
         </div>
       </div>
     </section>
@@ -837,6 +914,82 @@
 
     const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbw2_Dk8DBm4d1Qtuk5sNQxJQavnEUObcjGzDvNDi08yTB-nntFNYvG22fDipdB9X3VvAg/exec";
     const calendarActions = document.getElementById("calendarActions");
+    const guestMessagesGrid = document.getElementById("guestMessagesGrid");
+    const guestMessagesStatus = document.getElementById("guestMessagesStatus");
+
+    function formatMessageDate(value) {
+      const date = value ? new Date(value) : null;
+      if (!date || Number.isNaN(date.getTime())) return "";
+      return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    }
+
+    function renderGuestMessages(messages) {
+      guestMessagesGrid.innerHTML = "";
+      const visibleMessages = (messages || []).filter(item => item && item.message);
+
+      if (!visibleMessages.length) {
+        guestMessagesStatus.textContent = "Messages will appear here as guests RSVP.";
+        return;
+      }
+
+      visibleMessages.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "message-card";
+
+        const message = document.createElement("p");
+        message.textContent = item.message;
+
+        const footer = document.createElement("footer");
+        const name = document.createElement("span");
+        name.textContent = item.name || "Guest";
+        footer.appendChild(name);
+
+        const dateLabel = formatMessageDate(item.submittedAt);
+        if (dateLabel) {
+          const time = document.createElement("time");
+          time.dateTime = item.submittedAt;
+          time.textContent = dateLabel;
+          footer.appendChild(time);
+        }
+
+        card.append(message, footer);
+        guestMessagesGrid.appendChild(card);
+      });
+
+      guestMessagesStatus.textContent = "";
+    }
+
+    function loadGuestMessages() {
+      const callbackName = "aadhyaThanviMessages_" + Date.now().toString(36) + Math.random().toString(36).slice(2);
+      const script = document.createElement("script");
+      const url = new URL(RSVP_ENDPOINT);
+
+      guestMessagesStatus.textContent = "Loading messages...";
+      url.searchParams.set("action", "comments");
+      url.searchParams.set("limit", "24");
+      url.searchParams.set("callback", callbackName);
+      url.searchParams.set("v", Date.now().toString());
+
+      function cleanup() {
+        delete window[callbackName];
+        script.remove();
+      }
+
+      window[callbackName] = payload => {
+        renderGuestMessages(payload && payload.messages ? payload.messages : []);
+        cleanup();
+      };
+
+      script.onerror = () => {
+        guestMessagesStatus.textContent = "Messages will appear here as guests RSVP.";
+        cleanup();
+      };
+
+      script.src = url.toString();
+      document.body.appendChild(script);
+    }
+
+    loadGuestMessages();
 
     function saveLocalBackup(data) {
       const records = JSON.parse(localStorage.getItem("aadhyaThanviRsvps") || "[]");
@@ -889,6 +1042,7 @@
           : "Thank you for letting us know. A confirmation email will be sent shortly.";
         calendarActions.classList.toggle("show", data.status === "yes");
         document.getElementById("rsvpSuccess").style.display = "block";
+        if (data.message) window.setTimeout(loadGuestMessages, 1200);
       } catch (error) {
         console.error(error);
         alertBox("We couldn't send your RSVP. Please check your connection and try again.");

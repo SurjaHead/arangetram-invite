@@ -51,8 +51,16 @@ const HEADER_ALIASES = {
   "Submitted At": ["Date", "Submitted", "Submission Date"]
 };
 
-function doGet() {
-  return json_({ ok: true, message: "RSVP endpoint is running." });
+function doGet(e) {
+  const params = e && e.parameter ? e.parameter : {};
+
+  if (params.action === "comments") {
+    return publicCommentsResponse_(params);
+  }
+
+  return params.callback
+    ? jsonp_(params.callback, { ok: true, message: "RSVP endpoint is running." })
+    : json_({ ok: true, message: "RSVP endpoint is running." });
 }
 
 function doPost(e) {
@@ -157,6 +165,42 @@ function dedupeExistingRsvps() {
 
   rowsToDelete.sort((a, b) => b - a).forEach(rowNumber => sheet.deleteRow(rowNumber));
   return "Removed " + rowsToDelete.length + " duplicate RSVP row(s).";
+}
+
+function publicCommentsResponse_(params) {
+  const requestedLimit = Number(params.limit || 24);
+  const limit = Number.isFinite(requestedLimit) ? Math.max(1, Math.min(requestedLimit, 60)) : 24;
+  const payload = {
+    ok: true,
+    messages: getPublicMessages_(limit)
+  };
+
+  return params.callback ? jsonp_(params.callback, payload) : json_(payload);
+}
+
+function getPublicMessages_(limit) {
+  const sheet = getSheet_();
+  const headerMap = ensureHeaders_(sheet);
+  const lastRow = sheet.getLastRow();
+
+  if (!headerMap.Message || lastRow < 2) return [];
+
+  return sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn())
+    .getValues()
+    .map(row => {
+      const message = cleanPublicText_(row[headerMap.Message - 1], 700);
+      if (!message) return null;
+
+      const submittedAt = publicDate_(row, headerMap);
+      return {
+        name: publicDisplayName_(row[headerMap.Name - 1]),
+        message,
+        submittedAt
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => (Date.parse(b.submittedAt) || 0) - (Date.parse(a.submittedAt) || 0))
+    .slice(0, limit);
 }
 
 function parseRequest_(e) {
@@ -395,6 +439,24 @@ function normaliseStatus_(status) {
   return value;
 }
 
+function publicDisplayName_(name) {
+  return cleanPublicText_(name, 80) || "Guest";
+}
+
+function cleanPublicText_(value, maxLength) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text) return "";
+  return text.length > maxLength ? text.slice(0, maxLength - 1).trim() + "..." : text;
+}
+
+function publicDate_(row, headerMap) {
+  const submitted = row[headerMap["Submitted At"] - 1];
+  const timestamp = row[headerMap.Timestamp - 1];
+  const value = submitted || timestamp;
+  const date = value instanceof Date ? value : new Date(value);
+  return isNaN(date.getTime()) ? "" : date.toISOString();
+}
+
 function buildIcs_() {
   const lines = [
     "BEGIN:VCALENDAR",
@@ -450,4 +512,14 @@ function json_(payload) {
   return ContentService
     .createTextOutput(JSON.stringify(payload))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+function jsonp_(callback, payload) {
+  if (!/^[A-Za-z_$][0-9A-Za-z_$]*(\.[A-Za-z_$][0-9A-Za-z_$]*)*$/.test(String(callback || ""))) {
+    return json_({ ok: false, error: "Invalid callback." });
+  }
+
+  return ContentService
+    .createTextOutput(callback + "(" + JSON.stringify(payload) + ");")
+    .setMimeType(ContentService.MimeType.JAVASCRIPT);
 }
