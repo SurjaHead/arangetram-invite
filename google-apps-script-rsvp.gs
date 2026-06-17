@@ -168,17 +168,15 @@ function dedupeExistingRsvps() {
 }
 
 function publicCommentsResponse_(params) {
-  const requestedLimit = Number(params.limit || 24);
-  const limit = Number.isFinite(requestedLimit) ? Math.max(1, Math.min(requestedLimit, 60)) : 24;
   const payload = {
     ok: true,
-    messages: getPublicMessages_(limit)
+    messages: getPublicMessages_()
   };
 
   return params.callback ? jsonp_(params.callback, payload) : json_(payload);
 }
 
-function getPublicMessages_(limit) {
+function getPublicMessages_() {
   const sheet = getSheet_();
   const headerMap = ensureHeaders_(sheet);
   const lastRow = sheet.getLastRow();
@@ -199,15 +197,14 @@ function getPublicMessages_(limit) {
       };
     })
     .filter(Boolean)
-    .sort((a, b) => (Date.parse(b.submittedAt) || 0) - (Date.parse(a.submittedAt) || 0))
-    .slice(0, limit);
+    .sort((a, b) => (Date.parse(b.submittedAt) || 0) - (Date.parse(a.submittedAt) || 0));
 }
 
 function healthPayload_() {
   return {
     ok: true,
     message: "RSVP endpoint is running.",
-    version: "comments-original-language-2026-06-12"
+    version: "comments-all-original-language-2026-06-17"
   };
 }
 
