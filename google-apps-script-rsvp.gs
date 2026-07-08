@@ -204,7 +204,7 @@ function healthPayload_() {
   return {
     ok: true,
     message: "RSVP endpoint is running.",
-    version: "comments-all-original-language-2026-06-17"
+    version: "wishes-open-rsvp-closed-2026-07-08"
   };
 }
 
@@ -301,6 +301,9 @@ function upsertRsvp_(sheet, headerMap, data) {
     ? sheet.getRange(matchingRows[0], 1, 1, sheet.getLastColumn()).getValues()[0]
     : new Array(sheet.getLastColumn()).fill("");
   const now = new Date();
+  const previousStatus = normaliseStatus_(existing[headerMap.Status - 1]);
+  const messageOnly = data.status === "message";
+  const nextStatus = messageOnly && previousStatus ? previousStatus : data.status;
 
   matchingRows.sort((a, b) => b - a).forEach(rowNumber => sheet.deleteRow(rowNumber));
   const rowNumber = sheet.getLastRow() + 1;
@@ -309,14 +312,14 @@ function upsertRsvp_(sheet, headerMap, data) {
   setCell_(existing, headerMap, "Name", data.name);
   setCell_(existing, headerMap, "Email", data.email);
   setCell_(existing, headerMap, "Phone", data.phone || "");
-  setCell_(existing, headerMap, "Status", data.status);
-  setCell_(existing, headerMap, "Adults", data.status === "yes" ? data.adults || "0" : "0");
-  setCell_(existing, headerMap, "Children", data.status === "yes" ? data.children || "0" : "0");
+  setCell_(existing, headerMap, "Status", nextStatus);
+  setCell_(existing, headerMap, "Adults", nextStatus === "yes" ? (messageOnly ? existing[headerMap.Adults - 1] || "0" : data.adults || "0") : "0");
+  setCell_(existing, headerMap, "Children", nextStatus === "yes" ? (messageOnly ? existing[headerMap.Children - 1] || "0" : data.children || "0") : "0");
   setCell_(existing, headerMap, "Message", data.message || "");
   setCell_(existing, headerMap, "Submitted At", data.date || now);
   setCell_(existing, headerMap, "Confirmation Sent At", "");
 
-  if (data.status !== "yes") {
+  if (nextStatus !== "yes") {
     setCell_(existing, headerMap, "Reminder Sent At", "");
   }
 
@@ -341,6 +344,17 @@ function setCell_(row, headerMap, header, value) {
 }
 
 function sendConfirmationEmail_(data) {
+  if (data.status === "message") {
+    const subject = "Wish received: " + CONFIG.eventTitle;
+    const greeting = "Dear " + escapeHtml_(data.name) + ",";
+    const intro = "Thank you for sending your wishes for Aadhya and Thanvi. Your message has been received.";
+    const htmlBody = emailShell_(greeting, "<p>" + intro + "</p>");
+    const plainBody = "Thank you for sending your wishes for Aadhya and Thanvi. Your message has been received.";
+
+    sendEmail_(data.email, subject, plainBody, htmlBody, false);
+    return;
+  }
+
   const attending = data.status === "yes";
   const subject = attending
     ? "RSVP confirmed: " + CONFIG.eventTitle
@@ -441,6 +455,7 @@ function normaliseStatus_(status) {
   const value = String(status || "").trim().toLowerCase();
   if (["yes", "y", "attending", "attending!"].includes(value)) return "yes";
   if (["no", "n", "declined", "can't make it", "cant make it"].includes(value)) return "no";
+  if (["message", "wish", "wishes"].includes(value)) return "message";
   return value;
 }
 

@@ -614,6 +614,15 @@
       font-style: italic;
       text-align: center;
     }
+    .wish-form {
+      max-width: 760px;
+      margin: 0 auto 2.8rem;
+      text-align: left;
+    }
+    .wish-success {
+      max-width: 760px;
+      margin: 0 auto 2.8rem;
+    }
 
     .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
     .js .reveal.is-visible { opacity: 1; transform: translateY(0); }
@@ -678,7 +687,7 @@
     <div class="nav-blessing"><span class="nav-flower" aria-hidden="true">✿</span><span>Om Sri Gurubhyo Namah</span><span class="nav-flower" aria-hidden="true">✿</span></div>
     <div class="nav-inner">
       <div class="nav-logo">Aadhya &amp; Thanvi's Ranga Pravesham</div>
-      <a class="nav-rsvp" href="#rsvp">RSVP</a>
+      <a class="nav-rsvp" href="#wishes">Wishes</a>
     </div>
   </nav>
 
@@ -720,7 +729,7 @@
 
       <div class="invite-footer reveal">
         <p class="invite-line invite-footer-line">Ages 5 and above are welcome</p>
-        <p class="invite-line invite-footer-line">Kindly RSVP by July 5<sup>th</sup>, 2026</p>
+        <p class="invite-line invite-footer-line">RSVP is now closed</p>
         <div class="invite-contact">
           <span class="invite-contact-title">Please contact if you have any concerns:</span>
           <span>Rammohan: <a href="tel:+16135014918">613-501-4918</a></span>
@@ -729,7 +738,7 @@
       </div>
 
       <div class="hero-actions reveal">
-        <a href="#rsvp" class="btn btn-gold btn-highlight">RSVP Now</a>
+        <a href="#wishes" class="btn btn-gold btn-highlight">Send Wishes</a>
       </div>
     </div>
 
@@ -759,7 +768,7 @@
   </section>
 
   <main>
-    <section id="rsvp" class="section rsvp-section">
+    <section id="rsvp" class="section rsvp-section" hidden aria-hidden="true">
       <div class="container">
         <p class="section-eyebrow light">Join Us</p>
         <h2 class="section-title light">RSVP</h2>
@@ -841,6 +850,32 @@
           <h2 class="section-title">Wishes for Aadhya and Thanvi</h2>
           <p class="section-subtitle">Kind words shared by those who love and celebrate Aadhya and Thanvi.</p>
           <div class="title-ornament"><span></span><span class="orn-dot">◆</span><span></span></div>
+
+          <form id="wishForm" class="rsvp-form wish-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="wishName">Full Name <span class="req">*</span></label>
+                <input type="text" id="wishName" name="name" placeholder="Your full name" required />
+              </div>
+              <div class="form-group">
+                <label for="wishEmail">Email Address <span class="req">*</span></label>
+                <input type="email" id="wishEmail" name="email" placeholder="your@email.com" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="wishMessage">Wish for Aadhya &amp; Thanvi <span class="req">*</span></label>
+              <textarea id="wishMessage" name="message" rows="3" placeholder="Share your wishes..." required></textarea>
+            </div>
+            <div class="form-alert" id="wishAlert"></div>
+            <button type="submit" class="btn btn-gold btn-full">Send Wish</button>
+            <p class="rsvp-note">Wishes may appear below once submitted.</p>
+          </form>
+
+          <div class="rsvp-success wish-success" id="wishSuccess">
+            <h3>Thank you!</h3>
+            <p>Your wish has been sent.</p>
+          </div>
+
           <div class="message-grid" id="guestMessagesGrid"></div>
           <p class="message-status" id="guestMessagesStatus">Loading wishes...</p>
         </div>
@@ -914,17 +949,24 @@
     window.addEventListener("load", revealVisible);
     revealVisible();
 
-    function alertBox(text) {
-      const el = document.getElementById("rsvpAlert");
+    function showFormAlert(id, text) {
+      const el = document.getElementById(id);
+      if (!el) return;
       el.textContent = text;
       el.classList.add("show");
       setTimeout(() => el.classList.remove("show"), 4500);
     }
 
+    function alertBox(text) {
+      showFormAlert("rsvpAlert", text);
+    }
+
     const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbyClEaub-LJwDcQaBaUJOowo9aJnEFUI7EGRy4nHr___3EEsPOueTFGY7KNbQpfm4zexw/exec";
+    const REQUIRED_WISH_ENDPOINT_VERSION = "wishes-open-rsvp-closed-2026-07-08";
     const calendarActions = document.getElementById("calendarActions");
     const guestMessagesGrid = document.getElementById("guestMessagesGrid");
     const guestMessagesStatus = document.getElementById("guestMessagesStatus");
+    let wishEndpointReady = false;
 
     function formatMessageDate(value) {
       const date = value ? new Date(value) : null;
@@ -937,7 +979,7 @@
       const visibleMessages = (messages || []).filter(item => item && item.message);
 
       if (!visibleMessages.length) {
-        guestMessagesStatus.textContent = "Wishes will appear here as guests RSVP.";
+        guestMessagesStatus.textContent = "Wishes will appear here as guests send them.";
         return;
       }
 
@@ -974,7 +1016,7 @@
       const url = new URL(RSVP_ENDPOINT);
       const fallbackTimer = window.setTimeout(() => {
         if (!window[callbackName]) return;
-        guestMessagesStatus.textContent = "Wishes will appear here as guests RSVP.";
+        guestMessagesStatus.textContent = "Wishes will appear here as guests send them.";
         cleanup();
       }, 7000);
 
@@ -995,7 +1037,7 @@
       };
 
       script.onerror = () => {
-        guestMessagesStatus.textContent = "Wishes will appear here as guests RSVP.";
+        guestMessagesStatus.textContent = "Wishes will appear here as guests send them.";
         cleanup();
       };
 
@@ -1004,6 +1046,33 @@
     }
 
     loadGuestMessages();
+
+    function checkWishEndpoint() {
+      const callbackName = "aadhyaThanviHealth_" + Date.now().toString(36) + Math.random().toString(36).slice(2);
+      const script = document.createElement("script");
+      const url = new URL(RSVP_ENDPOINT);
+      const fallbackTimer = window.setTimeout(cleanup, 7000);
+
+      url.searchParams.set("callback", callbackName);
+      url.searchParams.set("v", Date.now().toString());
+
+      function cleanup() {
+        window.clearTimeout(fallbackTimer);
+        delete window[callbackName];
+        script.remove();
+      }
+
+      window[callbackName] = payload => {
+        wishEndpointReady = !!(payload && payload.version === REQUIRED_WISH_ENDPOINT_VERSION);
+        cleanup();
+      };
+
+      script.onerror = cleanup;
+      script.src = url.toString();
+      document.body.appendChild(script);
+    }
+
+    checkWishEndpoint();
 
     function saveLocalBackup(data) {
       const records = JSON.parse(localStorage.getItem("aadhyaThanviRsvps") || "[]");
@@ -1062,6 +1131,51 @@
         alertBox("We couldn't send your RSVP. Please check your connection and try again.");
         submitButton.disabled = false;
         submitButton.textContent = "Send My RSVP";
+      }
+    });
+
+    document.getElementById("wishForm").addEventListener("submit", async evt => {
+      evt.preventDefault();
+      const submitButton = evt.submitter || document.querySelector("#wishForm button[type='submit']");
+      const data = {
+        name: document.getElementById("wishName").value.trim(),
+        email: document.getElementById("wishEmail").value.trim(),
+        phone: "",
+        status: "message",
+        adults: "0",
+        children: "0",
+        message: document.getElementById("wishMessage").value.trim(),
+        date: new Date().toISOString()
+      };
+
+      if (!data.name || !data.email || !data.message) {
+        showFormAlert("wishAlert", "Please add your name, email, and wish.");
+        return;
+      }
+      if (!wishEndpointReady) {
+        showFormAlert("wishAlert", "The wish form is opening soon. Please try again shortly.");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+
+      try {
+        await fetch(RSVP_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(data)
+        });
+        saveLocalBackup(data);
+        document.getElementById("wishForm").style.display = "none";
+        document.getElementById("wishSuccess").style.display = "block";
+        window.setTimeout(loadGuestMessages, 1200);
+      } catch (error) {
+        console.error(error);
+        showFormAlert("wishAlert", "We couldn't send your wish. Please check your connection and try again.");
+        submitButton.disabled = false;
+        submitButton.textContent = "Send Wish";
       }
     });
   </script>
