@@ -852,15 +852,9 @@
           <div class="title-ornament"><span></span><span class="orn-dot">◆</span><span></span></div>
 
           <form id="wishForm" class="rsvp-form wish-form" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="wishName">Full Name <span class="req">*</span></label>
-                <input type="text" id="wishName" name="name" placeholder="Your full name" required />
-              </div>
-              <div class="form-group">
-                <label for="wishEmail">Email Address <span class="req">*</span></label>
-                <input type="email" id="wishEmail" name="email" placeholder="your@email.com" required />
-              </div>
+            <div class="form-group">
+              <label for="wishName">Full Name <span class="req">*</span></label>
+              <input type="text" id="wishName" name="name" placeholder="Your full name" required />
             </div>
             <div class="form-group">
               <label for="wishMessage">Wish for Aadhya &amp; Thanvi <span class="req">*</span></label>
@@ -962,7 +956,7 @@
     }
 
     const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbyClEaub-LJwDcQaBaUJOowo9aJnEFUI7EGRy4nHr___3EEsPOueTFGY7KNbQpfm4zexw/exec";
-    const REQUIRED_WISH_ENDPOINT_VERSION = "wishes-open-rsvp-closed-2026-07-08";
+    const REQUIRED_WISH_ENDPOINT_VERSION = "wishes-no-email-rsvp-closed-2026-07-08";
     const calendarActions = document.getElementById("calendarActions");
     const guestMessagesGrid = document.getElementById("guestMessagesGrid");
     const guestMessagesStatus = document.getElementById("guestMessagesStatus");
@@ -1139,7 +1133,7 @@
       const submitButton = evt.submitter || document.querySelector("#wishForm button[type='submit']");
       const data = {
         name: document.getElementById("wishName").value.trim(),
-        email: document.getElementById("wishEmail").value.trim(),
+        email: "",
         phone: "",
         status: "message",
         adults: "0",
@@ -1148,8 +1142,8 @@
         date: new Date().toISOString()
       };
 
-      if (!data.name || !data.email || !data.message) {
-        showFormAlert("wishAlert", "Please add your name, email, and wish.");
+      if (!data.name || !data.message) {
+        showFormAlert("wishAlert", "Please add your name and wish.");
         return;
       }
       if (!wishEndpointReady) {

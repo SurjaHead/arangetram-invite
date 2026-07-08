@@ -66,20 +66,23 @@ function doGet(e) {
 function doPost(e) {
   const data = parseRequest_(e);
   data.status = normaliseStatus_(data.status);
+  const messageOnly = data.status === "message";
 
-  if (!data.name || !data.email || !data.status) {
-    return json_({ ok: false, error: "Name, email, and status are required." });
+  if (!data.name || !data.status || (!messageOnly && !data.email) || (messageOnly && !data.message)) {
+    return json_({ ok: false, error: messageOnly ? "Name and message are required." : "Name, email, and status are required." });
   }
 
   const sheet = getSheet_();
   const headerMap = ensureHeaders_(sheet);
   const rowNumber = upsertRsvp_(sheet, headerMap, data);
 
-  try {
-    sendConfirmationEmail_(data);
-    sheet.getRange(rowNumber, headerMap["Confirmation Sent At"]).setValue(new Date());
-  } catch (error) {
-    console.error("Confirmation email failed: " + error.message);
+  if (data.email) {
+    try {
+      sendConfirmationEmail_(data);
+      sheet.getRange(rowNumber, headerMap["Confirmation Sent At"]).setValue(new Date());
+    } catch (error) {
+      console.error("Confirmation email failed: " + error.message);
+    }
   }
 
   return json_({ ok: true });
@@ -204,7 +207,7 @@ function healthPayload_() {
   return {
     ok: true,
     message: "RSVP endpoint is running.",
-    version: "wishes-open-rsvp-closed-2026-07-08"
+    version: "wishes-no-email-rsvp-closed-2026-07-08"
   };
 }
 
@@ -296,7 +299,7 @@ function canonicalHeader_(header) {
 
 function upsertRsvp_(sheet, headerMap, data) {
   const email = String(data.email || "").trim().toLowerCase();
-  const matchingRows = findRowsByEmail_(sheet, headerMap, email);
+  const matchingRows = email ? findRowsByEmail_(sheet, headerMap, email) : [];
   const existing = matchingRows.length
     ? sheet.getRange(matchingRows[0], 1, 1, sheet.getLastColumn()).getValues()[0]
     : new Array(sheet.getLastColumn()).fill("");
@@ -330,7 +333,7 @@ function upsertRsvp_(sheet, headerMap, data) {
 function findRowsByEmail_(sheet, headerMap, email) {
   const emailColumn = headerMap.Email;
   const lastRow = sheet.getLastRow();
-  if (!emailColumn || lastRow < 2) return [];
+  if (!email || !emailColumn || lastRow < 2) return [];
 
   const emails = sheet.getRange(2, emailColumn, lastRow - 1, 1).getValues();
   return emails.reduce((rows, row, index) => {
@@ -345,6 +348,7 @@ function setCell_(row, headerMap, header, value) {
 
 function sendConfirmationEmail_(data) {
   if (data.status === "message") {
+    if (!data.email) return;
     const subject = "Wish received: " + CONFIG.eventTitle;
     const greeting = "Dear " + escapeHtml_(data.name) + ",";
     const intro = "Thank you for sending your wishes for Aadhya and Thanvi. Your message has been received.";
