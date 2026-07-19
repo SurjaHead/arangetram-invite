@@ -67,6 +67,7 @@ function doPost(e) {
   const data = parseRequest_(e);
   data.status = normaliseStatus_(data.status);
   const messageOnly = data.status === "message";
+  const syntheticWishEmail = isSyntheticWishEmail_(data.email);
 
   if (!data.name || !data.status || (!messageOnly && !data.email) || (messageOnly && !data.message)) {
     return json_({ ok: false, error: messageOnly ? "Name and message are required." : "Name, email, and status are required." });
@@ -76,7 +77,7 @@ function doPost(e) {
   const headerMap = ensureHeaders_(sheet);
   const rowNumber = upsertRsvp_(sheet, headerMap, data);
 
-  if (data.email) {
+  if (data.email && !syntheticWishEmail) {
     try {
       sendConfirmationEmail_(data);
       sheet.getRange(rowNumber, headerMap["Confirmation Sent At"]).setValue(new Date());
@@ -226,6 +227,10 @@ function parseRequest_(e) {
   }
 }
 
+function isSyntheticWishEmail_(email) {
+  return /^wish-[a-z0-9-]+@aadhyathanviarangetram\.com$/i.test(String(email || "").trim());
+}
+
 function rowDateValue_(row, headerMap) {
   const submitted = row[headerMap["Submitted At"] - 1];
   const timestamp = row[headerMap.Timestamp - 1];
@@ -298,7 +303,8 @@ function canonicalHeader_(header) {
 }
 
 function upsertRsvp_(sheet, headerMap, data) {
-  const email = String(data.email || "").trim().toLowerCase();
+  const syntheticWishEmail = isSyntheticWishEmail_(data.email);
+  const email = syntheticWishEmail ? "" : String(data.email || "").trim().toLowerCase();
   const matchingRows = email ? findRowsByEmail_(sheet, headerMap, email) : [];
   const existing = matchingRows.length
     ? sheet.getRange(matchingRows[0], 1, 1, sheet.getLastColumn()).getValues()[0]
@@ -313,7 +319,7 @@ function upsertRsvp_(sheet, headerMap, data) {
 
   setCell_(existing, headerMap, "Timestamp", existing[headerMap.Timestamp - 1] || now);
   setCell_(existing, headerMap, "Name", data.name);
-  setCell_(existing, headerMap, "Email", data.email);
+  setCell_(existing, headerMap, "Email", syntheticWishEmail ? "" : data.email);
   setCell_(existing, headerMap, "Phone", data.phone || "");
   setCell_(existing, headerMap, "Status", nextStatus);
   setCell_(existing, headerMap, "Adults", nextStatus === "yes" ? (messageOnly ? existing[headerMap.Adults - 1] || "0" : data.adults || "0") : "0");

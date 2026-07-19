@@ -429,6 +429,113 @@
     .title-ornament span { flex: 1; height: 1px; background: rgba(232, 201, 110, .45); }
     .title-ornament .orn-dot { flex: 0; width: auto; height: auto; background: transparent; color: var(--gold); font-size: .65rem; }
 
+    .details-section {
+      background:
+        radial-gradient(85% 65% at 50% 0%, rgba(232, 201, 110, .22), transparent 62%),
+        linear-gradient(180deg, #fffaf3 0%, #f5e9d6 100%);
+      color: var(--text);
+      padding-top: clamp(3rem, 5vw, 4.8rem);
+    }
+    .details-section .section-subtitle { color: var(--text-lt); }
+    .detail-tabs {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .tab-list {
+      display: flex;
+      justify-content: center;
+      gap: .6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.6rem;
+    }
+    .tab-button {
+      min-height: 42px;
+      border: 1px solid rgba(154, 115, 48, .34);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .64);
+      color: var(--maroon-dk);
+      padding: .7rem 1.35rem;
+      font-family: "Cinzel", Georgia, serif;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--tr), border-color var(--tr), box-shadow var(--tr), color var(--tr), transform var(--tr);
+    }
+    .tab-button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(154, 115, 48, .62);
+      background: rgba(255, 250, 243, .95);
+    }
+    .tab-button.active {
+      color: #fffaf3;
+      background: linear-gradient(160deg, var(--maroon-mid), var(--maroon-dk));
+      border-color: var(--maroon-dk);
+      box-shadow: 0 12px 26px rgba(62, 13, 26, .22);
+    }
+    .tab-panel {
+      display: none;
+      border: 1px solid rgba(201, 168, 76, .34);
+      border-radius: 8px;
+      background: rgba(255, 250, 243, .92);
+      box-shadow: 0 18px 40px rgba(44, 26, 14, .08);
+      padding: clamp(1.25rem, 3vw, 2rem);
+    }
+    .tab-panel.active { display: block; }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .detail-card {
+      border: 1px solid rgba(154, 115, 48, .22);
+      border-radius: 8px;
+      background: #fffaf3;
+      padding: 1.25rem;
+    }
+    .detail-card h3,
+    .detail-panel-title {
+      color: var(--maroon-dk);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 600;
+      margin-bottom: .4rem;
+    }
+    .detail-card p:not(.detail-meta),
+    .detail-list li {
+      color: var(--text-lt);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.18rem;
+      line-height: 1.45;
+    }
+    .detail-meta {
+      color: var(--gold-dk);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: .3rem;
+    }
+    .detail-list {
+      display: grid;
+      gap: .85rem;
+      list-style: none;
+    }
+    .detail-list li {
+      position: relative;
+      padding-left: 1.2rem;
+    }
+    .detail-list li::before {
+      content: "◆";
+      position: absolute;
+      left: 0;
+      top: .2rem;
+      color: var(--gold);
+      font-size: .55rem;
+      line-height: 1;
+    }
+
     .rsvp-section {
       background:
         radial-gradient(120% 90% at 50% 0%, rgba(232, 201, 110, .13), transparent 55%),
@@ -654,6 +761,8 @@
       }
       .invite-name span { display: block; }
       .hero-left { --hero-pad-x: 1.2rem; padding-inline: var(--hero-pad-x); }
+      .invite-contact { flex-direction: column; gap: .15rem; }
+      .invite-contact span { white-space: normal; }
       .hero-right {
         height: clamp(420px, 126vw, 620px);
         background: #f7f1e8;
@@ -669,6 +778,11 @@
       .countdown-units { width: 100%; justify-content: center; }
       .cu { min-width: 2.9rem; }
       .cu span { font-size: 1.35rem; }
+      .details-section { padding-top: 3.2rem; }
+      .tab-list { gap: .45rem; }
+      .tab-button { flex: 1 1 30%; min-width: 0; padding: .68rem .45rem; font-size: .62rem; letter-spacing: .1em; }
+      .tab-panel { padding: 1rem; }
+      .detail-grid { grid-template-columns: 1fr; }
       .status-pills { grid-template-columns: 1fr; }
       .guest-messages { margin-top: 0; }
       .message-grid { grid-template-columns: 1fr; gap: .85rem; }
@@ -768,6 +882,57 @@
   </section>
 
   <main>
+    <section class="section details-section" id="event-details">
+      <div class="container">
+        <p class="section-eyebrow">Event Details</p>
+        <h2 class="section-title">Ranga Pravesha Guide</h2>
+        <p class="section-subtitle">A quick guide to the artists, program, and day-of details for the celebration.</p>
+        <div class="title-ornament"><span></span><span class="orn-dot">◆</span><span></span></div>
+
+        <div class="detail-tabs reveal">
+          <div class="tab-list" role="tablist" aria-label="Event details">
+            <button type="button" class="tab-button active" id="artists-tab" role="tab" aria-selected="true" aria-controls="artists-panel" data-tab="artists">Artists</button>
+            <button type="button" class="tab-button" id="program-tab" role="tab" aria-selected="false" aria-controls="program-panel" data-tab="program">Program</button>
+            <button type="button" class="tab-button" id="guidelines-tab" role="tab" aria-selected="false" aria-controls="guidelines-panel" data-tab="guidelines">Guidelines</button>
+          </div>
+
+          <div class="tab-panel active" id="artists-panel" role="tabpanel" aria-labelledby="artists-tab" data-panel="artists">
+            <div class="detail-grid">
+              <article class="detail-card">
+                <p class="detail-meta">Artist</p>
+                <h3>Aadhya Sure</h3>
+                <p>Daughter of Ram Mohan Sure and Vasanthi Pasam, presenting her Bharatanatyam Ranga Pravesha under the guidance of Guru Sheela Chandrashekar.</p>
+              </article>
+              <article class="detail-card">
+                <p class="detail-meta">Artist</p>
+                <h3>Thanvi Vashishta Nagineni</h3>
+                <p>Daughter of Ramana Nagineni and Swapna Pachava, presenting her Bharatanatyam Ranga Pravesha under the guidance of Guru Sheela Chandrashekar.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="program-panel" role="tabpanel" aria-labelledby="program-tab" data-panel="program">
+            <h3 class="detail-panel-title">Program</h3>
+            <ul class="detail-list">
+              <li>Bharatanatyam Ranga Pravesha of Aadhya Sure and Thanvi Vashishta Nagineni.</li>
+              <li>Saturday, July 25th, 2026, from 3:00pm onwards at Shenkman Arts Centre.</li>
+              <li>Doors open at 2:30 PM so guests can be seated before the program begins.</li>
+            </ul>
+          </div>
+
+          <div class="tab-panel" id="guidelines-panel" role="tabpanel" aria-labelledby="guidelines-tab" data-panel="guidelines">
+            <h3 class="detail-panel-title">Guidelines</h3>
+            <ul class="detail-list">
+              <li>Ages 5 and above are welcome.</li>
+              <li>Please arrive early and avoid entering or leaving during a dance piece.</li>
+              <li>Please keep phones on silent during the performance.</li>
+              <li>For any concerns, please contact Rammohan at 613-501-4918 or Ramana at 613-793-6116.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="rsvp" class="section rsvp-section" hidden aria-hidden="true">
       <div class="container">
         <p class="section-eyebrow light">Join Us</p>
@@ -862,7 +1027,6 @@
             </div>
             <div class="form-alert" id="wishAlert"></div>
             <button type="submit" class="btn btn-gold btn-full">Send Wish</button>
-            <p class="rsvp-note">Wishes may appear below once submitted.</p>
           </form>
 
           <div class="rsvp-success wish-success" id="wishSuccess">
@@ -943,6 +1107,22 @@
     window.addEventListener("load", revealVisible);
     revealVisible();
 
+    const tabButtons = Array.from(document.querySelectorAll(".tab-button"));
+    const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
+    tabButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.tab;
+        tabButtons.forEach(item => {
+          const active = item === button;
+          item.classList.toggle("active", active);
+          item.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        tabPanels.forEach(panel => {
+          panel.classList.toggle("active", panel.dataset.panel === target);
+        });
+      });
+    });
+
     function showFormAlert(id, text) {
       const el = document.getElementById(id);
       if (!el) return;
@@ -956,11 +1136,10 @@
     }
 
     const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbyClEaub-LJwDcQaBaUJOowo9aJnEFUI7EGRy4nHr___3EEsPOueTFGY7KNbQpfm4zexw/exec";
-    const REQUIRED_WISH_ENDPOINT_VERSION = "wishes-no-email-rsvp-closed-2026-07-08";
     const calendarActions = document.getElementById("calendarActions");
     const guestMessagesGrid = document.getElementById("guestMessagesGrid");
     const guestMessagesStatus = document.getElementById("guestMessagesStatus");
-    let wishEndpointReady = false;
+    const pendingWishes = [];
 
     function formatMessageDate(value) {
       const date = value ? new Date(value) : null;
@@ -968,9 +1147,22 @@
       return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
     }
 
+    function guestMessageKey(item) {
+      return `${item.name || "Guest"}:${item.message || ""}`.trim().toLowerCase();
+    }
+
     function renderGuestMessages(messages) {
       guestMessagesGrid.innerHTML = "";
-      const visibleMessages = (messages || []).filter(item => item && item.message);
+      const seen = new Set();
+      const visibleMessages = [];
+
+      [...pendingWishes, ...(messages || [])].forEach(item => {
+        if (!item || !item.message) return;
+        const key = guestMessageKey(item);
+        if (seen.has(key)) return;
+        seen.add(key);
+        visibleMessages.push(item);
+      });
 
       if (!visibleMessages.length) {
         guestMessagesStatus.textContent = "Wishes will appear here as guests send them.";
@@ -1041,36 +1233,19 @@
 
     loadGuestMessages();
 
-    function checkWishEndpoint() {
-      const callbackName = "aadhyaThanviHealth_" + Date.now().toString(36) + Math.random().toString(36).slice(2);
-      const script = document.createElement("script");
-      const url = new URL(RSVP_ENDPOINT);
-      const fallbackTimer = window.setTimeout(cleanup, 7000);
-
-      url.searchParams.set("callback", callbackName);
-      url.searchParams.set("v", Date.now().toString());
-
-      function cleanup() {
-        window.clearTimeout(fallbackTimer);
-        delete window[callbackName];
-        script.remove();
-      }
-
-      window[callbackName] = payload => {
-        wishEndpointReady = !!(payload && payload.version === REQUIRED_WISH_ENDPOINT_VERSION);
-        cleanup();
-      };
-
-      script.onerror = cleanup;
-      script.src = url.toString();
-      document.body.appendChild(script);
+    function syntheticWishEmail() {
+      const stamp = Date.now().toString(36);
+      const suffix = Math.random().toString(36).slice(2, 8);
+      return `wish-${stamp}-${suffix}@aadhyathanviarangetram.com`;
     }
-
-    checkWishEndpoint();
 
     function saveLocalBackup(data) {
       const records = JSON.parse(localStorage.getItem("aadhyaThanviRsvps") || "[]");
-      const existing = records.findIndex(r => r.email.toLowerCase() === data.email.toLowerCase());
+      const recordKey = String(data.email || `${data.status || "message"}:${data.name}:${data.date}`);
+      const existing = records.findIndex(r => {
+        const savedKey = String(r.email || `${r.status || "message"}:${r.name}:${r.date}`);
+        return savedKey.toLowerCase() === recordKey.toLowerCase();
+      });
       if (existing >= 0) records[existing] = data;
       else records.unshift(data);
       localStorage.setItem("aadhyaThanviRsvps", JSON.stringify(records));
@@ -1133,21 +1308,18 @@
       const submitButton = evt.submitter || document.querySelector("#wishForm button[type='submit']");
       const data = {
         name: document.getElementById("wishName").value.trim(),
-        email: "",
+        email: syntheticWishEmail(),
         phone: "",
         status: "message",
         adults: "0",
         children: "0",
         message: document.getElementById("wishMessage").value.trim(),
-        date: new Date().toISOString()
+        date: new Date().toISOString(),
+        source: "wish-form"
       };
 
       if (!data.name || !data.message) {
         showFormAlert("wishAlert", "Please add your name and wish.");
-        return;
-      }
-      if (!wishEndpointReady) {
-        showFormAlert("wishAlert", "The wish form is opening soon. Please try again shortly.");
         return;
       }
 
@@ -1162,6 +1334,8 @@
           body: JSON.stringify(data)
         });
         saveLocalBackup(data);
+        pendingWishes.unshift({ name: data.name, message: data.message, submittedAt: data.date });
+        renderGuestMessages([]);
         document.getElementById("wishForm").style.display = "none";
         document.getElementById("wishSuccess").style.display = "block";
         window.setTimeout(loadGuestMessages, 1200);
