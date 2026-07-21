@@ -468,42 +468,14 @@
       scroll-margin-top: 92px;
     }
     .details-section .section-subtitle { color: var(--text-lt); }
+    .anchor-target {
+      display: block;
+      height: 0;
+      overflow: hidden;
+    }
     .detail-tabs {
       max-width: 1080px;
       margin: 0 auto;
-    }
-    .tab-list {
-      display: flex;
-      justify-content: center;
-      gap: .6rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.6rem;
-    }
-    .tab-button {
-      min-height: 42px;
-      border: 1px solid rgba(154, 115, 48, .34);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .64);
-      color: var(--maroon-dk);
-      padding: .7rem 1.35rem;
-      font-family: "Cinzel", Georgia, serif;
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background var(--tr), border-color var(--tr), box-shadow var(--tr), color var(--tr), transform var(--tr);
-    }
-    .tab-button:hover {
-      transform: translateY(-1px);
-      border-color: rgba(154, 115, 48, .62);
-      background: rgba(255, 250, 243, .95);
-    }
-    .tab-button.active {
-      color: #fffaf3;
-      background: linear-gradient(160deg, var(--maroon-mid), var(--maroon-dk));
-      border-color: var(--maroon-dk);
-      box-shadow: 0 12px 26px rgba(62, 13, 26, .22);
     }
     .tab-panel {
       display: none;
@@ -830,8 +802,6 @@
       .cu { min-width: 2.9rem; }
       .cu span { font-size: 1.35rem; }
       .details-section { padding-top: 3.2rem; }
-      .tab-list { gap: .45rem; }
-      .tab-button { flex: 1 1 30%; min-width: 0; padding: .68rem .45rem; font-size: .62rem; letter-spacing: .1em; }
       .tab-panel { padding: 1rem; }
       .detail-grid { grid-template-columns: 1fr; }
       .status-pills { grid-template-columns: 1fr; }
@@ -945,17 +915,10 @@
         <h2 class="section-title">Ranga Pravesha Guide</h2>
         <p class="section-subtitle">A quick guide to the artists, program, and day-of details for the celebration.</p>
         <div class="title-ornament"><span></span><span class="orn-dot">◆</span><span></span></div>
+        <span class="anchor-target" id="wishes" aria-hidden="true"></span>
 
         <div class="detail-tabs reveal">
-          <div class="tab-list" role="tablist" aria-label="Event details">
-            <button type="button" class="tab-button active" id="artists-tab" role="tab" aria-selected="true" aria-controls="artists-panel" data-tab="artists">About the Artist</button>
-            <button type="button" class="tab-button" id="musicians-tab" role="tab" aria-selected="false" aria-controls="musicians-panel" data-tab="musicians">Musicians</button>
-            <button type="button" class="tab-button" id="program-tab" role="tab" aria-selected="false" aria-controls="program-panel" data-tab="program">Program</button>
-            <button type="button" class="tab-button" id="guidelines-tab" role="tab" aria-selected="false" aria-controls="guidelines-panel" data-tab="guidelines">Event Guidelines</button>
-            <button type="button" class="tab-button" id="wishes-tab" role="tab" aria-selected="false" aria-controls="wishes" data-tab="wishes">Wishes</button>
-          </div>
-
-          <div class="tab-panel active" id="artists-panel" role="tabpanel" aria-labelledby="artists-tab" data-panel="artists">
+          <div class="tab-panel active" id="artists-panel" role="region" aria-label="About the Artist" data-panel="artists">
             <div class="detail-grid">
               <article class="detail-card">
                 <p class="detail-meta">Artist</p>
@@ -970,7 +933,7 @@
             </div>
           </div>
 
-          <div class="tab-panel" id="musicians-panel" role="tabpanel" aria-labelledby="musicians-tab" data-panel="musicians">
+          <div class="tab-panel" id="musicians-panel" role="region" aria-label="Musicians" data-panel="musicians">
             <h3 class="detail-panel-title">Musicians</h3>
             <p class="panel-intro">The guru and live ensemble bringing the Ranga Pravesha to life.</p>
             <div class="detail-grid ensemble-grid">
@@ -1010,7 +973,7 @@
             </div>
           </div>
 
-          <div class="tab-panel" id="program-panel" role="tabpanel" aria-labelledby="program-tab" data-panel="program">
+          <div class="tab-panel" id="program-panel" role="region" aria-label="Program" data-panel="program">
             <h3 class="detail-panel-title">Program</h3>
             <ul class="detail-list">
               <li>Bharatanatyam Ranga Pravesha of Aadhya Sure and Thanvi Vashishta Nagineni.</li>
@@ -1019,7 +982,7 @@
             </ul>
           </div>
 
-          <div class="tab-panel" id="guidelines-panel" role="tabpanel" aria-labelledby="guidelines-tab" data-panel="guidelines">
+          <div class="tab-panel" id="guidelines-panel" role="region" aria-label="Event Guidelines" data-panel="guidelines">
             <h3 class="detail-panel-title">Event Guidelines</h3>
             <ul class="detail-list">
               <li>Ages 5 and above are welcome.</li>
@@ -1029,7 +992,7 @@
             </ul>
           </div>
 
-          <div class="tab-panel wishes-panel" id="wishes" role="tabpanel" aria-labelledby="wishes-tab" data-panel="wishes">
+          <div class="tab-panel wishes-panel" id="wishes-panel" role="region" aria-label="Wishes for Aadhya and Thanvi" data-panel="wishes">
             <div class="guest-messages" id="guestMessages">
               <h3 class="detail-panel-title">Wishes for Aadhya and Thanvi</h3>
               <p class="panel-intro">Kind words shared by those who love and celebrate Aadhya and Thanvi.</p>
@@ -1205,15 +1168,10 @@
 
     const tabOpenLinks = Array.from(document.querySelectorAll("[data-open-tab]"));
     const navTabLinks = Array.from(document.querySelectorAll(".nav-link[data-open-tab]"));
-    const tabButtons = Array.from(document.querySelectorAll(".tab-button"));
     const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
 
     function setActiveTab(target) {
-      tabButtons.forEach(item => {
-        const active = item.dataset.tab === target;
-        item.classList.toggle("active", active);
-        item.setAttribute("aria-selected", active ? "true" : "false");
-      });
+      if (!tabPanels.some(panel => panel.dataset.panel === target)) return;
       tabPanels.forEach(panel => {
         panel.classList.toggle("active", panel.dataset.panel === target);
       });
@@ -1221,10 +1179,6 @@
         link.classList.toggle("active", link.dataset.openTab === target);
       });
     }
-
-    tabButtons.forEach(button => {
-      button.addEventListener("click", () => setActiveTab(button.dataset.tab));
-    });
 
     tabOpenLinks.forEach(link => {
       link.addEventListener("click", evt => {
@@ -1239,6 +1193,8 @@
       requestAnimationFrame(() => {
         document.getElementById("event-details").scrollIntoView({ block: "start" });
       });
+    } else {
+      setActiveTab("artists");
     }
 
     function showFormAlert(id, text) {
