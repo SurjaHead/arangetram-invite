@@ -39,7 +39,7 @@
       --tr: .3s ease;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
     body {
       font-family: "Lato", system-ui, sans-serif;
       background: var(--cream);
@@ -100,17 +100,47 @@
       letter-spacing: .1em;
       white-space: nowrap;
     }
-    .nav-rsvp {
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: .32rem;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      flex: 0 0 auto;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: .46rem .68rem;
       font-family: "Cinzel", Georgia, serif;
       font-size: .62rem;
       letter-spacing: .13em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, .75);
       text-decoration: none;
-      transition: color var(--tr);
+      transition: color var(--tr), border-color var(--tr), background var(--tr);
       white-space: nowrap;
     }
-    .nav-rsvp:hover { color: var(--gold-lt); }
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--gold-lt);
+      border-color: rgba(232, 201, 110, .3);
+      background: rgba(232, 201, 110, .08);
+    }
+    .nav-link-primary {
+      color: #2a1309;
+      background: linear-gradient(160deg, #f3dd91, var(--gold) 58%, #a7852c);
+      border-color: rgba(232, 201, 110, .56);
+      font-weight: 700;
+    }
+    .nav-link-primary:hover {
+      color: #2a1309;
+      background: linear-gradient(160deg, #f8e8aa, var(--gold-lt) 58%, var(--gold));
+    }
 
     .hero {
       min-height: 100vh;
@@ -435,6 +465,7 @@
         linear-gradient(180deg, #fffaf3 0%, #f5e9d6 100%);
       color: var(--text);
       padding-top: clamp(3rem, 5vw, 4.8rem);
+      scroll-margin-top: 92px;
     }
     .details-section .section-subtitle { color: var(--text-lt); }
     .detail-tabs {
@@ -658,6 +689,7 @@
         radial-gradient(90% 70% at 50% 0%, rgba(232, 201, 110, .18), transparent 62%),
         linear-gradient(180deg, #fdf6ec 0%, #f5e9d6 100%);
       color: var(--text);
+      scroll-margin-top: 92px;
     }
     .wishes-section .section-subtitle { color: var(--text-lt); }
     .wishes-section .title-ornament span { background: rgba(154, 115, 48, .34); }
@@ -745,10 +777,14 @@
     }
     @media (max-width: 720px) {
       .nav-blessing { gap: .35rem; font-size: .6rem; letter-spacing: .12em; padding: .2rem .75rem .16rem; }
-      .nav-inner { justify-content: center; padding: .72rem 1rem; }
+      .nav-inner { flex-direction: column; justify-content: center; gap: .55rem; padding: .72rem 1rem .78rem; }
       .nav-logo { width: 100%; font-size: .74rem; white-space: normal; line-height: 1.35; text-align: center; }
-      .nav-rsvp { display: none; }
-      .hero { padding-top: 57px; }
+      .nav-links { width: 260px; max-width: calc(100% - 2rem); justify-content: center; gap: .28rem; }
+      .nav-link { flex: 0 0 125px; width: 125px; min-width: 0; min-height: 28px; padding: .34rem .16rem; font-size: .5rem; letter-spacing: .045em; }
+      .hero { padding-top: 150px; }
+      html { scroll-padding-top: 166px; }
+      .details-section,
+      .wishes-section { scroll-margin-top: 166px; }
       .invite-details, .form-row { grid-template-columns: 1fr; }
       .invite-details,
       .invite-col-head,
@@ -801,7 +837,12 @@
     <div class="nav-blessing"><span class="nav-flower" aria-hidden="true">✿</span><span>Om Sri Gurubhyo Namah</span><span class="nav-flower" aria-hidden="true">✿</span></div>
     <div class="nav-inner">
       <div class="nav-logo">Aadhya &amp; Thanvi's Ranga Pravesham</div>
-      <a class="nav-rsvp" href="#wishes">Wishes</a>
+      <div class="nav-links" aria-label="Primary navigation">
+        <a class="nav-link" href="#event-details" data-open-tab="artists">About the Artist</a>
+        <a class="nav-link" href="#event-details" data-open-tab="program">Program</a>
+        <a class="nav-link" href="#event-details" data-open-tab="guidelines">Event Guidelines</a>
+        <a class="nav-link nav-link-primary" href="#wishes">Wishes</a>
+      </div>
     </div>
   </nav>
 
@@ -891,9 +932,9 @@
 
         <div class="detail-tabs reveal">
           <div class="tab-list" role="tablist" aria-label="Event details">
-            <button type="button" class="tab-button active" id="artists-tab" role="tab" aria-selected="true" aria-controls="artists-panel" data-tab="artists">Artists</button>
+            <button type="button" class="tab-button active" id="artists-tab" role="tab" aria-selected="true" aria-controls="artists-panel" data-tab="artists">About the Artist</button>
             <button type="button" class="tab-button" id="program-tab" role="tab" aria-selected="false" aria-controls="program-panel" data-tab="program">Program</button>
-            <button type="button" class="tab-button" id="guidelines-tab" role="tab" aria-selected="false" aria-controls="guidelines-panel" data-tab="guidelines">Guidelines</button>
+            <button type="button" class="tab-button" id="guidelines-tab" role="tab" aria-selected="false" aria-controls="guidelines-panel" data-tab="guidelines">Event Guidelines</button>
           </div>
 
           <div class="tab-panel active" id="artists-panel" role="tabpanel" aria-labelledby="artists-tab" data-panel="artists">
@@ -921,7 +962,7 @@
           </div>
 
           <div class="tab-panel" id="guidelines-panel" role="tabpanel" aria-labelledby="guidelines-tab" data-panel="guidelines">
-            <h3 class="detail-panel-title">Guidelines</h3>
+            <h3 class="detail-panel-title">Event Guidelines</h3>
             <ul class="detail-list">
               <li>Ages 5 and above are welcome.</li>
               <li>Please arrive early and avoid entering or leaving during a dance piece.</li>
@@ -1107,19 +1148,33 @@
     window.addEventListener("load", revealVisible);
     revealVisible();
 
+    const navTabLinks = Array.from(document.querySelectorAll(".nav-link[data-open-tab]"));
     const tabButtons = Array.from(document.querySelectorAll(".tab-button"));
     const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
+
+    function setActiveTab(target) {
+      tabButtons.forEach(item => {
+        const active = item.dataset.tab === target;
+        item.classList.toggle("active", active);
+        item.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      tabPanels.forEach(panel => {
+        panel.classList.toggle("active", panel.dataset.panel === target);
+      });
+      navTabLinks.forEach(link => {
+        link.classList.toggle("active", link.dataset.openTab === target);
+      });
+    }
+
     tabButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        const target = button.dataset.tab;
-        tabButtons.forEach(item => {
-          const active = item === button;
-          item.classList.toggle("active", active);
-          item.setAttribute("aria-selected", active ? "true" : "false");
-        });
-        tabPanels.forEach(panel => {
-          panel.classList.toggle("active", panel.dataset.panel === target);
-        });
+      button.addEventListener("click", () => setActiveTab(button.dataset.tab));
+    });
+
+    navTabLinks.forEach(link => {
+      link.addEventListener("click", evt => {
+        evt.preventDefault();
+        setActiveTab(link.dataset.openTab);
+        document.getElementById("event-details").scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
 
