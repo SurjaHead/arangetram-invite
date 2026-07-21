@@ -107,6 +107,37 @@
       gap: .32rem;
       flex-wrap: wrap;
     }
+    .nav-menu-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(232, 201, 110, .36);
+      border-radius: 999px;
+      background: rgba(232, 201, 110, .08);
+      color: var(--gold-lt);
+      cursor: pointer;
+      transition: background var(--tr), border-color var(--tr);
+    }
+    .nav-menu-toggle:hover,
+    .nav-menu-toggle[aria-expanded="true"] {
+      background: rgba(232, 201, 110, .16);
+      border-color: rgba(232, 201, 110, .58);
+    }
+    .nav-menu-toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform var(--tr), opacity var(--tr);
+    }
+    .nav-menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
     .nav-link {
       flex: 0 0 auto;
       min-height: 32px;
@@ -772,13 +803,32 @@
     }
     @media (max-width: 720px) {
       .nav-blessing { gap: .35rem; font-size: .6rem; letter-spacing: .12em; padding: .2rem .75rem .16rem; }
-      .nav-inner { flex-direction: column; justify-content: center; gap: .55rem; padding: .72rem 1rem .78rem; }
-      .nav-logo { width: 100%; font-size: .74rem; white-space: normal; line-height: 1.35; text-align: center; }
-      .nav-links { width: 260px; max-width: calc(100% - 2rem); justify-content: center; gap: .28rem; }
-      .nav-link { flex: 0 0 125px; width: 125px; min-width: 0; min-height: 28px; padding: .34rem .16rem; font-size: .5rem; letter-spacing: .045em; }
-      .hero { padding-top: 210px; }
-      html { scroll-padding-top: 226px; }
-      .details-section { scroll-margin-top: 226px; }
+      .nav-inner { position: relative; justify-content: flex-start; min-height: 52px; padding: .62rem 4rem .62rem .9rem; }
+      .nav-logo { max-width: 100%; min-width: 0; font-size: .72rem; white-space: normal; line-height: 1.25; text-align: left; }
+      .nav-menu-toggle { display: inline-flex; position: fixed; top: 25px; right: .9rem; z-index: 901; }
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 77px;
+        right: .9rem;
+        width: min(252px, calc(100vw - 1.8rem));
+        max-width: none;
+        padding: .55rem;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: .3rem;
+        border: 1px solid rgba(232, 201, 110, .25);
+        border-radius: 8px;
+        background: rgba(63, 12, 28, .98);
+        box-shadow: 0 16px 38px rgba(0, 0, 0, .34);
+      }
+      .nav-links.open { display: flex; }
+      .nav-link { flex: 0 0 auto; width: 100%; min-width: 0; min-height: 36px; justify-content: flex-start; padding: .55rem .7rem; font-size: .56rem; letter-spacing: .08em; }
+      .nav-link-primary { justify-content: center; }
+      .hero { padding-top: 76px; }
+      html { scroll-padding-top: 92px; }
+      .details-section { scroll-margin-top: 92px; }
       .invite-details, .form-row { grid-template-columns: 1fr; }
       .invite-details,
       .invite-col-head,
@@ -829,7 +879,12 @@
     <div class="nav-blessing"><span class="nav-flower" aria-hidden="true">✿</span><span>Om Sri Gurubhyo Namah</span><span class="nav-flower" aria-hidden="true">✿</span></div>
     <div class="nav-inner">
       <div class="nav-logo">Aadhya &amp; Thanvi's Ranga Pravesham</div>
-      <div class="nav-links" aria-label="Primary navigation">
+      <button class="nav-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primaryMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+      <div class="nav-links" id="primaryMenu" aria-label="Primary navigation">
         <a class="nav-link active" href="#event-details" data-open-tab="rsvp">RSVP</a>
         <a class="nav-link" href="#event-details" data-open-tab="artists">About the Artist</a>
         <a class="nav-link" href="#event-details" data-open-tab="musicians">Musicians</a>
@@ -1198,6 +1253,33 @@
     const tabOpenLinks = Array.from(document.querySelectorAll("[data-open-tab]"));
     const navTabLinks = Array.from(document.querySelectorAll(".nav-link[data-open-tab]"));
     const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
+    const navMenuToggle = document.querySelector(".nav-menu-toggle");
+    const primaryMenu = document.getElementById("primaryMenu");
+
+    function setMenuOpen(open) {
+      if (!navMenuToggle || !primaryMenu) return;
+      navMenuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      navMenuToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      primaryMenu.classList.toggle("open", open);
+    }
+
+    if (navMenuToggle && primaryMenu) {
+      navMenuToggle.addEventListener("click", evt => {
+        evt.stopPropagation();
+        setMenuOpen(navMenuToggle.getAttribute("aria-expanded") !== "true");
+      });
+      document.addEventListener("click", evt => {
+        if (primaryMenu.classList.contains("open") && !evt.target.closest("#navbar")) {
+          setMenuOpen(false);
+        }
+      });
+      document.addEventListener("keydown", evt => {
+        if (evt.key === "Escape") setMenuOpen(false);
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 720) setMenuOpen(false);
+      });
+    }
 
     function setActiveTab(target) {
       if (!tabPanels.some(panel => panel.dataset.panel === target)) return;
@@ -1213,6 +1295,7 @@
       link.addEventListener("click", evt => {
         evt.preventDefault();
         setActiveTab(link.dataset.openTab);
+        if (link.classList.contains("nav-link")) setMenuOpen(false);
         document.getElementById("event-details").scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
