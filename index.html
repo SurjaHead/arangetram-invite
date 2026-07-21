@@ -469,7 +469,7 @@
     }
     .details-section .section-subtitle { color: var(--text-lt); }
     .detail-tabs {
-      max-width: 980px;
+      max-width: 1080px;
       margin: 0 auto;
     }
     .tab-list {
@@ -519,6 +519,9 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1rem;
     }
+    .ensemble-grid {
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    }
     .detail-card {
       border: 1px solid rgba(154, 115, 48, .22);
       border-radius: 8px;
@@ -565,6 +568,28 @@
       color: var(--gold);
       font-size: .55rem;
       line-height: 1;
+    }
+    .panel-intro {
+      max-width: 680px;
+      margin: 0 auto 1.4rem;
+      color: var(--text-lt);
+      text-align: center;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.18rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+    .supporting-team {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(154, 115, 48, .22);
+    }
+    .wishes-panel .guest-messages {
+      max-width: 980px;
+    }
+    .wishes-panel .detail-panel-title {
+      text-align: center;
+      margin-bottom: .35rem;
     }
 
     .rsvp-section {
@@ -684,15 +709,6 @@
       margin-top: 1.45rem;
     }
     .calendar-actions.show { display: flex; }
-    .wishes-section {
-      background:
-        radial-gradient(90% 70% at 50% 0%, rgba(232, 201, 110, .18), transparent 62%),
-        linear-gradient(180deg, #fdf6ec 0%, #f5e9d6 100%);
-      color: var(--text);
-      scroll-margin-top: 92px;
-    }
-    .wishes-section .section-subtitle { color: var(--text-lt); }
-    .wishes-section .title-ornament span { background: rgba(154, 115, 48, .34); }
     .guest-messages {
       max-width: 980px;
       margin: 0 auto;
@@ -781,10 +797,9 @@
       .nav-logo { width: 100%; font-size: .74rem; white-space: normal; line-height: 1.35; text-align: center; }
       .nav-links { width: 260px; max-width: calc(100% - 2rem); justify-content: center; gap: .28rem; }
       .nav-link { flex: 0 0 125px; width: 125px; min-width: 0; min-height: 28px; padding: .34rem .16rem; font-size: .5rem; letter-spacing: .045em; }
-      .hero { padding-top: 150px; }
-      html { scroll-padding-top: 166px; }
-      .details-section,
-      .wishes-section { scroll-margin-top: 166px; }
+      .hero { padding-top: 180px; }
+      html { scroll-padding-top: 196px; }
+      .details-section { scroll-margin-top: 196px; }
       .invite-details, .form-row { grid-template-columns: 1fr; }
       .invite-details,
       .invite-col-head,
@@ -839,9 +854,10 @@
       <div class="nav-logo">Aadhya &amp; Thanvi's Ranga Pravesham</div>
       <div class="nav-links" aria-label="Primary navigation">
         <a class="nav-link" href="#event-details" data-open-tab="artists">About the Artist</a>
+        <a class="nav-link" href="#event-details" data-open-tab="musicians">Musicians</a>
         <a class="nav-link" href="#event-details" data-open-tab="program">Program</a>
         <a class="nav-link" href="#event-details" data-open-tab="guidelines">Event Guidelines</a>
-        <a class="nav-link nav-link-primary" href="#wishes">Wishes</a>
+        <a class="nav-link nav-link-primary" href="#event-details" data-open-tab="wishes">Wishes</a>
       </div>
     </div>
   </nav>
@@ -893,7 +909,7 @@
       </div>
 
       <div class="hero-actions reveal">
-        <a href="#wishes" class="btn btn-gold btn-highlight">Send Wishes</a>
+        <a href="#event-details" class="btn btn-gold btn-highlight" data-open-tab="wishes">Send Wishes</a>
       </div>
     </div>
 
@@ -933,8 +949,10 @@
         <div class="detail-tabs reveal">
           <div class="tab-list" role="tablist" aria-label="Event details">
             <button type="button" class="tab-button active" id="artists-tab" role="tab" aria-selected="true" aria-controls="artists-panel" data-tab="artists">About the Artist</button>
+            <button type="button" class="tab-button" id="musicians-tab" role="tab" aria-selected="false" aria-controls="musicians-panel" data-tab="musicians">Musicians</button>
             <button type="button" class="tab-button" id="program-tab" role="tab" aria-selected="false" aria-controls="program-panel" data-tab="program">Program</button>
             <button type="button" class="tab-button" id="guidelines-tab" role="tab" aria-selected="false" aria-controls="guidelines-panel" data-tab="guidelines">Event Guidelines</button>
+            <button type="button" class="tab-button" id="wishes-tab" role="tab" aria-selected="false" aria-controls="wishes" data-tab="wishes">Wishes</button>
           </div>
 
           <div class="tab-panel active" id="artists-panel" role="tabpanel" aria-labelledby="artists-tab" data-panel="artists">
@@ -949,6 +967,46 @@
                 <h3>Thanvi Vashishta Nagineni</h3>
                 <p>Daughter of Ramana Nagineni and Swapna Pachava, presenting her Bharatanatyam Ranga Pravesha under the guidance of Guru Sheela Chandrashekar.</p>
               </article>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="musicians-panel" role="tabpanel" aria-labelledby="musicians-tab" data-panel="musicians">
+            <h3 class="detail-panel-title">Musicians</h3>
+            <p class="panel-intro">The guru and live ensemble bringing the Ranga Pravesha to life.</p>
+            <div class="detail-grid ensemble-grid">
+              <article class="detail-card">
+                <p class="detail-meta">Nattuvangam</p>
+                <h3>Guru Sheela Chandrashekar</h3>
+                <p>Conducting and cymbals, guiding the rhythm and structure of the performance.</p>
+              </article>
+              <article class="detail-card">
+                <p class="detail-meta">Vocal</p>
+                <h3>Sri. Elangovan Govindarajan</h3>
+                <p>Lead singer, carrying the compositions and devotional storytelling.</p>
+              </article>
+              <article class="detail-card">
+                <p class="detail-meta">Mridangam</p>
+                <h3>Sri. Kaneshathasan Mahadevan</h3>
+                <p>Classical percussion, in rhythmic conversation with the dancers' footwork.</p>
+              </article>
+              <article class="detail-card">
+                <p class="detail-meta">Flute</p>
+                <h3>Sri. Raghuraman Govindarajan</h3>
+                <p>Melodic accompaniment, adding a lyrical Carnatic voice to the concert.</p>
+              </article>
+              <article class="detail-card">
+                <p class="detail-meta">Violin</p>
+                <h3>Sayohn Aihilan</h3>
+                <p>Melodic accompaniment, enriching each composition with expressive phrasing.</p>
+              </article>
+            </div>
+            <div class="supporting-team">
+              <h3 class="detail-panel-title">Supporting Team</h3>
+              <ul class="detail-list">
+                <li>MC: Shalini Chandan and Tanya Chandrashekar.</li>
+                <li>Stage managers: Melvin Francis and Balu Chakravarthy.</li>
+                <li>Costumes: Krishna Kumar, Bangalore.</li>
+              </ul>
             </div>
           </div>
 
@@ -969,6 +1027,34 @@
               <li>Please keep phones on silent during the performance.</li>
               <li>For any concerns, please contact Rammohan at 613-501-4918 or Ramana at 613-793-6116.</li>
             </ul>
+          </div>
+
+          <div class="tab-panel wishes-panel" id="wishes" role="tabpanel" aria-labelledby="wishes-tab" data-panel="wishes">
+            <div class="guest-messages" id="guestMessages">
+              <h3 class="detail-panel-title">Wishes for Aadhya and Thanvi</h3>
+              <p class="panel-intro">Kind words shared by those who love and celebrate Aadhya and Thanvi.</p>
+
+              <form id="wishForm" class="rsvp-form wish-form" novalidate>
+                <div class="form-group">
+                  <label for="wishName">Full Name <span class="req">*</span></label>
+                  <input type="text" id="wishName" name="name" placeholder="Your full name" required />
+                </div>
+                <div class="form-group">
+                  <label for="wishMessage">Wish for Aadhya &amp; Thanvi <span class="req">*</span></label>
+                  <textarea id="wishMessage" name="message" rows="3" placeholder="Share your wishes..." required></textarea>
+                </div>
+                <div class="form-alert" id="wishAlert"></div>
+                <button type="submit" class="btn btn-gold btn-full">Send Wish</button>
+              </form>
+
+              <div class="rsvp-success wish-success" id="wishSuccess">
+                <h3>Thank you!</h3>
+                <p>Your wish has been sent.</p>
+              </div>
+
+              <div class="message-grid" id="guestMessagesGrid"></div>
+              <p class="message-status" id="guestMessagesStatus">Loading wishes...</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1049,37 +1135,6 @@
       </div>
     </section>
 
-    <section id="wishes" class="section wishes-section">
-      <div class="container">
-        <div class="guest-messages reveal" id="guestMessages">
-          <p class="section-eyebrow">From Our Guests</p>
-          <h2 class="section-title">Wishes for Aadhya and Thanvi</h2>
-          <p class="section-subtitle">Kind words shared by those who love and celebrate Aadhya and Thanvi.</p>
-          <div class="title-ornament"><span></span><span class="orn-dot">◆</span><span></span></div>
-
-          <form id="wishForm" class="rsvp-form wish-form" novalidate>
-            <div class="form-group">
-              <label for="wishName">Full Name <span class="req">*</span></label>
-              <input type="text" id="wishName" name="name" placeholder="Your full name" required />
-            </div>
-            <div class="form-group">
-              <label for="wishMessage">Wish for Aadhya &amp; Thanvi <span class="req">*</span></label>
-              <textarea id="wishMessage" name="message" rows="3" placeholder="Share your wishes..." required></textarea>
-            </div>
-            <div class="form-alert" id="wishAlert"></div>
-            <button type="submit" class="btn btn-gold btn-full">Send Wish</button>
-          </form>
-
-          <div class="rsvp-success wish-success" id="wishSuccess">
-            <h3>Thank you!</h3>
-            <p>Your wish has been sent.</p>
-          </div>
-
-          <div class="message-grid" id="guestMessagesGrid"></div>
-          <p class="message-status" id="guestMessagesStatus">Loading wishes...</p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <script>
@@ -1148,6 +1203,7 @@
     window.addEventListener("load", revealVisible);
     revealVisible();
 
+    const tabOpenLinks = Array.from(document.querySelectorAll("[data-open-tab]"));
     const navTabLinks = Array.from(document.querySelectorAll(".nav-link[data-open-tab]"));
     const tabButtons = Array.from(document.querySelectorAll(".tab-button"));
     const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
@@ -1170,13 +1226,20 @@
       button.addEventListener("click", () => setActiveTab(button.dataset.tab));
     });
 
-    navTabLinks.forEach(link => {
+    tabOpenLinks.forEach(link => {
       link.addEventListener("click", evt => {
         evt.preventDefault();
         setActiveTab(link.dataset.openTab);
         document.getElementById("event-details").scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
+
+    if (location.hash === "#wishes") {
+      setActiveTab("wishes");
+      requestAnimationFrame(() => {
+        document.getElementById("event-details").scrollIntoView({ block: "start" });
+      });
+    }
 
     function showFormAlert(id, text) {
       const el = document.getElementById(id);
