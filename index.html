@@ -526,6 +526,7 @@
       grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     }
     .detail-card {
+      min-width: 0;
       border: 1px solid rgba(154, 115, 48, .22);
       border-radius: 8px;
       background: #fffaf3;
@@ -536,7 +537,14 @@
       color: var(--maroon-dk);
       font-size: clamp(1.1rem, 2vw, 1.35rem);
       font-weight: 600;
+      line-height: 1.2;
       margin-bottom: .4rem;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .ensemble-grid .detail-card h3,
+    .program-credits .detail-card h3 {
+      font-size: clamp(1rem, 1.65vw, 1.22rem);
     }
     .detail-card p:not(.detail-meta),
     .detail-list li {
