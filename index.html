@@ -545,6 +545,12 @@
       font-size: 1.18rem;
       line-height: 1.45;
     }
+    .artist-bio-grid {
+      align-items: stretch;
+    }
+    .artist-bio-grid .detail-card p:not(.detail-meta) {
+      font-size: 1.14rem;
+    }
     .detail-meta {
       color: var(--gold-dk);
       font-family: "Cinzel", Georgia, serif;
@@ -571,6 +577,61 @@
       color: var(--gold);
       font-size: .55rem;
       line-height: 1;
+    }
+    .program-credits {
+      margin-bottom: 1.35rem;
+    }
+    .program-list {
+      display: grid;
+      gap: 1rem;
+    }
+    .program-item {
+      display: grid;
+      gap: .65rem;
+    }
+    .program-item-head {
+      display: flex;
+      align-items: baseline;
+      gap: .7rem;
+    }
+    .program-number {
+      flex: 0 0 auto;
+      color: var(--gold-dk);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: .9rem;
+      font-weight: 700;
+    }
+    .program-item h4 {
+      color: var(--maroon-dk);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0;
+    }
+    .program-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+    }
+    .program-meta span {
+      border: 1px solid rgba(154, 115, 48, .2);
+      border-radius: 999px;
+      background: rgba(232, 201, 110, .12);
+      color: var(--maroon);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: .67rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      padding: .28rem .58rem;
+      text-transform: uppercase;
+    }
+    .program-item p {
+      color: var(--text-lt);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.12rem;
+      line-height: 1.45;
+      margin: 0;
     }
     .panel-intro {
       max-width: 680px;
@@ -861,6 +922,8 @@
       .details-section { padding-top: 3.2rem; }
       .tab-panel { padding: 1rem; }
       .detail-grid { grid-template-columns: 1fr; }
+      .program-item-head { gap: .55rem; }
+      .program-meta span { font-size: .62rem; }
       .status-pills { grid-template-columns: 1fr; }
       .guest-messages { margin-top: 0; }
       .message-grid { grid-template-columns: 1fr; gap: .85rem; }
@@ -1003,16 +1066,18 @@
           </div>
 
           <div class="tab-panel" id="artists-panel" role="region" aria-label="About the Artists" data-panel="artists">
-            <div class="detail-grid">
+            <h3 class="detail-panel-title">About the Artists</h3>
+            <p class="panel-intro">Disciples of Guru Smt. Sheela Chandrashekar of Rathi School of Dance.</p>
+            <div class="detail-grid artist-bio-grid">
               <article class="detail-card">
                 <p class="detail-meta">Artist</p>
                 <h3>Aadhya Sure</h3>
-                <p>Daughter of Ram Mohan Sure and Vasanthi Pasam, presenting her Bharatanatyam Ranga Pravesha under the guidance of Guru Sheela Chandrashekar.</p>
+                <p>A student of Guru Smt. Sheela Chandrashekar since 2014, Aadhya presents her Arangetram today after years of rigorous training, showcasing her passion for the art form. Outside of dance, she is a silver medalist in her junior year at St. Francis Xavier High School, a winner of Ottawa's Technovation STEM competition, and an active member of Merge Robotics, with whom she represented Canada at the Robotics World Championship in Houston. After her Arangetram, Aadhya plans to continue her Bharatanatyam training under her guru.</p>
               </article>
               <article class="detail-card">
                 <p class="detail-meta">Artist</p>
                 <h3>Thanvi Vashishta Nagineni</h3>
-                <p>Daughter of Ramana Nagineni and Swapna Pachava, presenting her Bharatanatyam Ranga Pravesha under the guidance of Guru Sheela Chandrashekar.</p>
+                <p>Thanvi Vashishta began learning Bharatanatyam at the age of 4 under the guidance of Guru Smt. Sheela Chandrashekar. She is deeply passionate about Indian history and culture, and has found Bharatanatyam to be a meaningful way to connect and celebrate her heritage. Thanvi has a strong academic record and is an IB student, graduating from Merivale HS in June 2027. Today's Rangapravesham marks a significant milestone, celebrating 13 years of dedication, discipline, and passion for this classical art form.</p>
               </article>
             </div>
           </div>
@@ -1033,7 +1098,7 @@
               </article>
               <article class="detail-card">
                 <p class="detail-meta">Mridangam</p>
-                <h3>Sri. Raghavan Thuraisingamathan</h3>
+                <h3>Sri. Raghavan Thuraisinganathan</h3>
                 <p>Classical percussion, in rhythmic conversation with the dancers' footwork.</p>
               </article>
               <article class="detail-card">
@@ -1054,11 +1119,99 @@
 
           <div class="tab-panel" id="program-panel" role="region" aria-label="Program" data-panel="program">
             <h3 class="detail-panel-title">Program</h3>
-            <ul class="detail-list">
-              <li>Bharatanatyam Ranga Pravesha of Aadhya Sure and Thanvi Vashishta Nagineni.</li>
-              <li>Saturday, July 25th, 2026, from 3:00pm onwards at Shenkman Arts Centre.</li>
-              <li>Doors open at 2:30 PM so guests can be seated before the program begins.</li>
-            </ul>
+            <p class="panel-intro">The Ranga Pravesha program includes invocatory, rhythmic, expressive, and devotional pieces in the Bharatanatyam tradition.</p>
+            <div class="detail-grid ensemble-grid program-credits">
+              <article class="detail-card">
+                <p class="detail-meta">Nattuvangam</p>
+                <h3>Sheela Chandrashekar</h3>
+              </article>
+              <article class="detail-card">
+                <p class="detail-meta">Vocal</p>
+                <h3>Elangovan Govindarajan</h3>
+              </article>
+              <article class="detail-card">
+                <p class="detail-meta">Mridangam</p>
+                <h3>Raghavan Thuraisinganathan</h3>
+              </article>
+              <article class="detail-card">
+                <p class="detail-meta">Flute</p>
+                <h3>Raghuraman Govindarajan</h3>
+              </article>
+              <article class="detail-card">
+                <p class="detail-meta">MCs</p>
+                <h3>Shalini Chandan &amp; Tanya Chandrashekar</h3>
+              </article>
+              <article class="detail-card">
+                <p class="detail-meta">Stage Managers</p>
+                <h3>Melvin Francis &amp; Balu Chakravarthy</h3>
+              </article>
+            </div>
+            <div class="program-list">
+              <article class="detail-card program-item">
+                <div class="program-item-head">
+                  <span class="program-number">1</span>
+                  <h4>Anjaneya Kauthuvam</h4>
+                </div>
+                <div class="program-meta"><span>Raga: Hamsanandi</span><span>Tala: Adi</span></div>
+                <p>This performance is an ancient, rhythmic hymn and invocatory item in classical Indian dance forms presented in praise of Lord Anjaneya. Composed by Sri Elangovan Govindarajan in the Tamil language.</p>
+              </article>
+              <article class="detail-card program-item">
+                <div class="program-item-head">
+                  <span class="program-number">2</span>
+                  <h4>Jathiswaram</h4>
+                </div>
+                <div class="program-meta"><span>Raga: Shankarabharana</span><span>Tala: Mishra Chaapu</span></div>
+                <p>This dance is full of pure dance movements (Nritta), dealing with the execution of steps (Adavus) combined in definite groups called Jathis. It focuses entirely on technical precision, rhythmic mastery, and visual symmetry.</p>
+              </article>
+              <article class="detail-card program-item">
+                <div class="program-item-head">
+                  <span class="program-number">3</span>
+                  <h4>Gokulambudhi Shabdam</h4>
+                </div>
+                <div class="program-meta"><span>Raga: Ragamalika</span><span>Tala: Mishra Chaapu</span></div>
+                <p>This is a composition of Sri. Chinnaiah, who was one of the Thanjavur Quartet. The dancer describes the pranks of Lord Krishna.</p>
+              </article>
+              <article class="detail-card program-item">
+                <div class="program-item-head">
+                  <span class="program-number">4</span>
+                  <h4>Sita Rama Varnam</h4>
+                </div>
+                <div class="program-meta"><span>Raga: Thodi</span><span>Tala: Adi</span></div>
+                <p>A Varnam in the Tamil language on Lord Rama is the exhibition of pure dance movements interwoven into the story line, combined with facial expressions and hand gestures.</p>
+              </article>
+              <article class="detail-card program-item">
+                <div class="program-item-head">
+                  <span class="program-number">5</span>
+                  <h4>Shambho Mahadeva</h4>
+                </div>
+                <div class="program-meta"><span>Raga: Pantuvarali</span><span>Tala: Rupaka</span></div>
+                <p>Composed by Saint Thyagaraja in Sanskrit. The poet describes Lord Shiva as the protector of his devotees and the husband of Girija, and the one who wears Ganga on his head.</p>
+              </article>
+              <article class="detail-card program-item">
+                <div class="program-item-head">
+                  <span class="program-number">6</span>
+                  <h4>Amma Ravamma</h4>
+                </div>
+                <div class="program-meta"><span>Raga: Kalyani</span><span>Tala: Khanda Chaapu</span></div>
+                <p>This is composed by Saint Thyagaraja in Telugu. The poet requests goddess Tulasi to come to his house and bless him. This is an expression of the poet's deep devotion to mother Tulasi.</p>
+              </article>
+              <article class="detail-card program-item">
+                <div class="program-item-head">
+                  <span class="program-number">7</span>
+                  <h4>Venkatachala Nilayam</h4>
+                </div>
+                <div class="program-meta"><span>Raga: Sindhu Bhairavi</span><span>Tala: Adi</span></div>
+                <p>Composed by the Saint Purandara Dasa in Sanskrit. The poet praises Lord Venkateshwara of Tirupathi, describing his divine abode, his physical beauty, and his role as protector of his devotees.</p>
+              </article>
+              <article class="detail-card program-item">
+                <div class="program-item-head">
+                  <span class="program-number">8</span>
+                  <h4>Thillana</h4>
+                </div>
+                <div class="program-meta"><span>Raga: Dhanashree</span><span>Tala: Adi</span></div>
+                <p>Composed by Sri. Swathi Thirunal in Hindi. It is full of pure dance with intricate footwork and graceful movements expressing joy and ecstasy. This is followed by a Mangalam on Dashavatara by Saint Purandara Dasa in Kannada.</p>
+              </article>
+            </div>
           </div>
 
           <div class="tab-panel" id="guidelines-panel" role="region" aria-label="Event Guidelines" data-panel="guidelines">
